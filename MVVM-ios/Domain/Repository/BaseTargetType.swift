@@ -15,7 +15,7 @@ enum BaseTargetType {
 
 extension BaseTargetType: TargetType {
     var baseURL: URL {
-        return try! "https://test-arca.helix.am".asURL()
+        return try! "https://test-arca.helix.am/api/en".asURL()
     }
     
     var path: String {
@@ -42,7 +42,13 @@ extension BaseTargetType: TargetType {
     var task: Task {
         switch self {
         case .configs:
-            return .requestPlain
+            let params = [
+                "deviceType": "iPhone",
+                "applicationId": BaseTargetType.getUDID(),
+                "applicationVersion": BaseTargetType.getApplicationVersionNumber(),
+                "deviceScale": BaseTargetType.getDeviceScale()
+            ]
+            return .requestParameters(parameters: params, encoding: URLEncoding(destination: .queryString))
         }
     }
     
@@ -53,5 +59,15 @@ extension BaseTargetType: TargetType {
         }
     }
     
+    static func getUDID() -> String {
+        return UIDevice.current.identifierForVendor!.uuidString
+    }
     
+    static func getApplicationVersionNumber() -> String {
+        return (Bundle.main.infoDictionary?["CFBundleVersion"] as? String)!
+    }
+    
+    static func getDeviceScale() -> String {
+        return String(describing: UIScreen.main.scale)
+    }
 }

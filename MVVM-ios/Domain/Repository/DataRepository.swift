@@ -26,7 +26,14 @@ class DataRepository: DataRepositoryProtocol {
             .request(.configs)
             .subscribeOn(CurrentThreadScheduler.instance)
             .observeOn(MainScheduler.asyncInstance)
-            .map(Configs?.self)
+            .map({response -> Configs? in
+                if response.statusCode == 200 {
+                    let data = response.data
+                    print(response.response)
+                    return try JSONDecoder().decode(Configs?.self, from: response.data)
+                }
+                return nil
+            })
             .asObservable()
     }
     
