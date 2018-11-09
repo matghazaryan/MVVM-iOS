@@ -14,5 +14,7 @@ protocol APIHelperProtocol {
     associatedtype MoyaTarget: TargetType
     
     var apiProvider: MoyaProvider<MoyaTarget> { get }
+    
     func getConfigs() -> Observable<Configs?>
+    func login(email: String, password: String) -> Observable<User?>
 }

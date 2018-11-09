@@ -26,7 +26,7 @@ class SplashVC: UIViewController {
         viewModel?.getConfigs()
             .subscribe(onNext: { configs in
                 if configs != nil {
-                    let nextVC = LoginVC()
+                    let nextVC: LoginVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
                     UIApplication.shared.keyWindow?.rootViewController = nextVC
                 } else {
                     print("configs are nil")

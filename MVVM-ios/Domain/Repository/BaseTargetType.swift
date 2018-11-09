@@ -11,6 +11,7 @@ import Moya
 
 enum BaseTargetType {
     case configs
+    case login(email: String, password: String)
 }
 
 extension BaseTargetType: TargetType {
@@ -22,6 +23,8 @@ extension BaseTargetType: TargetType {
         switch self {
         case .configs:
             return "config"
+        case .login(_, _):
+            return "login"
         }
     }
     
@@ -29,6 +32,8 @@ extension BaseTargetType: TargetType {
         switch self {
         case .configs:
             return .get
+        case .login(_, _):
+            return .post
         }
     }
     
@@ -36,25 +41,28 @@ extension BaseTargetType: TargetType {
         switch self {
         case .configs:
             return "".utf8Encoded
+        case .login(_, _):
+            return "login".utf8Encoded
         }
     }
     
     var task: Task {
         switch self {
         case .configs:
-            let params = [
-                "deviceType": "iPhone",
-                "applicationId": BaseTargetType.getUDID(),
-                "applicationVersion": BaseTargetType.getApplicationVersionNumber(),
-                "deviceScale": BaseTargetType.getDeviceScale()
-            ]
-            return .requestParameters(parameters: params, encoding: URLEncoding(destination: .queryString))
+            return .requestParameters(parameters: BaseTargetType.params, encoding: URLEncoding(destination: .queryString))
+        case .login(let email, let password):
+            var loginParams = BaseTargetType.params
+            loginParams["email"] = email
+            loginParams["password"] = password
+            return .requestParameters(parameters: loginParams, encoding: URLEncoding(destination: .queryString))
         }
     }
     
     var headers: [String : String]? {
         switch self {
         case .configs:
+            return nil
+        case .login(_, _):
             return nil
         }
     }
@@ -70,4 +78,11 @@ extension BaseTargetType: TargetType {
     static func getDeviceScale() -> String {
         return String(describing: UIScreen.main.scale)
     }
+    
+    static let params = [
+        "deviceType": "iPhone",
+        "applicationId": BaseTargetType.getUDID(),
+        "applicationVersion": BaseTargetType.getApplicationVersionNumber(),
+        "deviceScale": BaseTargetType.getDeviceScale()
+    ]
 }

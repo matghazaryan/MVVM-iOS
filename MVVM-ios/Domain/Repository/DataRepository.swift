@@ -27,12 +27,7 @@ class DataRepository: DataRepositoryProtocol {
             .subscribeOn(CurrentThreadScheduler.instance)
             .observeOn(MainScheduler.asyncInstance)
             .map({response -> Configs? in
-                if response.statusCode == 200 {
-                    let data = response.data
-                    print(response.response)
-                    return try JSONDecoder().decode(Configs?.self, from: response.data)
-                }
-                return nil
+                return try JSONDecoder().decode(Configs?.self, from: response.data, nestedKeys: "data")
             })
             .asObservable()
     }
@@ -43,5 +38,16 @@ class DataRepository: DataRepositoryProtocol {
         return Observable.just(nil)
     }
     
+    func login(email: String, password: String) -> Observable<User?> {
+        return apiProvider.rx
+            .request(.login(email: email, password: password))
+            .subscribeOn(CurrentThreadScheduler.instance)
+            .observeOn(MainScheduler.asyncInstance)
+            .map({response -> User? in
+//                let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: JSONSerialization.ReadingOptions.mutableLeaves) as! [String: Any]
+                return try JSONDecoder().decode(User?.self, from: response.data, nestedKeys: "data")
+            })
+            .asObservable()
+    }
     
 }

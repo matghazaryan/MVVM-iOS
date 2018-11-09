@@ -8,23 +8,23 @@
 
 import UIKit
 
-class Configs: Codable {
+class Configs: Decodable {
     var callCenter: String
-    var loginTime: Int
-    var amountMinValue: Int
-    var cardMinValue: Int
-    var cardMaxValue: Int
-    var autopaymentCount: Int
-    var reviewCount: Int
+    var loginTime: Int64
+    var amountMinValue: Int64
+    var cardMinValue: Int64
+    var cardMaxValue: Int64
+    var autopaymentCount: Int64
+    var reviewCount: Int64
     var payxUrl: String
-    var symbolsCount: Int
+    var symbolsCount: Int64
     var twoAuthUrl: String
     var termsConditionUrl: String
-    var notificationTime: Int
+    var notificationTime: Int64
     var amountFormat: String
     var amountSign: String?
     
-    enum NestedCodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
         case callCenter = "call_center"
         case loginTime = "login_time"
         case amountMinValue = "amount_min_value"
@@ -41,12 +41,25 @@ class Configs: Codable {
         case amountSign = "amd_sign"
     }
     
-    enum CodingKeys: String, CodingKey {
-        case data
-    }
+//    enum CodingKeys: String, CodingKey {
+//        case data
+//    }
     
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self).nestedContainer(keyedBy: NestedCodingKeys.self, forKey: .data)
-        let
-    }
+//    required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self).nestedContainer(keyedBy: NestedCodingKeys.self, forKey: .data)
+//        callCenter = try container.decode(String.self, forKey: .callCenter)
+//        loginTime = try container.decode(Int64.self, forKey: .loginTime)
+//        amountMinValue = try container.decode(Int64.self, forKey: .amountMinValue)
+//        cardMinValue = try container.decode(Int64.self, forKey: .cardMinValue)
+//        cardMaxValue = try container.decode(Int64.self, forKey: .cardMaxValue)
+//        autopaymentCount = try container.decode(Int64.self, forKey: .autopaymentCount)
+//        reviewCount = try container.decode(Int64.self, forKey: .reviewCount)
+//        payxUrl = try container.decode(String.self, forKey: .payxUrl)
+//        symbolsCount = try container.decode(Int64.self, forKey: .symbolsCount)
+//        twoAuthUrl = try container.decode(String.self, forKey: .twoAuthUrl)
+//        termsConditionUrl = try container.decode(String.self, forKey: .termsConditionUrl)
+//        notificationTime = try container.decode(Int64.self, forKey: .notificationTime)
+//        amountFormat = try container.decode(String.self, forKey: .amountFormat)
+//        amountSign = try container.decodeIfPresent(String.self, forKey: .amountSign)
+//    }
 }
