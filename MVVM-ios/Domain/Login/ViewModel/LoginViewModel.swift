@@ -16,13 +16,11 @@ struct LoginViewModel {
     private(set) var validLogin: Observable<Bool>
     private(set) var validPassword: Observable<Bool>
     private(set) var validFields: Observable<Bool>
-    private(set) var disposeBag: DisposeBag
     
-    init(disposeBag: DisposeBag) {
+    init() {
         validLogin = Observable.just(false)
         validFields = Observable.just(false)
         validPassword = Observable.just(false)
-        self.disposeBag = disposeBag
     }
     
     mutating func bindForValidation(login: ControlProperty<String?>, password: ControlProperty<String?>) {

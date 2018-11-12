@@ -22,13 +22,20 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        viewModel = LoginViewModel(disposeBag: disposeBag)
+        viewModel = LoginViewModel()
         viewModel?.bindForValidation(login: loginTextField.rx.text, password: passwordTextField.rx.text)
         viewModel?.validFields.bind(to: loginButton.rx.isEnabled).disposed(by: disposeBag)
         loginButton.rx.tap.subscribe({ [weak self] _ in
             self?.viewModel?.doLogin(login: (self?.loginTextField.text)!, password: (self?.passwordTextField.text)!)
             .subscribe(onNext: {
-                print($0 != nil ? "\($0)" : "error")
+                if let user = $0 {
+                    let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
+                    let viewModel = AccountViewModel(user: user)
+                    nextVC.viewModel = viewModel
+                    self?.present(UINavigationController(rootViewController: nextVC), animated: true)
+                } else {
+                    print("error")
+                }
             })
             .disposed(by: (self?.disposeBag)!)
         }).disposed(by: disposeBag)

@@ -20,10 +20,11 @@ class SplashVC: UIViewController {
         viewModel = SplashViewModel(disposeBag: disposeBag)
         bindViews()
         // Do any additional setup after loading the view.
+        viewModel?.getConfigs()
     }
     
     private func bindViews() {
-        viewModel?.getConfigs()
+        viewModel?.model
             .subscribe(onNext: { configs in
                 if configs != nil {
                     let nextVC: LoginVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
@@ -31,11 +32,11 @@ class SplashVC: UIViewController {
                 } else {
                     print("configs are nil")
                 }
-            },
-                       onError: { error in
-                        print(error)
+            }, onError: { error in
+                print(error)
+            }, onDisposed: {
+                print("doisposed")
             })
-            .disposed(by: disposeBag)
+        .disposed(by: disposeBag)
     }
-    
 }

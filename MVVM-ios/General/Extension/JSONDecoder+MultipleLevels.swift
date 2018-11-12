@@ -8,27 +8,58 @@
 
 import Foundation
 
+enum JSONDecodeError {
+    case illegalKey(_ key: String)
+}
+
+extension JSONDecodeError: LocalizedError {
+    var failureReason: String? {
+        switch self {
+        case .illegalKey(let key):
+            return "Illegal Key \(key)"
+        }
+    }
+    
+    var errorDescription: String? {
+        switch self {
+        case .illegalKey(let key):
+            return "Illegal Key \(key)"
+        }
+    }
+    
+    public var recoverySuggestion: String? {
+        switch self {
+        case .illegalKey(_):
+            return "Try to ptint JSON and find legal key"
+        }
+    }
+    
+    var helpAnchor: String? {
+        switch self {
+        case .illegalKey(_):
+            return "Try to ptint JSON and find legal key"
+        }
+    }
+}
+
 extension JSONDecoder {
     open func decode<T>(_ type: T.Type, from data: Data, nestedKeys: String...) throws -> T where T : Decodable {
         let json = try JSONSerialization.jsonObject(with: data, options: [])
-        var tempJson: Any? = nil
-        if var jsonDict = json as? [String: Any] {
-            for i in 0..<(nestedKeys.count - 1) {
-                let key = nestedKeys[i]
-                tempJson = jsonDict[key] as? [String : Any]
-                if tempJson == nil {
-                    throw NSException(name: NSExceptionName.genericException, reason: "Illegal Key \(key)", userInfo: nil) as! Error
-                } else {
-                    jsonDict = tempJson as! [String: Any]
-                }
-            }
-            let key = nestedKeys.last
-            tempJson = jsonDict[key!] as Any
-            if tempJson == nil {
-                throw NSException(name: NSExceptionName.genericException, reason: "Illegal Key \(key ?? "")", userInfo: nil) as! Error
-            }
+        guard var jsonDict = json as? [String: Any] else {
+            return try decode(T.self, from: data)
         }
-        let finalData = try JSONSerialization.data(withJSONObject: tempJson!, options: .prettyPrinted)
+        for i in 0..<(nestedKeys.count - 1) {
+            let key = nestedKeys[i]
+            guard let tempJson = jsonDict[key] as? [String : Any] else {
+                throw JSONDecodeError.illegalKey(key)
+            }
+            jsonDict = tempJson
+        }
+        let key = nestedKeys.last!
+        guard let tempJson = jsonDict[key] else {
+            throw JSONDecodeError.illegalKey(key)
+        }
+        let finalData = try JSONSerialization.data(withJSONObject: tempJson, options: .prettyPrinted)
         return try decode(T.self, from: finalData)
     }
 }

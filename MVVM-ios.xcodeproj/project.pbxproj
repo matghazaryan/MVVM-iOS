@@ -23,6 +23,10 @@
 		A4079CE92193119300A7178C /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079CE82193119300A7178C /* BaseTargetType.swift */; };
 		A4079CEB2193136F00A7178C /* String+Encoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079CEA2193136F00A7178C /* String+Encoding.swift */; };
 		A4079CF6219326CE00A7178C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079CF5219326CE00A7178C /* LoginVC.swift */; };
+		A40A2FB321996F0A00307984 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FB221996F0A00307984 /* CheckBox.swift */; };
+		A40A2FB921997B7D00307984 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FB821997B7D00307984 /* AccountVC.swift */; };
+		A40A2FBB2199943400307984 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FBA2199943400307984 /* AccountViewModel.swift */; };
+		A40A2FBD2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FBC2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift */; };
 		A47F7EE42195AE04001FD889 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47F7EE32195AE04001FD889 /* UITextView+Extensions.swift */; };
 		A47F7EE62195AFAD001FD889 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47F7EE52195AFAD001FD889 /* LoginViewModel.swift */; };
 		A47F7EE82195CB6D001FD889 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47F7EE72195CB6D001FD889 /* User.swift */; };
@@ -55,6 +59,10 @@
 		A4079CE82193119300A7178C /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		A4079CEA2193136F00A7178C /* String+Encoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Encoding.swift"; sourceTree = "<group>"; };
 		A4079CF5219326CE00A7178C /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		A40A2FB221996F0A00307984 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		A40A2FB821997B7D00307984 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
+		A40A2FBA2199943400307984 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
+		A40A2FBC2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TableViewCell+ReuseIdentifier.swift"; sourceTree = "<group>"; };
 		A47F7EE32195AE04001FD889 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		A47F7EE52195AFAD001FD889 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		A47F7EE72195CB6D001FD889 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -113,6 +121,7 @@
 		A4079CCE2193007500A7178C /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				A40A2FB4219975D900307984 /* Account */,
 				A4079CF12193266900A7178C /* Login */,
 				A4079CDD2193083000A7178C /* Repository */,
 				A4079CD32193017A00A7178C /* Splash */,
@@ -124,6 +133,7 @@
 		A4079CCF2193007F00A7178C /* General */ = {
 			isa = PBXGroup;
 			children = (
+				A40A2FB121996EEA00307984 /* 3th Party */,
 				A4079CD1219300DD00A7178C /* Extension */,
 				A4079CD0219300BF00A7178C /* Support Files */,
 			);
@@ -147,6 +157,7 @@
 		A4079CD1219300DD00A7178C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				A40A2FBC2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift */,
 				A4079CEA2193136F00A7178C /* String+Encoding.swift */,
 				A48B406F219558100089008C /* UIView+Localization.swift */,
 				A48B4071219558530089008C /* JSONDecoder+MultipleLevels.swift */,
@@ -249,6 +260,47 @@
 			isa = PBXGroup;
 			children = (
 				A47F7EE52195AFAD001FD889 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A40A2FB121996EEA00307984 /* 3th Party */ = {
+			isa = PBXGroup;
+			children = (
+				A40A2FB221996F0A00307984 /* CheckBox.swift */,
+			);
+			path = "3th Party";
+			sourceTree = "<group>";
+		};
+		A40A2FB4219975D900307984 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				A40A2FB7219975F000307984 /* ViewModel */,
+				A40A2FB6219975EA00307984 /* View */,
+				A40A2FB5219975E000307984 /* Model */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		A40A2FB5219975E000307984 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A40A2FB6219975EA00307984 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A40A2FB821997B7D00307984 /* AccountVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A40A2FB7219975F000307984 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A40A2FBA2199943400307984 /* AccountViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -423,11 +475,14 @@
 				A4079CE721930F8600A7178C /* DBHelperProtocol.swift in Sources */,
 				A48B407A219558860089008C /* LanguageManager.swift in Sources */,
 				A4079CF6219326CE00A7178C /* LoginVC.swift in Sources */,
+				A40A2FBB2199943400307984 /* AccountViewModel.swift in Sources */,
 				A47F7EE62195AFAD001FD889 /* LoginViewModel.swift in Sources */,
 				A4079CDC219306FB00A7178C /* Configs.swift in Sources */,
+				A40A2FB921997B7D00307984 /* AccountVC.swift in Sources */,
 				A4079CD8219306C100A7178C /* SplashViewModel.swift in Sources */,
 				A4079CDA219306E800A7178C /* SplashVC.swift in Sources */,
 				A47F7EE82195CB6D001FD889 /* User.swift in Sources */,
+				A40A2FBD2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift in Sources */,
 				A4079CE92193119300A7178C /* BaseTargetType.swift in Sources */,
 				A4079CE121930F3C00A7178C /* DataRepository.swift in Sources */,
 				A47F7EE42195AE04001FD889 /* UITextView+Extensions.swift in Sources */,
@@ -437,6 +492,7 @@
 				91BC34FE2192C2D900CDD785 /* AppDelegate.swift in Sources */,
 				A4079CEB2193136F00A7178C /* String+Encoding.swift in Sources */,
 				A4079CE521930F6500A7178C /* APIHelperProtocol.swift in Sources */,
+				A40A2FB321996F0A00307984 /* CheckBox.swift in Sources */,
 				A48B4086219559550089008C /* Reachability.swift in Sources */,
 				91BC35062192C2D900CDD785 /* MVVM_ios.xcdatamodeld in Sources */,
 			);

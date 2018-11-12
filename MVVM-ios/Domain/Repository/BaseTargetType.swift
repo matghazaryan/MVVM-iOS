@@ -12,6 +12,7 @@ import Moya
 enum BaseTargetType {
     case configs
     case login(email: String, password: String)
+    case logout
 }
 
 extension BaseTargetType: TargetType {
@@ -25,6 +26,8 @@ extension BaseTargetType: TargetType {
             return "config"
         case .login(_, _):
             return "login"
+        case .logout:
+            return "logout"
         }
     }
     
@@ -33,6 +36,8 @@ extension BaseTargetType: TargetType {
         case .configs:
             return .get
         case .login(_, _):
+            return .post
+        case .logout:
             return .post
         }
     }
@@ -43,18 +48,20 @@ extension BaseTargetType: TargetType {
             return "".utf8Encoded
         case .login(_, _):
             return "login".utf8Encoded
+        case .logout:
+            return "logout".utf8Encoded
         }
     }
     
     var task: Task {
         switch self {
-        case .configs:
-            return .requestParameters(parameters: BaseTargetType.params, encoding: URLEncoding(destination: .queryString))
         case .login(let email, let password):
             var loginParams = BaseTargetType.params
             loginParams["email"] = email
             loginParams["password"] = password
             return .requestParameters(parameters: loginParams, encoding: URLEncoding(destination: .queryString))
+        default:
+            return .requestParameters(parameters: BaseTargetType.params, encoding: URLEncoding(destination: .queryString))
         }
     }
     
@@ -63,6 +70,8 @@ extension BaseTargetType: TargetType {
         case .configs:
             return nil
         case .login(_, _):
+            return nil
+        case .logout:
             return nil
         }
     }

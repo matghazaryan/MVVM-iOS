@@ -16,6 +16,7 @@ class DataRepository: DataRepositoryProtocol {
     
     var apiProvider: MoyaProvider<BaseTargetType> = MoyaProvider()
     private static var sInstance = DataRepository()
+    private var userDefaults = UserDefaults(suiteName: "am.mvvm-ios.example.user.defaults")
     
     static func getInstance() -> DataRepository {
         return sInstance
@@ -46,6 +47,17 @@ class DataRepository: DataRepositoryProtocol {
             .map({response -> User? in
 //                let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: JSONSerialization.ReadingOptions.mutableLeaves) as! [String: Any]
                 return try JSONDecoder().decode(User?.self, from: response.data, nestedKeys: "data")
+            })
+            .asObservable()
+    }
+    
+    func logOut() -> Observable<Bool> {
+        return apiProvider.rx
+            .request(.logout)
+            .observeOn(MainScheduler.asyncInstance)
+            .map({ response -> Bool in
+                print(response)
+                return true
             })
             .asObservable()
     }

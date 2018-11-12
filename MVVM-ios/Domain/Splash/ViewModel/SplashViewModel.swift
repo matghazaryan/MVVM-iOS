@@ -12,14 +12,21 @@ import RxCocoa
 
 struct SplashViewModel {
     
-    private(set) var model: Configs?
+    private(set) var model: BehaviorRelay<Configs?>
+    private(set) var error: PublishRelay<Error?>
     private(set) var disposeBag: DisposeBag
     
     init(disposeBag: DisposeBag) {
         self.disposeBag = disposeBag
+        model = BehaviorRelay(value: nil)
+        error = PublishRelay()
     }
     
-    func getConfigs() -> Observable<Configs?> {
-        return DataRepository.getInstance().getConfigs()
+    func getConfigs() {
+        DataRepository.getInstance().getConfigs()
+            .subscribe(onNext: {
+                self.model.accept($0)
+            })
+            .disposed(by: disposeBag)
     }
 }
