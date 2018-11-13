@@ -14,8 +14,9 @@ import Moya
 struct AccountViewModel {
     
     var model: BehaviorRelay<User?>
-    var isLogin: PublishRelay<Bool> = PublishRelay()
+    let isLogin: PublishRelay<Bool> = PublishRelay()
     let disposeBag = DisposeBag()
+    let cellTitles = Observable.of(["Cards", "History", "Settings"])
     
     init(user: User) {
         model = BehaviorRelay(value: user)

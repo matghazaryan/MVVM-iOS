@@ -16,6 +16,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var checkBox: CheckBox!
     private var viewModel: LoginViewModel?
     private let disposeBag = DisposeBag()
     
@@ -29,10 +30,15 @@ class LoginVC: UIViewController {
             self?.viewModel?.doLogin(login: (self?.loginTextField.text)!, password: (self?.passwordTextField.text)!)
             .subscribe(onNext: {
                 if let user = $0 {
+                    if self?.checkBox.isChecked == true {
+                        self?.viewModel?.rememberMe = true
+                        DataRepository.getInstance().saveEmail((self?.loginTextField.text)!)
+                        DataRepository.getInstance().savePassword((self?.passwordTextField.text)!)
+                    }
                     let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
                     let viewModel = AccountViewModel(user: user)
                     nextVC.viewModel = viewModel
-                    self?.present(UINavigationController(rootViewController: nextVC), animated: true)
+                    UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: nextVC)
                 } else {
                     print("error")
                 }

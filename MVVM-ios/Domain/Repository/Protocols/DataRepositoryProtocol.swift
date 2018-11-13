@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol DataRepositoryProtocol: APIHelperProtocol, DBHelperProtocol {
+protocol DataRepositoryProtocol: APIHelperProtocol, DBHelperProtocol, UserDefaultsHelper {
     
 }

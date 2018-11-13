@@ -12,11 +12,21 @@ import RxCocoa
 import Moya
 import CoreData
 
+enum UserDefaultsKeys: String {
+    case token
+    case rememberMe
+}
+
+enum KeychainKeys: String {
+    case email
+    case password
+}
+
 class DataRepository: DataRepositoryProtocol {
     
     var apiProvider: MoyaProvider<BaseTargetType> = MoyaProvider()
     private static var sInstance = DataRepository()
-    private var userDefaults = UserDefaults(suiteName: "am.mvvm-ios.example.user.defaults")
+    private var userDefaults = UserDefaults(suiteName: "am.mvvm-ios.example.user.defaults")!
     
     static func getInstance() -> DataRepository {
         return sInstance
@@ -44,9 +54,11 @@ class DataRepository: DataRepositoryProtocol {
             .request(.login(email: email, password: password))
             .subscribeOn(CurrentThreadScheduler.instance)
             .observeOn(MainScheduler.asyncInstance)
-            .map({response -> User? in
+            .map({[weak self] response -> User? in
 //                let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: JSONSerialization.ReadingOptions.mutableLeaves) as! [String: Any]
-                return try JSONDecoder().decode(User?.self, from: response.data, nestedKeys: "data")
+                let user = try JSONDecoder().decode(User?.self, from: response.data, nestedKeys: "data")
+                self?.updateToken(user?.token)
+                return user
             })
             .asObservable()
     }
@@ -62,4 +74,35 @@ class DataRepository: DataRepositoryProtocol {
             .asObservable()
     }
     
+    func getToken() -> String? {
+        return userDefaults.string(forKey: UserDefaultsKeys.token.rawValue)
+    }
+    
+    func updateToken(_ token: String?) {
+        userDefaults.setValue(token, forKey: UserDefaultsKeys.token.rawValue)
+    }
+    
+    func saveEmail(_ email: String) {
+        let _ = KeychainManager.KMSaveOrUpdate(value: email, forKey: KeychainKeys.email.rawValue)
+    }
+    
+    func getEmail() -> String? {
+        return KeychainManager.KMGetValue(forKey: KeychainKeys.email.rawValue)
+    }
+    
+    func savePassword(_ password: String) {
+        let _ = KeychainManager.KMSaveOrUpdate(value: password, forKey: KeychainKeys.password.rawValue)
+    }
+    
+    func getPassword() -> String? {
+        return KeychainManager.KMGetValue(forKey: KeychainKeys.password.rawValue)
+    }
+    
+    func setRememberMe(_ value: Bool) {
+        userDefaults.set(value, forKey: UserDefaultsKeys.rememberMe.rawValue)
+    }
+    
+    func getRememberMe() -> Bool {
+        return userDefaults.bool(forKey: UserDefaultsKeys.rememberMe.rawValue)
+    }
 }

@@ -54,14 +54,19 @@ extension BaseTargetType: TargetType {
     }
     
     var task: Task {
+        var params = [String: Any]()
+        params["deviceType"] = "iPhone"
+        params["applicationId"] = BaseTargetType.getUDID()
+        params["applicationVersion"] = BaseTargetType.getApplicationVersionNumber()
+        params["deviceScale"] = BaseTargetType.getDeviceScale()
+        params["jwt"] = DataRepository.getInstance().getToken()
         switch self {
         case .login(let email, let password):
-            var loginParams = BaseTargetType.params
-            loginParams["email"] = email
-            loginParams["password"] = password
-            return .requestParameters(parameters: loginParams, encoding: URLEncoding(destination: .queryString))
+            params["email"] = email
+            params["password"] = password
+            return .requestParameters(parameters: params, encoding: URLEncoding(destination: .queryString))
         default:
-            return .requestParameters(parameters: BaseTargetType.params, encoding: URLEncoding(destination: .queryString))
+            return .requestParameters(parameters: params, encoding: URLEncoding(destination: .queryString))
         }
     }
     
@@ -87,11 +92,4 @@ extension BaseTargetType: TargetType {
     static func getDeviceScale() -> String {
         return String(describing: UIScreen.main.scale)
     }
-    
-    static let params = [
-        "deviceType": "iPhone",
-        "applicationId": BaseTargetType.getUDID(),
-        "applicationVersion": BaseTargetType.getApplicationVersionNumber(),
-        "deviceScale": BaseTargetType.getDeviceScale()
-    ]
 }

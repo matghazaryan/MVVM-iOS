@@ -12,21 +12,43 @@ import RxCocoa
 
 struct SplashViewModel {
     
-    private(set) var model: BehaviorRelay<Configs?>
+    private(set) var configs: BehaviorRelay<Configs?>
+    private(set) var user: PublishRelay<User?>
     private(set) var error: PublishRelay<Error?>
     private(set) var disposeBag: DisposeBag
     
     init(disposeBag: DisposeBag) {
         self.disposeBag = disposeBag
-        model = BehaviorRelay(value: nil)
+        configs = BehaviorRelay(value: nil)
+        user = PublishRelay()
         error = PublishRelay()
     }
     
     func getConfigs() {
         DataRepository.getInstance().getConfigs()
             .subscribe(onNext: {
-                self.model.accept($0)
+                self.configs.accept($0)
+                self.login()
             })
             .disposed(by: disposeBag)
+    }
+    
+    func login() {
+        if DataRepository.getInstance().getRememberMe() {
+            guard let email = DataRepository.getInstance().getEmail(),
+                let password = DataRepository.getInstance().getPassword() else {
+                    user.accept(nil)
+                    return
+            }
+            DataRepository.getInstance().login(email: email, password: password)
+                .subscribe(onNext: {
+                    self.user.accept($0)
+                }, onError: {
+                    self.error.accept($0)
+                })
+                .disposed(by: disposeBag)
+        } else {
+            user.accept(nil)
+        }
     }
 }

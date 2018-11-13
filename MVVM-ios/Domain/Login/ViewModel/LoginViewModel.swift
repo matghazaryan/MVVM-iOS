@@ -16,6 +16,14 @@ struct LoginViewModel {
     private(set) var validLogin: Observable<Bool>
     private(set) var validPassword: Observable<Bool>
     private(set) var validFields: Observable<Bool>
+    var rememberMe: Bool {
+        set {
+            DataRepository.getInstance().setRememberMe(rememberMe)
+        }
+        get {
+            return DataRepository.getInstance().getRememberMe()
+        }
+    }
     
     init() {
         validLogin = Observable.just(false)

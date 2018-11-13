@@ -119,6 +119,7 @@
                         <viewLayoutGuide key="safeArea" id="VqH-Sh-Kb6"/>
                     </view>
                     <connections>
+                        <outlet property="checkBox" destination="10w-kx-moN" id="7id-NL-4M2"/>
                         <outlet property="loginButton" destination="0uf-WK-7ko" id="XNn-Nu-iAa"/>
                         <outlet property="loginTextField" destination="ggZ-bQ-ar9" id="Jar-18-aaF"/>
                         <outlet property="logoImageView" destination="ylt-R3-uZF" id="R25-ep-Sks"/>
@@ -162,6 +163,11 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RHD-nI-Rms">
                                 <rect key="frame" x="0.0" y="178" width="375" height="399"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="wNl-cz-7Vo">
+                                    <rect key="frame" x="0.0" y="160" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="wWW-ef-zRO" style="IBUITableViewCellStyleDefault" id="tGM-tG-F3V">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>

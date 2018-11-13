@@ -24,19 +24,22 @@ class SplashVC: UIViewController {
     }
     
     private func bindViews() {
-        viewModel?.model
-            .subscribe(onNext: { configs in
-                if configs != nil {
+        viewModel?.user
+            .subscribe(onNext: { user in
+                if user != nil {
+                    let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
+                    let viewModel = AccountViewModel(user: user!)
+                    nextVC.viewModel = viewModel
+                    UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: nextVC)
+                } else {
                     let nextVC: LoginVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
                     UIApplication.shared.keyWindow?.rootViewController = nextVC
-                } else {
-                    print("configs are nil")
                 }
             }, onError: { error in
                 print(error)
             }, onDisposed: {
                 print("doisposed")
             })
-        .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
     }
 }

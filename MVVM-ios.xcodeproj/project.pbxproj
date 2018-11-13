@@ -27,6 +27,8 @@
 		A40A2FB921997B7D00307984 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FB821997B7D00307984 /* AccountVC.swift */; };
 		A40A2FBB2199943400307984 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FBA2199943400307984 /* AccountViewModel.swift */; };
 		A40A2FBD2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FBC2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift */; };
+		A40A2FBF219AA6BA00307984 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FBE219AA6B900307984 /* CoreDataManager.swift */; };
+		A40A2FC3219AB28F00307984 /* String+NS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FC2219AB28F00307984 /* String+NS.swift */; };
 		A47F7EE42195AE04001FD889 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47F7EE32195AE04001FD889 /* UITextView+Extensions.swift */; };
 		A47F7EE62195AFAD001FD889 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47F7EE52195AFAD001FD889 /* LoginViewModel.swift */; };
 		A47F7EE82195CB6D001FD889 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47F7EE72195CB6D001FD889 /* User.swift */; };
@@ -37,6 +39,8 @@
 		A48B4085219559550089008C /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48B4083219559550089008C /* ReachabilityService.swift */; };
 		A48B4086219559550089008C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48B4084219559550089008C /* Reachability.swift */; };
 		A48B4088219561DF0089008C /* UIViewController+StoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48B4087219561DF0089008C /* UIViewController+StoryBoard.swift */; };
+		A4944BCB219AE47D00F078C8 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BCA219AE47D00F078C8 /* UserDefaultsHelper.swift */; };
+		A4944BCD219AEB4200F078C8 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BCC219AEB4200F078C8 /* KeychainManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +67,8 @@
 		A40A2FB821997B7D00307984 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		A40A2FBA2199943400307984 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		A40A2FBC2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TableViewCell+ReuseIdentifier.swift"; sourceTree = "<group>"; };
+		A40A2FBE219AA6B900307984 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		A40A2FC2219AB28F00307984 /* String+NS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NS.swift"; sourceTree = "<group>"; };
 		A47F7EE32195AE04001FD889 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		A47F7EE52195AFAD001FD889 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		A47F7EE72195CB6D001FD889 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -75,6 +81,8 @@
 		A48B4083219559550089008C /* ReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		A48B4084219559550089008C /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A48B4087219561DF0089008C /* UIViewController+StoryBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+StoryBoard.swift"; sourceTree = "<group>"; };
+		A4944BCA219AE47D00F078C8 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		A4944BCC219AEB4200F078C8 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		AAF51DB13A53C6CD1976688A /* Pods-MVVM-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVM-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVM-ios/Pods-MVVM-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -164,6 +172,7 @@
 				A48B4080219559180089008C /* Optional+Unwraping.swift */,
 				A48B4087219561DF0089008C /* UIViewController+StoryBoard.swift */,
 				A47F7EE32195AE04001FD889 /* UITextView+Extensions.swift */,
+				A40A2FC2219AB28F00307984 /* String+NS.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -171,6 +180,7 @@
 		A4079CD2219300EF00A7178C /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				A40A2FBE219AA6B900307984 /* CoreDataManager.swift */,
 				91BC35042192C2D900CDD785 /* MVVM_ios.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -216,6 +226,7 @@
 				A4079CDE2193083A00A7178C /* Protocols */,
 				A4079CE021930F3C00A7178C /* DataRepository.swift */,
 				A4079CE82193119300A7178C /* BaseTargetType.swift */,
+				A4944BCC219AEB4200F078C8 /* KeychainManager.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -226,6 +237,7 @@
 				A4079CE221930F5100A7178C /* DataRepositoryProtocol.swift */,
 				A4079CE421930F6500A7178C /* APIHelperProtocol.swift */,
 				A4079CE621930F8600A7178C /* DBHelperProtocol.swift */,
+				A4944BCA219AE47D00F078C8 /* UserDefaultsHelper.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -475,19 +487,23 @@
 				A4079CE721930F8600A7178C /* DBHelperProtocol.swift in Sources */,
 				A48B407A219558860089008C /* LanguageManager.swift in Sources */,
 				A4079CF6219326CE00A7178C /* LoginVC.swift in Sources */,
+				A40A2FBF219AA6BA00307984 /* CoreDataManager.swift in Sources */,
 				A40A2FBB2199943400307984 /* AccountViewModel.swift in Sources */,
 				A47F7EE62195AFAD001FD889 /* LoginViewModel.swift in Sources */,
 				A4079CDC219306FB00A7178C /* Configs.swift in Sources */,
 				A40A2FB921997B7D00307984 /* AccountVC.swift in Sources */,
 				A4079CD8219306C100A7178C /* SplashViewModel.swift in Sources */,
 				A4079CDA219306E800A7178C /* SplashVC.swift in Sources */,
+				A4944BCB219AE47D00F078C8 /* UserDefaultsHelper.swift in Sources */,
 				A47F7EE82195CB6D001FD889 /* User.swift in Sources */,
 				A40A2FBD2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift in Sources */,
 				A4079CE92193119300A7178C /* BaseTargetType.swift in Sources */,
 				A4079CE121930F3C00A7178C /* DataRepository.swift in Sources */,
 				A47F7EE42195AE04001FD889 /* UITextView+Extensions.swift in Sources */,
+				A4944BCD219AEB4200F078C8 /* KeychainManager.swift in Sources */,
 				A48B4081219559180089008C /* Optional+Unwraping.swift in Sources */,
 				A48B4085219559550089008C /* ReachabilityService.swift in Sources */,
+				A40A2FC3219AB28F00307984 /* String+NS.swift in Sources */,
 				A48B4072219558530089008C /* JSONDecoder+MultipleLevels.swift in Sources */,
 				91BC34FE2192C2D900CDD785 /* AppDelegate.swift in Sources */,
 				A4079CEB2193136F00A7178C /* String+Encoding.swift in Sources */,

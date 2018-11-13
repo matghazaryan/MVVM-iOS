@@ -32,7 +32,7 @@ class AccountVC: UIViewController {
             
             }
             .disposed(by: disposeBag)
-        Observable.of(["Cards", "History", "Settings"])
+        viewModel?.cellTitles
             .bind(to: tableView.rx.items(cellIdentifier: UITableViewCell.reuseIdentifier, cellType: UITableViewCell.self)) { index, model, cell in
                 cell.accessoryType = .disclosureIndicator
                 cell.textLabel?.text = model
