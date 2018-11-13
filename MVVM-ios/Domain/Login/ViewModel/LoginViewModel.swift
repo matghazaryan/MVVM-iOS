@@ -18,7 +18,7 @@ struct LoginViewModel {
     private(set) var validFields: Observable<Bool>
     var rememberMe: Bool {
         set {
-            DataRepository.getInstance().setRememberMe(rememberMe)
+            DataRepository.getInstance().setRememberMe(newValue)
         }
         get {
             return DataRepository.getInstance().getRememberMe()
