@@ -32,6 +32,8 @@ class DataRepository: DataRepositoryProtocol {
         return sInstance
     }
     
+    /// MARK : - APIHelperProtocol
+    
     func getConfigs() -> Observable<Configs?> {
         return apiProvider.rx
             .request(.configs)
@@ -43,19 +45,13 @@ class DataRepository: DataRepositoryProtocol {
             .asObservable()
     }
     
-    func getConfigsFromCache() -> Observable<Configs?> {
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Configs")
-//        fetchRequest.entity = NSEntityDescription.entity(forEntityName: "Configs", in: )
-        return Observable.just(nil)
-    }
-    
     func login(email: String, password: String) -> Observable<User?> {
         return apiProvider.rx
             .request(.login(email: email, password: password))
             .subscribeOn(CurrentThreadScheduler.instance)
             .observeOn(MainScheduler.asyncInstance)
             .map({[weak self] response -> User? in
-//                let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: JSONSerialization.ReadingOptions.mutableLeaves) as! [String: Any]
+                //                let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: JSONSerialization.ReadingOptions.mutableLeaves) as! [String: Any]
                 let user = try JSONDecoder().decode(User?.self, from: response.data, nestedKeys: "data")
                 self?.updateToken(user?.token)
                 return user
@@ -73,6 +69,27 @@ class DataRepository: DataRepositoryProtocol {
             })
             .asObservable()
     }
+    
+    func getTransactions(page: Int) -> Observable<(transactions: [Transaction], hasNextPage: Bool)> {
+        return apiProvider.rx
+            .request(BaseTargetType.transactions(page: page))
+            .observeOn(MainScheduler.asyncInstance)
+            .map({ response -> (transactions: [Transaction], hasNextPahde: Bool) in
+                let transactions = try JSONDecoder().decode([Transaction].self, from: response.data, nestedKeys: "data", "transactions")
+                let json = try JSONSerialization.jsonObject(with: response.data, options: .mutableContainers) as! [String: Any]
+                let hasNextPage = ((json["data"] as! [String: Any])["next_page"] != nil)
+                return (transactions, hasNextPage)
+            })
+            .asObservable()
+    }
+    
+    func getConfigsFromCache() -> Observable<Configs?> {
+//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Configs")
+//        fetchRequest.entity = NSEntityDescription.entity(forEntityName: "Configs", in: )
+        return Observable.just(nil)
+    }
+    
+    
     
     func getToken() -> String? {
         return userDefaults.string(forKey: UserDefaultsKeys.token.rawValue)

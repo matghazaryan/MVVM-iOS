@@ -41,6 +41,10 @@
 		A48B4088219561DF0089008C /* UIViewController+StoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48B4087219561DF0089008C /* UIViewController+StoryBoard.swift */; };
 		A4944BCB219AE47D00F078C8 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BCA219AE47D00F078C8 /* UserDefaultsHelper.swift */; };
 		A4944BCD219AEB4200F078C8 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BCC219AEB4200F078C8 /* KeychainManager.swift */; };
+		A4944BD8219C5D2400F078C8 /* Card+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BD7219C5D2400F078C8 /* Card+CoreDataProperties.swift */; };
+		A4944BDA219C5D3200F078C8 /* Card+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BD9219C5D3200F078C8 /* Card+CoreDataClass.swift */; };
+		A4944BDC219C5D4100F078C8 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BDB219C5D4100F078C8 /* Transaction.swift */; };
+		A4944BDE219C5D5400F078C8 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BDD219C5D5400F078C8 /* TransactionViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +87,10 @@
 		A48B4087219561DF0089008C /* UIViewController+StoryBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+StoryBoard.swift"; sourceTree = "<group>"; };
 		A4944BCA219AE47D00F078C8 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		A4944BCC219AEB4200F078C8 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		A4944BD7219C5D2400F078C8 /* Card+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A4944BD9219C5D3200F078C8 /* Card+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A4944BDB219C5D4100F078C8 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		A4944BDD219C5D5400F078C8 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
 		AAF51DB13A53C6CD1976688A /* Pods-MVVM-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVM-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVM-ios/Pods-MVVM-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,10 +137,13 @@
 		A4079CCE2193007500A7178C /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				A4944BD6219C5AB600F078C8 /* Settings */,
+				A4944BD2219C5A9800F078C8 /* Transactions */,
+				A4944BCE219C5A7900F078C8 /* Cards */,
 				A40A2FB4219975D900307984 /* Account */,
 				A4079CF12193266900A7178C /* Login */,
-				A4079CDD2193083000A7178C /* Repository */,
 				A4079CD32193017A00A7178C /* Splash */,
+				A4079CDD2193083000A7178C /* Repository */,
 				A4079CD2219300EF00A7178C /* CoreData */,
 			);
 			path = Domain;
@@ -344,6 +355,79 @@
 			path = Reachibility;
 			sourceTree = "<group>";
 		};
+		A4944BCE219C5A7900F078C8 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				A4944BD1219C5A9100F078C8 /* ViewModel */,
+				A4944BD0219C5A8C00F078C8 /* View */,
+				A4944BCF219C5A8400F078C8 /* Model */,
+			);
+			path = Cards;
+			sourceTree = "<group>";
+		};
+		A4944BCF219C5A8400F078C8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A4944BD7219C5D2400F078C8 /* Card+CoreDataProperties.swift */,
+				A4944BD9219C5D3200F078C8 /* Card+CoreDataClass.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A4944BD0219C5A8C00F078C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A4944BD1219C5A9100F078C8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A4944BD2219C5A9800F078C8 /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				A4944BD5219C5AB000F078C8 /* ViewModel */,
+				A4944BD4219C5AAA00F078C8 /* View */,
+				A4944BD3219C5AA200F078C8 /* Model */,
+			);
+			path = Transactions;
+			sourceTree = "<group>";
+		};
+		A4944BD3219C5AA200F078C8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A4944BDB219C5D4100F078C8 /* Transaction.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A4944BD4219C5AAA00F078C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A4944BD5219C5AB000F078C8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A4944BDD219C5D5400F078C8 /* TransactionViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A4944BD6219C5AB600F078C8 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		A6C8F3565FD10568B2631469 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,11 +576,14 @@
 				A47F7EE62195AFAD001FD889 /* LoginViewModel.swift in Sources */,
 				A4079CDC219306FB00A7178C /* Configs.swift in Sources */,
 				A40A2FB921997B7D00307984 /* AccountVC.swift in Sources */,
+				A4944BDC219C5D4100F078C8 /* Transaction.swift in Sources */,
 				A4079CD8219306C100A7178C /* SplashViewModel.swift in Sources */,
 				A4079CDA219306E800A7178C /* SplashVC.swift in Sources */,
 				A4944BCB219AE47D00F078C8 /* UserDefaultsHelper.swift in Sources */,
 				A47F7EE82195CB6D001FD889 /* User.swift in Sources */,
 				A40A2FBD2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift in Sources */,
+				A4944BD8219C5D2400F078C8 /* Card+CoreDataProperties.swift in Sources */,
+				A4944BDA219C5D3200F078C8 /* Card+CoreDataClass.swift in Sources */,
 				A4079CE92193119300A7178C /* BaseTargetType.swift in Sources */,
 				A4079CE121930F3C00A7178C /* DataRepository.swift in Sources */,
 				A47F7EE42195AE04001FD889 /* UITextView+Extensions.swift in Sources */,
@@ -507,6 +594,7 @@
 				A48B4072219558530089008C /* JSONDecoder+MultipleLevels.swift in Sources */,
 				91BC34FE2192C2D900CDD785 /* AppDelegate.swift in Sources */,
 				A4079CEB2193136F00A7178C /* String+Encoding.swift in Sources */,
+				A4944BDE219C5D5400F078C8 /* TransactionViewModel.swift in Sources */,
 				A4079CE521930F6500A7178C /* APIHelperProtocol.swift in Sources */,
 				A40A2FB321996F0A00307984 /* CheckBox.swift in Sources */,
 				A48B4086219559550089008C /* Reachability.swift in Sources */,

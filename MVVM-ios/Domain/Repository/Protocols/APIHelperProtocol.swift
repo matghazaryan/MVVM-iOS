@@ -18,4 +18,5 @@ protocol APIHelperProtocol {
     func getConfigs() -> Observable<Configs?>
     func login(email: String, password: String) -> Observable<User?>
     func logOut() -> Observable<Bool>
+    func getTransactions(page: Int) -> Observable<(transactions: [Transaction], hasNextPage: Bool)>
 }
