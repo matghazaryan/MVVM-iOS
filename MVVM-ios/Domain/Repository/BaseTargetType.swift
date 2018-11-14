@@ -17,17 +17,17 @@ enum BaseTargetType {
 
 extension BaseTargetType: TargetType {
     var baseURL: URL {
-        return try! "https://test-arca.helix.am/api/en".asURL()
+        return try! "https://www.mocky.io/v2".asURL()
     }
     
     var path: String {
         switch self {
         case .configs:
-            return "config"
+            return "5bebd4123300006000fbc05c"
         case .login(_, _):
-            return "login"
+            return "5bebd5603300005900fbc067"
         case .logout:
-            return "logout"
+            return "5bebd5bd3300009500fbc06b"
         }
     }
     
