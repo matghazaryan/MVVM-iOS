@@ -13,6 +13,8 @@ enum BaseTargetType {
     case configs
     case login(email: String, password: String)
     case logout
+    case transactions(page: Int)
+    case cards
 }
 
 extension BaseTargetType: TargetType {
@@ -28,6 +30,29 @@ extension BaseTargetType: TargetType {
             return "5bebd5603300005900fbc067"
         case .logout:
             return "5bebd5bd3300009500fbc06b"
+        case .transactions(let page):
+            switch page {
+            case 1:
+                return "5bec170e330000c825fbc21a"
+            case 2:
+                return "5bec1769330000ee28fbc21d"
+            case 3:
+                return "5bec17b0330000c825fbc220"
+            case 4:
+                return "5bec18173300006125fbc221"
+            case 5:
+                return "5bec1850330000ee28fbc222"
+            case 6:
+                return "5bec188c3300002729fbc224"
+            case 7:
+                return "5bec18be330000cd25fbc227"
+            case 8:
+                return "5bec19143300007329fbc230"
+            default:
+                return "5bec194f3300006c29fbc233"
+            }
+        case .cards:
+            return "5bec1fe1330000cd25fbc282"
         }
     }
     
@@ -39,6 +64,10 @@ extension BaseTargetType: TargetType {
             return .post
         case .logout:
             return .post
+        case .transactions(_):
+            return .post
+        case .cards:
+            return .get
         }
     }
     
@@ -50,6 +79,10 @@ extension BaseTargetType: TargetType {
             return "login".utf8Encoded
         case .logout:
             return "logout".utf8Encoded
+        case .transactions(_):
+            return "transactions".utf8Encoded
+        case .cards:
+            return "cards".utf8Encoded
         }
     }
     
@@ -75,8 +108,13 @@ extension BaseTargetType: TargetType {
         case .configs:
             return nil
         case .login(_, _):
+            
             return nil
         case .logout:
+            return nil
+        case .transactions(_):
+            return nil
+        case .cards:
             return nil
         }
     }
