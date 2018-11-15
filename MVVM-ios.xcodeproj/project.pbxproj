@@ -45,6 +45,12 @@
 		A4944BDA219C5D3200F078C8 /* Card+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BD9219C5D3200F078C8 /* Card+CoreDataClass.swift */; };
 		A4944BDC219C5D4100F078C8 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BDB219C5D4100F078C8 /* Transaction.swift */; };
 		A4944BDE219C5D5400F078C8 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BDD219C5D5400F078C8 /* TransactionViewModel.swift */; };
+		A4944BE0219D40D100F078C8 /* TransactionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BDF219D40D100F078C8 /* TransactionsVC.swift */; };
+		A4944BE3219D40F000F078C8 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BE1219D40F000F078C8 /* TransactionCell.swift */; };
+		A4944BE4219D40F000F078C8 /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4944BE2219D40F000F078C8 /* TransactionCell.xib */; };
+		A4944BE6219D411400F078C8 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BE5219D411400F078C8 /* SettingsVC.swift */; };
+		A4944BE8219D413200F078C8 /* CardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BE7219D413200F078C8 /* CardsViewModel.swift */; };
+		A4944BEA219D415D00F078C8 /* CardsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BE9219D415D00F078C8 /* CardsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +97,12 @@
 		A4944BD9219C5D3200F078C8 /* Card+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A4944BDB219C5D4100F078C8 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		A4944BDD219C5D5400F078C8 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		A4944BDF219D40D100F078C8 /* TransactionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsVC.swift; sourceTree = "<group>"; };
+		A4944BE1219D40F000F078C8 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
+		A4944BE2219D40F000F078C8 /* TransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
+		A4944BE5219D411400F078C8 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		A4944BE7219D413200F078C8 /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
+		A4944BE9219D415D00F078C8 /* CardsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsVC.swift; sourceTree = "<group>"; };
 		AAF51DB13A53C6CD1976688A /* Pods-MVVM-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVM-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVM-ios/Pods-MVVM-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -377,6 +389,7 @@
 		A4944BD0219C5A8C00F078C8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A4944BE9219D415D00F078C8 /* CardsVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -384,6 +397,7 @@
 		A4944BD1219C5A9100F078C8 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				A4944BE7219D413200F078C8 /* CardsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -409,6 +423,9 @@
 		A4944BD4219C5AAA00F078C8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A4944BDF219D40D100F078C8 /* TransactionsVC.swift */,
+				A4944BE1219D40F000F078C8 /* TransactionCell.swift */,
+				A4944BE2219D40F000F078C8 /* TransactionCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -424,6 +441,7 @@
 		A4944BD6219C5AB600F078C8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				A4944BE5219D411400F078C8 /* SettingsVC.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -507,6 +525,7 @@
 			files = (
 				91BC350B2192C2DB00CDD785 /* LaunchScreen.storyboard in Resources */,
 				91BC35082192C2DB00CDD785 /* Assets.xcassets in Resources */,
+				A4944BE4219D40F000F078C8 /* TransactionCell.xib in Resources */,
 				91BC35032192C2D900CDD785 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -577,13 +596,17 @@
 				A4079CDC219306FB00A7178C /* Configs.swift in Sources */,
 				A40A2FB921997B7D00307984 /* AccountVC.swift in Sources */,
 				A4944BDC219C5D4100F078C8 /* Transaction.swift in Sources */,
+				A4944BEA219D415D00F078C8 /* CardsVC.swift in Sources */,
 				A4079CD8219306C100A7178C /* SplashViewModel.swift in Sources */,
 				A4079CDA219306E800A7178C /* SplashVC.swift in Sources */,
+				A4944BE8219D413200F078C8 /* CardsViewModel.swift in Sources */,
+				A4944BE3219D40F000F078C8 /* TransactionCell.swift in Sources */,
 				A4944BCB219AE47D00F078C8 /* UserDefaultsHelper.swift in Sources */,
 				A47F7EE82195CB6D001FD889 /* User.swift in Sources */,
 				A40A2FBD2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift in Sources */,
 				A4944BD8219C5D2400F078C8 /* Card+CoreDataProperties.swift in Sources */,
 				A4944BDA219C5D3200F078C8 /* Card+CoreDataClass.swift in Sources */,
+				A4944BE6219D411400F078C8 /* SettingsVC.swift in Sources */,
 				A4079CE92193119300A7178C /* BaseTargetType.swift in Sources */,
 				A4079CE121930F3C00A7178C /* DataRepository.swift in Sources */,
 				A47F7EE42195AE04001FD889 /* UITextView+Extensions.swift in Sources */,
@@ -594,6 +617,7 @@
 				A48B4072219558530089008C /* JSONDecoder+MultipleLevels.swift in Sources */,
 				91BC34FE2192C2D900CDD785 /* AppDelegate.swift in Sources */,
 				A4079CEB2193136F00A7178C /* String+Encoding.swift in Sources */,
+				A4944BE0219D40D100F078C8 /* TransactionsVC.swift in Sources */,
 				A4944BDE219C5D5400F078C8 /* TransactionViewModel.swift in Sources */,
 				A4079CE521930F6500A7178C /* APIHelperProtocol.swift in Sources */,
 				A40A2FB321996F0A00307984 /* CheckBox.swift in Sources */,
