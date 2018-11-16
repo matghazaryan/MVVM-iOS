@@ -16,7 +16,7 @@ struct AccountViewModel {
     var model: BehaviorRelay<User?>
     let isLogin: PublishRelay<Bool> = PublishRelay()
     let disposeBag = DisposeBag()
-    let cellTitles = Observable.of(["Cards", "History", "Settings"])
+    let cellTitles = Observable.of(["Cards", "Transactions", "Settings"])
     
     init(user: User) {
         model = BehaviorRelay(value: user)

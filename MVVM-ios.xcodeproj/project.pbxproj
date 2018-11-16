@@ -51,6 +51,8 @@
 		A4944BE6219D411400F078C8 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BE5219D411400F078C8 /* SettingsVC.swift */; };
 		A4944BE8219D413200F078C8 /* CardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BE7219D413200F078C8 /* CardsViewModel.swift */; };
 		A4944BEA219D415D00F078C8 /* CardsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BE9219D415D00F078C8 /* CardsVC.swift */; };
+		A4ADF625219D43FE00ABB7A5 /* KeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ADF624219D43FE00ABB7A5 /* KeyValueView.swift */; };
+		A4ADF629219D604300ABB7A5 /* KeyValueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4ADF628219D604300ABB7A5 /* KeyValueView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,8 +86,6 @@
 		A47F7EE72195CB6D001FD889 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A48B406F219558100089008C /* UIView+Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Localization.swift"; sourceTree = "<group>"; };
 		A48B4071219558530089008C /* JSONDecoder+MultipleLevels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+MultipleLevels.swift"; sourceTree = "<group>"; };
-		A48B4074219558730089008C /* ReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
-		A48B4075219558730089008C /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A48B4079219558860089008C /* LanguageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		A48B4080219559180089008C /* Optional+Unwraping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+Unwraping.swift"; sourceTree = "<group>"; };
 		A48B4083219559550089008C /* ReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
@@ -103,6 +103,8 @@
 		A4944BE5219D411400F078C8 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		A4944BE7219D413200F078C8 /* CardsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
 		A4944BE9219D415D00F078C8 /* CardsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsVC.swift; sourceTree = "<group>"; };
+		A4ADF624219D43FE00ABB7A5 /* KeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueView.swift; sourceTree = "<group>"; };
+		A4ADF628219D604300ABB7A5 /* KeyValueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyValueView.xib; sourceTree = "<group>"; };
 		AAF51DB13A53C6CD1976688A /* Pods-MVVM-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVM-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVM-ios/Pods-MVVM-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,7 +178,6 @@
 			children = (
 				A48B4082219559400089008C /* Reachibility */,
 				A48B4078219558860089008C /* InApp Localization */,
-				A48B4073219558730089008C /* Reachibility */,
 				91BC35092192C2DB00CDD785 /* LaunchScreen.storyboard */,
 				91BC34FD2192C2D900CDD785 /* AppDelegate.swift */,
 				91BC35072192C2DB00CDD785 /* Assets.xcassets */,
@@ -340,16 +341,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		A48B4073219558730089008C /* Reachibility */ = {
-			isa = PBXGroup;
-			children = (
-				A48B4074219558730089008C /* ReachabilityService.swift */,
-				A48B4075219558730089008C /* Reachability.swift */,
-			);
-			name = Reachibility;
-			path = "../../../../MVVM-example/Wether/General/Support Files/Reachibility";
-			sourceTree = "<group>";
-		};
 		A48B4078219558860089008C /* InApp Localization */ = {
 			isa = PBXGroup;
 			children = (
@@ -426,6 +417,8 @@
 				A4944BDF219D40D100F078C8 /* TransactionsVC.swift */,
 				A4944BE1219D40F000F078C8 /* TransactionCell.swift */,
 				A4944BE2219D40F000F078C8 /* TransactionCell.xib */,
+				A4ADF624219D43FE00ABB7A5 /* KeyValueView.swift */,
+				A4ADF628219D604300ABB7A5 /* KeyValueView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -526,6 +519,7 @@
 				91BC350B2192C2DB00CDD785 /* LaunchScreen.storyboard in Resources */,
 				91BC35082192C2DB00CDD785 /* Assets.xcassets in Resources */,
 				A4944BE4219D40F000F078C8 /* TransactionCell.xib in Resources */,
+				A4ADF629219D604300ABB7A5 /* KeyValueView.xib in Resources */,
 				91BC35032192C2D900CDD785 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -544,6 +538,7 @@
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxOptional/RxOptional.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -552,6 +547,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxOptional.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,6 +610,7 @@
 				A48B4081219559180089008C /* Optional+Unwraping.swift in Sources */,
 				A48B4085219559550089008C /* ReachabilityService.swift in Sources */,
 				A40A2FC3219AB28F00307984 /* String+NS.swift in Sources */,
+				A4ADF625219D43FE00ABB7A5 /* KeyValueView.swift in Sources */,
 				A48B4072219558530089008C /* JSONDecoder+MultipleLevels.swift in Sources */,
 				91BC34FE2192C2D900CDD785 /* AppDelegate.swift in Sources */,
 				A4079CEB2193136F00A7178C /* String+Encoding.swift in Sources */,

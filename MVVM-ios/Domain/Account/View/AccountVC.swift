@@ -13,6 +13,12 @@ import RxCocoa
 
 class AccountVC: UIViewController {
     
+    private enum Indexes: Int {
+        case cards = 0
+        case transactions = 1
+        case settings = 2
+    }
+    
     private var disposeBag = DisposeBag()
     var viewModel: AccountViewModel?
     @IBOutlet private weak var tableView: UITableView!
@@ -28,8 +34,9 @@ class AccountVC: UIViewController {
     }
     
     private func bindViews() {
-        tableView.rx.itemSelected.bind { indexPath in
-            
+        tableView.rx.itemSelected.bind {[unowned self] indexPath in
+            let vc = self.viewControllerForIndex(indexPath.row)
+            self.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
         viewModel?.cellTitles
@@ -55,7 +62,17 @@ class AccountVC: UIViewController {
     }
     
     private func viewControllerForIndex(_ index: Int) -> UIViewController {
-        return UIViewController()
+        switch index {
+        case Indexes.cards.rawValue:
+            return UIViewController()
+        case Indexes.transactions.rawValue:
+            let vc: TransactionsVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
+            return vc
+        case Indexes.settings.rawValue:
+            return UIViewController()
+        default:
+            return UIViewController()
+        }
     }
     
 }
