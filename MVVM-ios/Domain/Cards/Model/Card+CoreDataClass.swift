@@ -54,4 +54,8 @@ class Card: NSManagedObject, Decodable {
         self.balanceLabel = try container.decode(String.self, forKey: .balanceLabel)
         self.displayName = try container.decode(String.self, forKey: .displayName)
     }
+    
+    override class func primaryKey() -> String {
+        return "cardNumber"
+    }
 }

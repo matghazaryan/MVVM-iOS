@@ -83,21 +83,30 @@ class DataRepository: DataRepositoryProtocol {
             .asObservable()
     }
     
+    func getCards() -> Observable<[Card]> {
+        return apiProvider.rx
+            .request(.cards)
+            .observeOn(MainScheduler.asyncInstance)
+            //            .map({ response -> [Card] in
+            //                return try JSONDecoder().decode([Card].self, from: response.data, nestedKeys: "data", "cards_list")
+            //            })
+            .map([Card].self, atKeyPath: "data.cards_list", using: JSONDecoder(), failsOnEmptyData: false)
+            .asObservable()
+    }
+    
+    // MARK: - DBHelperProtocol
+    
     func getConfigsFromCache() -> Observable<Configs?> {
 //        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Configs")
 //        fetchRequest.entity = NSEntityDescription.entity(forEntityName: "Configs", in: )
         return Observable.just(nil)
     }
     
-    func getCards() -> Observable<[Card]> {
-        return apiProvider.rx
-            .request(.cards)
-            .observeOn(MainScheduler.asyncInstance)
-//            .map({ response -> [Card] in
-//                return try JSONDecoder().decode([Card].self, from: response.data, nestedKeys: "data", "cards_list")
-//            })
-            .map([Card].self, atKeyPath: "data.cards_list", using: JSONDecoder(), failsOnEmptyData: false)
-            .asObservable()
+    func getAllCards() -> Observable<[Card]> {
+        guard let cards = try? CoreDataManager.fetchAllObjectsForType(Card.self) else {
+            return Observable.just([])
+        }
+        return Observable.just(cards)
     }
     
     // MARK: - UserDefaultsHelper

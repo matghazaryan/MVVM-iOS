@@ -26,11 +26,6 @@ class CardsVC: UIViewController {
         viewModel.getCards()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-//        collectionView.collectionViewLayout.invalidateLayout()
-    }
-    
     private func bindViews() {
         
         viewModel.model

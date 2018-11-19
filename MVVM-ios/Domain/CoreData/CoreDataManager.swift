@@ -102,9 +102,9 @@ class CoreDataManager {
         return result
     }
     
-    class func objectForEntityType<T: NSManagedObject>(_ entity: T.Type, primaryKey: String, value: AnyHashable) -> T? {
+    class func objectForEntityType<T: NSManagedObject>(_ entity: T.Type, primaryKey: String) -> T? {
         let fetchRequest = entity.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "\(primaryKey)=%@", value as CVarArg)
+        fetchRequest.predicate = NSPredicate(format: "%@=%@", entity.primaryKey(), primaryKey)
         let context = sInstance.viewContext
         guard let object = try? context.execute(fetchRequest) as? NSAsynchronousFetchResult<T> else {
             let entityName = NSStringFromClass(entity)
@@ -113,8 +113,21 @@ class CoreDataManager {
         }
         return object?.finalResult?.first
     }
+    
+    class func fetchAllObjectsForType<T: NSManagedObject>(_ type: T.Type) throws -> [T] {
+        let className = String(describing: type)
+        let fetchRequest = NSFetchRequest<T>(entityName: className)
+        let primaryKey = type.primaryKey()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: primaryKey, ascending: false)]
+        let context = sInstance.viewContext
+        fetchRequest.entity = NSEntityDescription.entity(forEntityName: className, in: context)
+        return try context.fetch(fetchRequest)
+    }
 }
 
 extension NSManagedObject {
-    
+    @objc(primaryKey)
+    class func primaryKey() -> String {
+        return "id"
+    }
 }

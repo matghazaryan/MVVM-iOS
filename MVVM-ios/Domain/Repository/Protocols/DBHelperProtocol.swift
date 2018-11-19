@@ -11,4 +11,5 @@ import RxSwift
 
 protocol DBHelperProtocol {
     func getConfigsFromCache() -> Observable<Configs?>
+    func getAllCards() -> Observable<[Card]>
 }

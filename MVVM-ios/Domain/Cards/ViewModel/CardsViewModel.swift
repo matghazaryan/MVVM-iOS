@@ -22,6 +22,8 @@ struct CardsViewModel {
         DataRepository.getInstance()
             .getCards().subscribe(onNext: {
                 self.model.accept($0)
+            }, onDisposed: {
+                print("\(self) disposed")
             })
             .disposed(by: disposeBag)
     }
