@@ -53,6 +53,14 @@
 		A4944BEA219D415D00F078C8 /* CardsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BE9219D415D00F078C8 /* CardsVC.swift */; };
 		A4ADF625219D43FE00ABB7A5 /* KeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ADF624219D43FE00ABB7A5 /* KeyValueView.swift */; };
 		A4ADF629219D604300ABB7A5 /* KeyValueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4ADF628219D604300ABB7A5 /* KeyValueView.xib */; };
+		A4B5716121A29F9300348A0A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5716021A29F9300348A0A /* CardView.swift */; };
+		A4B5716321A29FDB00348A0A /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B5716221A29FDB00348A0A /* CardView.xib */; };
+		A4B5716621A2A73C00348A0A /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5716421A2A73C00348A0A /* CardCollectionViewCell.swift */; };
+		A4B5716721A2A73C00348A0A /* CardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B5716521A2A73C00348A0A /* CardCollectionViewCell.xib */; };
+		A4B5716921A2B12D00348A0A /* CollectionViewCell+ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5716821A2B12D00348A0A /* CollectionViewCell+ReuseIdentifier.swift */; };
+		A4B5716B21A2B39200348A0A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5716A21A2B39200348A0A /* UIColor+Extensions.swift */; };
+		A4B5716F21A2DEF000348A0A /* UIView+Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5716E21A2DEF000348A0A /* UIView+Drawing.swift */; };
+		A4B5717221A2EBD200348A0A /* BiometricUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5717121A2EBD200348A0A /* BiometricUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +113,14 @@
 		A4944BE9219D415D00F078C8 /* CardsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsVC.swift; sourceTree = "<group>"; };
 		A4ADF624219D43FE00ABB7A5 /* KeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueView.swift; sourceTree = "<group>"; };
 		A4ADF628219D604300ABB7A5 /* KeyValueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyValueView.xib; sourceTree = "<group>"; };
+		A4B5716021A29F9300348A0A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		A4B5716221A29FDB00348A0A /* CardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
+		A4B5716421A2A73C00348A0A /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
+		A4B5716521A2A73C00348A0A /* CardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardCollectionViewCell.xib; sourceTree = "<group>"; };
+		A4B5716821A2B12D00348A0A /* CollectionViewCell+ReuseIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionViewCell+ReuseIdentifier.swift"; sourceTree = "<group>"; };
+		A4B5716A21A2B39200348A0A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		A4B5716E21A2DEF000348A0A /* UIView+Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Drawing.swift"; sourceTree = "<group>"; };
+		A4B5717121A2EBD200348A0A /* BiometricUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricUtils.swift; sourceTree = "<group>"; };
 		AAF51DB13A53C6CD1976688A /* Pods-MVVM-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVM-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVM-ios/Pods-MVVM-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,6 +192,7 @@
 		A4079CD0219300BF00A7178C /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				A4B5717021A2E67700348A0A /* Biometric */,
 				A48B4082219559400089008C /* Reachibility */,
 				A48B4078219558860089008C /* InApp Localization */,
 				91BC35092192C2DB00CDD785 /* LaunchScreen.storyboard */,
@@ -189,7 +206,9 @@
 		A4079CD1219300DD00A7178C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				A4B5716A21A2B39200348A0A /* UIColor+Extensions.swift */,
 				A40A2FBC2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift */,
+				A4B5716821A2B12D00348A0A /* CollectionViewCell+ReuseIdentifier.swift */,
 				A4079CEA2193136F00A7178C /* String+Encoding.swift */,
 				A48B406F219558100089008C /* UIView+Localization.swift */,
 				A48B4071219558530089008C /* JSONDecoder+MultipleLevels.swift */,
@@ -197,6 +216,7 @@
 				A48B4087219561DF0089008C /* UIViewController+StoryBoard.swift */,
 				A47F7EE32195AE04001FD889 /* UITextView+Extensions.swift */,
 				A40A2FC2219AB28F00307984 /* String+NS.swift */,
+				A4B5716E21A2DEF000348A0A /* UIView+Drawing.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -381,6 +401,10 @@
 			isa = PBXGroup;
 			children = (
 				A4944BE9219D415D00F078C8 /* CardsVC.swift */,
+				A4B5716021A29F9300348A0A /* CardView.swift */,
+				A4B5716221A29FDB00348A0A /* CardView.xib */,
+				A4B5716421A2A73C00348A0A /* CardCollectionViewCell.swift */,
+				A4B5716521A2A73C00348A0A /* CardCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -437,6 +461,14 @@
 				A4944BE5219D411400F078C8 /* SettingsVC.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		A4B5717021A2E67700348A0A /* Biometric */ = {
+			isa = PBXGroup;
+			children = (
+				A4B5717121A2EBD200348A0A /* BiometricUtils.swift */,
+			);
+			path = Biometric;
 			sourceTree = "<group>";
 		};
 		A6C8F3565FD10568B2631469 /* Pods */ = {
@@ -518,8 +550,10 @@
 			files = (
 				91BC350B2192C2DB00CDD785 /* LaunchScreen.storyboard in Resources */,
 				91BC35082192C2DB00CDD785 /* Assets.xcassets in Resources */,
+				A4B5716321A29FDB00348A0A /* CardView.xib in Resources */,
 				A4944BE4219D40F000F078C8 /* TransactionCell.xib in Resources */,
 				A4ADF629219D604300ABB7A5 /* KeyValueView.xib in Resources */,
+				A4B5716721A2A73C00348A0A /* CardCollectionViewCell.xib in Resources */,
 				91BC35032192C2D900CDD785 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -535,18 +569,22 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MVVM-ios/Pods-MVVM-ios-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxOptional/RxOptional.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxOptional.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
@@ -584,19 +622,23 @@
 				A48B4070219558100089008C /* UIView+Localization.swift in Sources */,
 				A4079CE321930F5100A7178C /* DataRepositoryProtocol.swift in Sources */,
 				A4079CE721930F8600A7178C /* DBHelperProtocol.swift in Sources */,
+				A4B5716621A2A73C00348A0A /* CardCollectionViewCell.swift in Sources */,
 				A48B407A219558860089008C /* LanguageManager.swift in Sources */,
 				A4079CF6219326CE00A7178C /* LoginVC.swift in Sources */,
 				A40A2FBF219AA6BA00307984 /* CoreDataManager.swift in Sources */,
 				A40A2FBB2199943400307984 /* AccountViewModel.swift in Sources */,
 				A47F7EE62195AFAD001FD889 /* LoginViewModel.swift in Sources */,
 				A4079CDC219306FB00A7178C /* Configs.swift in Sources */,
+				A4B5716F21A2DEF000348A0A /* UIView+Drawing.swift in Sources */,
 				A40A2FB921997B7D00307984 /* AccountVC.swift in Sources */,
 				A4944BDC219C5D4100F078C8 /* Transaction.swift in Sources */,
 				A4944BEA219D415D00F078C8 /* CardsVC.swift in Sources */,
 				A4079CD8219306C100A7178C /* SplashViewModel.swift in Sources */,
 				A4079CDA219306E800A7178C /* SplashVC.swift in Sources */,
 				A4944BE8219D413200F078C8 /* CardsViewModel.swift in Sources */,
+				A4B5716921A2B12D00348A0A /* CollectionViewCell+ReuseIdentifier.swift in Sources */,
 				A4944BE3219D40F000F078C8 /* TransactionCell.swift in Sources */,
+				A4B5716B21A2B39200348A0A /* UIColor+Extensions.swift in Sources */,
 				A4944BCB219AE47D00F078C8 /* UserDefaultsHelper.swift in Sources */,
 				A47F7EE82195CB6D001FD889 /* User.swift in Sources */,
 				A40A2FBD2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift in Sources */,
@@ -605,10 +647,12 @@
 				A4944BE6219D411400F078C8 /* SettingsVC.swift in Sources */,
 				A4079CE92193119300A7178C /* BaseTargetType.swift in Sources */,
 				A4079CE121930F3C00A7178C /* DataRepository.swift in Sources */,
+				A4B5716121A29F9300348A0A /* CardView.swift in Sources */,
 				A47F7EE42195AE04001FD889 /* UITextView+Extensions.swift in Sources */,
 				A4944BCD219AEB4200F078C8 /* KeychainManager.swift in Sources */,
 				A48B4081219559180089008C /* Optional+Unwraping.swift in Sources */,
 				A48B4085219559550089008C /* ReachabilityService.swift in Sources */,
+				A4B5717221A2EBD200348A0A /* BiometricUtils.swift in Sources */,
 				A40A2FC3219AB28F00307984 /* String+NS.swift in Sources */,
 				A4ADF625219D43FE00ABB7A5 /* KeyValueView.swift in Sources */,
 				A48B4072219558530089008C /* JSONDecoder+MultipleLevels.swift in Sources */,

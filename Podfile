@@ -10,6 +10,7 @@ target 'MVVM-ios' do
     pod 'RxCocoa',    '~> 4.0'
     pod 'Moya/RxSwift', '~> 11.0'
     pod 'RxOptional'
+    pod 'RxDataSources', '~> 3.0'
 
   # Pods for MVVM-ios
 

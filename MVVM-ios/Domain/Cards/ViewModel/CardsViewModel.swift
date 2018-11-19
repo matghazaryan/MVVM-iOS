@@ -7,3 +7,22 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
+
+struct CardsViewModel {
+    private(set) var model: BehaviorRelay<[Card]>
+    private var disposeBag = DisposeBag()
+    
+    init() {
+        model = BehaviorRelay(value: [])
+    }
+    
+    func getCards() {
+        DataRepository.getInstance()
+            .getCards().subscribe(onNext: {
+                self.model.accept($0)
+            })
+            .disposed(by: disposeBag)
+    }
+}

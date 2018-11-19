@@ -64,7 +64,8 @@ class AccountVC: UIViewController {
     private func viewControllerForIndex(_ index: Int) -> UIViewController {
         switch index {
         case Indexes.cards.rawValue:
-            return UIViewController()
+            let vc: CardsVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
+            return vc
         case Indexes.transactions.rawValue:
             let vc: TransactionsVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
             return vc

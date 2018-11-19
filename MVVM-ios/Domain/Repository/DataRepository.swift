@@ -32,7 +32,7 @@ class DataRepository: DataRepositoryProtocol {
         return sInstance
     }
     
-    /// MARK : - APIHelperProtocol
+    // MARK: - APIHelperProtocol
     
     func getConfigs() -> Observable<Configs?> {
         return apiProvider.rx
@@ -89,7 +89,18 @@ class DataRepository: DataRepositoryProtocol {
         return Observable.just(nil)
     }
     
+    func getCards() -> Observable<[Card]> {
+        return apiProvider.rx
+            .request(.cards)
+            .observeOn(MainScheduler.asyncInstance)
+//            .map({ response -> [Card] in
+//                return try JSONDecoder().decode([Card].self, from: response.data, nestedKeys: "data", "cards_list")
+//            })
+            .map([Card].self, atKeyPath: "data.cards_list", using: JSONDecoder(), failsOnEmptyData: false)
+            .asObservable()
+    }
     
+    // MARK: - UserDefaultsHelper
     
     func getToken() -> String? {
         return userDefaults.string(forKey: UserDefaultsKeys.token.rawValue)
@@ -98,6 +109,16 @@ class DataRepository: DataRepositoryProtocol {
     func updateToken(_ token: String?) {
         userDefaults.setValue(token, forKey: UserDefaultsKeys.token.rawValue)
     }
+    
+    func setRememberMe(_ value: Bool) {
+        userDefaults.set(value, forKey: UserDefaultsKeys.rememberMe.rawValue)
+    }
+    
+    func getRememberMe() -> Bool {
+        return userDefaults.bool(forKey: UserDefaultsKeys.rememberMe.rawValue)
+    }
+    
+    // MARK: - KeychainManager
     
     func saveEmail(_ email: String) {
         let _ = KeychainManager.KMSaveOrUpdate(value: email, forKey: KeychainKeys.email.rawValue)
@@ -113,13 +134,5 @@ class DataRepository: DataRepositoryProtocol {
     
     func getPassword() -> String? {
         return KeychainManager.KMGetValue(forKey: KeychainKeys.password.rawValue)
-    }
-    
-    func setRememberMe(_ value: Bool) {
-        userDefaults.set(value, forKey: UserDefaultsKeys.rememberMe.rawValue)
-    }
-    
-    func getRememberMe() -> Bool {
-        return userDefaults.bool(forKey: UserDefaultsKeys.rememberMe.rawValue)
     }
 }
