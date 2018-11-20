@@ -42,11 +42,13 @@ class TransactionsVC: UITableViewController {
                 }
             }
             .disposed(by: disposeBag)
-        tableView.rx.willDisplayCell.bind {[unowned self] cell, indexPath in
+        tableView.rx.willDisplayCell.bind {[weak self] cell, indexPath in
             let section = 0
-            let row = self.tableView.numberOfRows(inSection: section) - 1
-            if indexPath == IndexPath(row: row, section: section) {
-                self.viewModel?.fetchNext()
+            guard let row = self?.tableView.numberOfRows(inSection: section) else {
+                return
+            }
+            if indexPath == IndexPath(row: row - 1, section: section) {
+                self?.viewModel?.fetchNext()
             }
             }
             .disposed(by: disposeBag)

@@ -39,6 +39,8 @@ class CoreDataManager {
                  Check the error message to determine what the actual problem was.
                  */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
+            } else {
+                container.viewContext.mergePolicy = NSOverwriteMergePolicy
             }
         })
         return container
@@ -102,16 +104,16 @@ class CoreDataManager {
         return result
     }
     
-    class func objectForEntityType<T: NSManagedObject>(_ entity: T.Type, primaryKey: String) -> T? {
+    class func objectForEntityType<T: NSManagedObject>(_ entity: T.Type, primaryKey: Any) throws -> T? {
         let fetchRequest = entity.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "%@=%@", entity.primaryKey(), primaryKey)
+        fetchRequest.predicate = NSPredicate(format: "%K = %@", entity.primaryKey(), primaryKey as! CVarArg)
         let context = sInstance.viewContext
-        guard let object = try? context.execute(fetchRequest) as? NSAsynchronousFetchResult<T> else {
+        guard let object = try context.execute(fetchRequest) as? NSAsynchronousFetchResult<T> else {
             let entityName = NSStringFromClass(entity)
             let entityDescription = NSEntityDescription.entity(forEntityName: entityName, in: context)!
             return T(entity: entityDescription, insertInto: context)
         }
-        return object?.finalResult?.first
+        return object.finalResult?.first
     }
     
     class func fetchAllObjectsForType<T: NSManagedObject>(_ type: T.Type) throws -> [T] {
@@ -122,6 +124,15 @@ class CoreDataManager {
         let context = sInstance.viewContext
         fetchRequest.entity = NSEntityDescription.entity(forEntityName: className, in: context)
         return try context.fetch(fetchRequest)
+    }
+    
+    class func deleteObject<T: NSManagedObject>(_ entity: T.Type, primaryKey: Any, resultType: NSBatchDeleteRequestResultType) throws -> NSBatchDeleteResult {
+        let fetchRequest = entity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "%K = %@", entity.primaryKey(), primaryKey as! CVarArg)
+        let context = sInstance.viewContext
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        deleteRequest.resultType = resultType
+        return try context.execute(deleteRequest) as! NSBatchDeleteResult
     }
 }
 

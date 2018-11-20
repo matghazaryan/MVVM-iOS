@@ -32,14 +32,7 @@ class Card: NSManagedObject, Decodable {
         }
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let cardNumber = try container.decode(String.self, forKey: .cardNumber)
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Card.fetchRequest()
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        fetchRequest.predicate = NSPredicate(format: "%@=%@", "cardNumber", cardNumber)
-        fetchRequest.resultType = .countResultType
-        guard let result = try context.execute(deleteRequest) as? NSBatchDeleteResult,
-            let count = result.result as? Int else {
-            fatalError()
-        }
+        let count = try CoreDataManager.deleteObject(Card.self, primaryKey: cardNumber, resultType: .resultTypeCount).result as! Int
         print("\(count) item was deleted, cardNumber = \(cardNumber)")
         self.init(entity: entity, insertInto: context)
         self.cardNumber = cardNumber

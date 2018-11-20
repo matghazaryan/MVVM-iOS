@@ -34,9 +34,12 @@ class AccountVC: UIViewController {
     }
     
     private func bindViews() {
-        tableView.rx.itemSelected.bind {[unowned self] indexPath in
-            let vc = self.viewControllerForIndex(indexPath.row)
-            self.navigationController?.pushViewController(vc, animated: true)
+        tableView.rx.itemSelected.bind {[weak self] indexPath in
+            guard let vc = self?.viewControllerForIndex(indexPath.row) else {
+                return
+            }
+            self?.navigationController?.pushViewController(vc, animated: true)
+            self?.tableView.deselectRow(at: indexPath, animated: true)
             }
             .disposed(by: disposeBag)
         viewModel?.cellTitles

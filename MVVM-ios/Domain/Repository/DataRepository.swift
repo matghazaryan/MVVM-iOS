@@ -91,6 +91,9 @@ class DataRepository: DataRepositoryProtocol {
             //                return try JSONDecoder().decode([Card].self, from: response.data, nestedKeys: "data", "cards_list")
             //            })
             .map([Card].self, atKeyPath: "data.cards_list", using: JSONDecoder(), failsOnEmptyData: false)
+            .do(onSuccess: { _ in
+                CoreDataManager.sInstance.saveContext()
+            })
             .asObservable()
     }
     

@@ -254,7 +254,7 @@
         <scene sceneID="Y2A-D6-wZA">
             <objects>
                 <tableViewController storyboardIdentifier="TransactionsVC" id="nXd-Lt-YvZ" customClass="TransactionsVC" customModule="MVVM_ios" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="lbd-XJ-Spt">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="lbd-XJ-Spt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -277,7 +277,7 @@
         <!--CardsVC-->
         <scene sceneID="cRD-n8-eOc">
             <objects>
-                <viewController storyboardIdentifier="CardsVC" id="6O7-be-aCh" customClass="CardsVC" customModule="MVVM_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CardsVC" automaticallyAdjustsScrollViewInsets="NO" id="6O7-be-aCh" customClass="CardsVC" customModule="MVVM_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mbT-kw-j7w">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
