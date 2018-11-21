@@ -30,16 +30,17 @@ class CardsVC: UIViewController {
         
         viewModel.model
             .bind(to: collectionView.rx.items(cellIdentifier: CardCollectionViewCell.reuseIdentifier, cellType: CardCollectionViewCell.self)) { indexPath, model, cell in
-                cell.cardNumberLabel.text = model.cardNumber
-                cell.dateLabel.text = "\(model.expDateMonth)/\(model.expDateYear)"
-                cell.holderLabel.text = model.embossingName
-                let startColor = UIColor(hexString: model.cardColor1)
-                let endColor = UIColor(hexString: model.cardColor2)
-                cell.cardView.startColor = startColor
-                cell.cardView.endColor = endColor
+                cell.viewModel = CardCellViewModel(model: model)
             }
             .disposed(by: disposeBag)
+        viewModel.model.subscribe(onNext: {card in
+            print(card)
+        }).disposed(by: disposeBag)
         
+        collectionView.rx.modelSelected(BehaviorRelay<Card>.self).subscribe(onNext: { card in
+            card.value.embossingName = "poxecinq"
+        })
+        .disposed(by: disposeBag)
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
     }
 

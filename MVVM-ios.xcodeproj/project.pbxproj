@@ -61,6 +61,8 @@
 		A4B5716B21A2B39200348A0A /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5716A21A2B39200348A0A /* UIColor+Extensions.swift */; };
 		A4B5716F21A2DEF000348A0A /* UIView+Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5716E21A2DEF000348A0A /* UIView+Drawing.swift */; };
 		A4B5717221A2EBD200348A0A /* BiometricUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5717121A2EBD200348A0A /* BiometricUtils.swift */; };
+		A4BDDC4F21A5326500B5B841 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDDC4E21A5326500B5B841 /* UIStackView+Extensions.swift */; };
+		A4BDDC5121A578EA00B5B841 /* CardCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDDC5021A578EA00B5B841 /* CardCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -121,6 +123,8 @@
 		A4B5716A21A2B39200348A0A /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		A4B5716E21A2DEF000348A0A /* UIView+Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Drawing.swift"; sourceTree = "<group>"; };
 		A4B5717121A2EBD200348A0A /* BiometricUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricUtils.swift; sourceTree = "<group>"; };
+		A4BDDC4E21A5326500B5B841 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
+		A4BDDC5021A578EA00B5B841 /* CardCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCellViewModel.swift; sourceTree = "<group>"; };
 		AAF51DB13A53C6CD1976688A /* Pods-MVVM-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVM-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVM-ios/Pods-MVVM-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -217,6 +221,7 @@
 				A47F7EE32195AE04001FD889 /* UITextView+Extensions.swift */,
 				A40A2FC2219AB28F00307984 /* String+NS.swift */,
 				A4B5716E21A2DEF000348A0A /* UIView+Drawing.swift */,
+				A4BDDC4E21A5326500B5B841 /* UIStackView+Extensions.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 			isa = PBXGroup;
 			children = (
 				A4944BE7219D413200F078C8 /* CardsViewModel.swift */,
+				A4BDDC5021A578EA00B5B841 /* CardCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -638,6 +644,7 @@
 				A4944BE8219D413200F078C8 /* CardsViewModel.swift in Sources */,
 				A4B5716921A2B12D00348A0A /* CollectionViewCell+ReuseIdentifier.swift in Sources */,
 				A4944BE3219D40F000F078C8 /* TransactionCell.swift in Sources */,
+				A4BDDC4F21A5326500B5B841 /* UIStackView+Extensions.swift in Sources */,
 				A4B5716B21A2B39200348A0A /* UIColor+Extensions.swift in Sources */,
 				A4944BCB219AE47D00F078C8 /* UserDefaultsHelper.swift in Sources */,
 				A47F7EE82195CB6D001FD889 /* User.swift in Sources */,
@@ -657,6 +664,7 @@
 				A4ADF625219D43FE00ABB7A5 /* KeyValueView.swift in Sources */,
 				A48B4072219558530089008C /* JSONDecoder+MultipleLevels.swift in Sources */,
 				91BC34FE2192C2D900CDD785 /* AppDelegate.swift in Sources */,
+				A4BDDC5121A578EA00B5B841 /* CardCellViewModel.swift in Sources */,
 				A4079CEB2193136F00A7178C /* String+Encoding.swift in Sources */,
 				A4944BE0219D40D100F078C8 /* TransactionsVC.swift in Sources */,
 				A4944BDE219C5D5400F078C8 /* TransactionViewModel.swift in Sources */,

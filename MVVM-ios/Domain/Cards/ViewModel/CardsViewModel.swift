@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 struct CardsViewModel {
-    private(set) var model: BehaviorRelay<[Card]>
+    private(set) var model: BehaviorRelay<[BehaviorRelay<Card>]>
     private var disposeBag = DisposeBag()
     
     init() {
@@ -21,7 +21,9 @@ struct CardsViewModel {
     func getCards() {
         DataRepository.getInstance()
             .getCards().subscribe(onNext: {
-                self.model.accept($0)
+                self.model.accept($0.map {
+                    BehaviorRelay(value: $0)
+                })
             }, onDisposed: {
                 print("\(self) disposed")
             })

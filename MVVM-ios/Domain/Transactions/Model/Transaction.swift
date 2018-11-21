@@ -7,12 +7,26 @@
 //
 
 import Foundation
+import RxDataSources
 
 struct Transaction: Codable {
     var transactionDetails: [TransactionDetail]
     
     enum CodingKeys: String, CodingKey {
         case transactionDetails = "transaction_details"
+    }
+}
+
+struct TransactionSectionModel: SectionModelType {
+    var items: [Transaction]
+    
+    init(original: TransactionSectionModel, items: [Transaction]) {
+        self = original
+        self.items = items
+    }
+    
+    init(items: [Transaction]) {
+        self.items = items
     }
 }
 

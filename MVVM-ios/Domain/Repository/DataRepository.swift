@@ -51,7 +51,6 @@ class DataRepository: DataRepositoryProtocol {
             .subscribeOn(CurrentThreadScheduler.instance)
             .observeOn(MainScheduler.asyncInstance)
             .map({[weak self] response -> User? in
-                //                let jsonDict = try JSONSerialization.jsonObject(with: response.data, options: JSONSerialization.ReadingOptions.mutableLeaves) as! [String: Any]
                 let user = try JSONDecoder().decode(User?.self, from: response.data, nestedKeys: "data")
                 self?.updateToken(user?.token)
                 return user
@@ -87,9 +86,6 @@ class DataRepository: DataRepositoryProtocol {
         return apiProvider.rx
             .request(.cards)
             .observeOn(MainScheduler.asyncInstance)
-            //            .map({ response -> [Card] in
-            //                return try JSONDecoder().decode([Card].self, from: response.data, nestedKeys: "data", "cards_list")
-            //            })
             .map([Card].self, atKeyPath: "data.cards_list", using: JSONDecoder(), failsOnEmptyData: false)
             .do(onSuccess: { _ in
                 CoreDataManager.sInstance.saveContext()
@@ -105,7 +101,7 @@ class DataRepository: DataRepositoryProtocol {
         return Observable.just(nil)
     }
     
-    func getAllCards() -> Observable<[Card]> {
+    func getCardsFromCache() -> Observable<[Card]> {
         guard let cards = try? CoreDataManager.fetchAllObjectsForType(Card.self) else {
             return Observable.just([])
         }

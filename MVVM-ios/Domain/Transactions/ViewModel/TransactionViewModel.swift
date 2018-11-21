@@ -25,6 +25,7 @@ class TransactionViewModel {
     }
     
     func fetchNext() {
+        print("alasad")
         if hasNextPage && !isLoading {
             isLoading = true
             DataRepository.getInstance().getTransactions(page: currentPage)

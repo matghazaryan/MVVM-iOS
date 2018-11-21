@@ -126,13 +126,29 @@ class CoreDataManager {
         return try context.fetch(fetchRequest)
     }
     
-    class func deleteObject<T: NSManagedObject>(_ entity: T.Type, primaryKey: Any, resultType: NSBatchDeleteRequestResultType) throws -> NSBatchDeleteResult {
+    class func deleteObject<T: NSManagedObject>(_ entity: T.Type, primaryKey: Any, resultType: NSBatchDeleteRequestResultType = .resultTypeCount) throws -> NSBatchDeleteResult {
         let fetchRequest = entity.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "%K = %@", entity.primaryKey(), primaryKey as! CVarArg)
         let context = sInstance.viewContext
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         deleteRequest.resultType = resultType
         return try context.execute(deleteRequest) as! NSBatchDeleteResult
+    }
+    
+    class func updateObject<T: NSManagedObject>(_ entity: T.Type, forPrimaryKey primaryKey: Any, columnNames names: [String], newValues values: [String], resultType: NSBatchUpdateRequestResultType = .updatedObjectsCountResultType) throws -> NSBatchUpdateResult {
+        guard names.count == values.count else {
+            throw NSError(domain: NSSQLiteErrorDomain, code: -9999, userInfo: [NSLocalizedFailureReasonErrorKey: "Passed column names and values mut be equal"])
+        }
+        let context = sInstance.viewContext
+        let updateRequest = NSBatchUpdateRequest(entityName: String(describing: entity))
+        updateRequest.predicate = NSPredicate(format: "%K = %@", entity.primaryKey(), primaryKey as! CVarArg)
+        updateRequest.resultType = resultType
+        var propertiesToUpdate: [String: String] = [:]
+        for (index, element) in names.enumerated() {
+            propertiesToUpdate[element] = values[index]
+        }
+        updateRequest.propertiesToUpdate = propertiesToUpdate
+        return try context.execute(updateRequest) as! NSBatchUpdateResult
     }
 }
 

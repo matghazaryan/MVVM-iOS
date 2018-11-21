@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxOptional
+import RxDataSources
 
 class TransactionsVC: UITableViewController {
     
@@ -28,26 +29,38 @@ class TransactionsVC: UITableViewController {
     }
     
     private func bindViews() {
+        let rxDataSource = RxTableViewSectionedReloadDataSource<TransactionSectionModel>(configureCell: { dataSource, tableView, indexPath, model -> TransactionCell in
+            let cell = tableView.dequeueReusableCell(withIdentifier: TransactionCell.reuseIdentifier, for: indexPath) as! TransactionCell
+            let subViews = model.transactionDetails.map({ detail -> KeyValueView in
+                let view = KeyValueView.loadFromNib()
+                view.keyLabel.text = detail.label
+                view.valueLabel.text = detail.value
+                return view
+            })
+            for subView in subViews {
+                cell.stackView.addArrangedSubview(subView)
+            }
+            return cell
+        })
+        
+        
         viewModel?.model
             .filterNil()
-            .bind(to: tableView.rx.items(cellIdentifier: TransactionCell.reuseIdentifier, cellType: TransactionCell.self)) { index, model, cell in
-                let subViews = model.transactionDetails.map({ detail -> KeyValueView in
-                    let view = KeyValueView.loadFromNib()
-                    view.keyLabel.text = detail.label
-                    view.valueLabel.text = detail.value
-                    return view
+            .map({ transaction -> [TransactionSectionModel] in
+                let x = transaction.map({
+                    TransactionSectionModel(items: [$0])
                 })
-                for subView in subViews {
-                    cell.stackView.addArrangedSubview(subView)
-                }
-            }
+                return x
+            })
+            .bind(to: tableView.rx.items(dataSource: rxDataSource))
             .disposed(by: disposeBag)
         tableView.rx.willDisplayCell.bind {[weak self] cell, indexPath in
-            let section = 0
-            guard let row = self?.tableView.numberOfRows(inSection: section) else {
-                return
+            guard let section = self?.tableView.numberOfSections,
+                let row = self?.tableView.numberOfRows(inSection: section - 1) else {
+                    return
             }
-            if indexPath == IndexPath(row: row - 1, section: section) {
+            if indexPath == IndexPath(row: row - 1, section: section - 1) {
+                print("asala")
                 self?.viewModel?.fetchNext()
             }
             }

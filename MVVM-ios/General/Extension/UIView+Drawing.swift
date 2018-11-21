@@ -20,7 +20,9 @@ class GradientView: UIView {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         
         guard let startColorComponents = startColor.cgColor.components,
-            let endColorComponents = endColor.cgColor.components else { return }
+            startColorComponents.count == 3,
+            let endColorComponents = endColor.cgColor.components,
+            endColorComponents.count == 3 else { return }
         let colorComponents: [CGFloat] = [startColorComponents[0], startColorComponents[1],
                                           startColorComponents[2], startColorComponents[3],
                                           endColorComponents[0], endColorComponents[1],

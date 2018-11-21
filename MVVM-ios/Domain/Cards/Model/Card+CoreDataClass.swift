@@ -32,7 +32,7 @@ class Card: NSManagedObject, Decodable {
         }
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let cardNumber = try container.decode(String.self, forKey: .cardNumber)
-        let count = try CoreDataManager.deleteObject(Card.self, primaryKey: cardNumber, resultType: .resultTypeCount).result as! Int
+        let count = try CoreDataManager.deleteObject(Card.self, primaryKey: cardNumber).result as! Int
         print("\(count) item was deleted, cardNumber = \(cardNumber)")
         self.init(entity: entity, insertInto: context)
         self.cardNumber = cardNumber

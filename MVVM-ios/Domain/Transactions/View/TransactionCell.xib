@@ -28,7 +28,7 @@
                         <viewLayoutGuide key="safeArea" id="7Lr-tz-LXp"/>
                     </view>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="DMx-ie-dHS">
-                        <rect key="frame" x="18" y="1" width="284" height="69.5"/>
+                        <rect key="frame" x="8" y="1" width="304" height="69.5"/>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NcU-7C-7kv">
                         <rect key="frame" x="18" y="70.5" width="284" height="1"/>
@@ -43,12 +43,12 @@
                     <constraint firstItem="NcU-7C-7kv" firstAttribute="top" secondItem="DMx-ie-dHS" secondAttribute="bottom" id="1fd-oS-9BJ"/>
                     <constraint firstItem="DMx-ie-dHS" firstAttribute="top" secondItem="DoB-ch-jZP" secondAttribute="bottom" id="2dv-8u-3eh"/>
                     <constraint firstAttribute="bottom" secondItem="NcU-7C-7kv" secondAttribute="bottom" constant="5" id="IYu-nb-IzC"/>
-                    <constraint firstItem="DMx-ie-dHS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="Kg4-Mb-4Pk"/>
+                    <constraint firstItem="DMx-ie-dHS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="Kg4-Mb-4Pk"/>
                     <constraint firstItem="DoB-ch-jZP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="Pzw-sZ-o3v"/>
                     <constraint firstItem="DoB-ch-jZP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="UfY-WY-1Dl"/>
                     <constraint firstItem="NcU-7C-7kv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="18" id="nH1-wP-FCc"/>
                     <constraint firstAttribute="trailing" secondItem="NcU-7C-7kv" secondAttribute="trailing" constant="18" id="pDo-7p-vdd"/>
-                    <constraint firstAttribute="trailing" secondItem="DMx-ie-dHS" secondAttribute="trailing" constant="18" id="tTE-gk-1W9"/>
+                    <constraint firstAttribute="trailing" secondItem="DMx-ie-dHS" secondAttribute="trailing" constant="8" id="tTE-gk-1W9"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
