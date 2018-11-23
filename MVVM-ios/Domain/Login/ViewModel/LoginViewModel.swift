@@ -18,10 +18,10 @@ struct LoginViewModel {
     private(set) var validFields: Observable<Bool>
     var rememberMe: Bool {
         set {
-            DataRepository.getInstance().setRememberMe(newValue)
+            DataRepository.getInstance().prefSetRememberMe(newValue)
         }
         get {
-            return DataRepository.getInstance().getRememberMe()
+            return DataRepository.getInstance().prefGetRememberMe()
         }
     }
     
@@ -52,6 +52,6 @@ struct LoginViewModel {
     }
     
     func doLogin(login: String, password: String) -> Observable<User?> {
-        return DataRepository.getInstance().login(email: login, password: password)
+        return DataRepository.getInstance().apiLogin(email: login, password: password)
     }
 }

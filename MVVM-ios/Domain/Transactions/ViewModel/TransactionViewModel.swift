@@ -28,7 +28,7 @@ class TransactionViewModel {
         print("alasad")
         if hasNextPage && !isLoading {
             isLoading = true
-            DataRepository.getInstance().getTransactions(page: currentPage)
+            DataRepository.getInstance().apiGetTransactions(page: currentPage)
                 .subscribe(onNext: {[weak self] in
                     self?.currentPage += 1
                     self?.hasNextPage = $0.hasNextPage

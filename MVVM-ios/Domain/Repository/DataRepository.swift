@@ -34,7 +34,7 @@ class DataRepository: DataRepositoryProtocol {
     
     // MARK: - APIHelperProtocol
     
-    func getConfigs() -> Observable<Configs?> {
+    func apiGetConfigs() -> Observable<Configs?> {
         return apiProvider.rx
             .request(.configs)
             .subscribeOn(CurrentThreadScheduler.instance)
@@ -45,20 +45,20 @@ class DataRepository: DataRepositoryProtocol {
             .asObservable()
     }
     
-    func login(email: String, password: String) -> Observable<User?> {
+    func apiLogin(email: String, password: String) -> Observable<User?> {
         return apiProvider.rx
             .request(.login(email: email, password: password))
             .subscribeOn(CurrentThreadScheduler.instance)
             .observeOn(MainScheduler.asyncInstance)
             .map({[weak self] response -> User? in
                 let user = try JSONDecoder().decode(User?.self, from: response.data, nestedKeys: "data")
-                self?.updateToken(user?.token)
+                self?.prefUpdateToken(user?.token)
                 return user
             })
             .asObservable()
     }
     
-    func logOut() -> Observable<Bool> {
+    func apiLogOut() -> Observable<Bool> {
         return apiProvider.rx
             .request(.logout)
             .observeOn(MainScheduler.asyncInstance)
@@ -69,7 +69,7 @@ class DataRepository: DataRepositoryProtocol {
             .asObservable()
     }
     
-    func getTransactions(page: Int) -> Observable<(transactions: [Transaction], hasNextPage: Bool)> {
+    func apiGetTransactions(page: Int) -> Observable<(transactions: [Transaction], hasNextPage: Bool)> {
         return apiProvider.rx
             .request(BaseTargetType.transactions(page: page))
             .observeOn(MainScheduler.asyncInstance)
@@ -82,7 +82,7 @@ class DataRepository: DataRepositoryProtocol {
             .asObservable()
     }
     
-    func getCards() -> Observable<[Card]> {
+    func apiGetCards() -> Observable<[Card]> {
         return apiProvider.rx
             .request(.cards)
             .observeOn(MainScheduler.asyncInstance)
@@ -93,15 +93,31 @@ class DataRepository: DataRepositoryProtocol {
             .asObservable()
     }
     
+    func apiUploadImage(_ data: Data) -> Observable<ProgressResponse> {
+        return apiProvider.rx
+            .requestWithProgress(.uploadImage(data))
+            .observeOn(MainScheduler.asyncInstance)
+//            .do(onNext: { response in
+//                if response.completed {
+//                    print(response.response)
+//                } else {
+//                    print("progress = \(response.progress)")
+//                }
+//            }, onError: {
+//                print("errror \($0)")
+//            })
+//            .asObservable()
+    }
+    
     // MARK: - DBHelperProtocol
     
-    func getConfigsFromCache() -> Observable<Configs?> {
+    func dbGetConfigsFromCache() -> Observable<Configs?> {
 //        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Configs")
 //        fetchRequest.entity = NSEntityDescription.entity(forEntityName: "Configs", in: )
         return Observable.just(nil)
     }
     
-    func getCardsFromCache() -> Observable<[Card]> {
+    func dbGetCardsFromCache() -> Observable<[Card]> {
         guard let cards = try? CoreDataManager.fetchAllObjectsForType(Card.self) else {
             return Observable.just([])
         }
@@ -110,19 +126,19 @@ class DataRepository: DataRepositoryProtocol {
     
     // MARK: - UserDefaultsHelper
     
-    func getToken() -> String? {
+    func prefGetToken() -> String? {
         return userDefaults.string(forKey: UserDefaultsKeys.token.rawValue)
     }
     
-    func updateToken(_ token: String?) {
+    func prefUpdateToken(_ token: String?) {
         userDefaults.setValue(token, forKey: UserDefaultsKeys.token.rawValue)
     }
     
-    func setRememberMe(_ value: Bool) {
+    func prefSetRememberMe(_ value: Bool) {
         userDefaults.set(value, forKey: UserDefaultsKeys.rememberMe.rawValue)
     }
     
-    func getRememberMe() -> Bool {
+    func prefGetRememberMe() -> Bool {
         return userDefaults.bool(forKey: UserDefaultsKeys.rememberMe.rawValue)
     }
     

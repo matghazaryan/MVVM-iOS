@@ -9,8 +9,8 @@
 import Foundation
 
 protocol UserDefaultsHelper {
-    func getToken() -> String?
-    func updateToken(_ token: String?)
-    func setRememberMe(_ value: Bool)
-    func getRememberMe() -> Bool
+    func prefGetToken() -> String?
+    func prefUpdateToken(_ token: String?)
+    func prefSetRememberMe(_ value: Bool)
+    func prefGetRememberMe() -> Bool
 }

@@ -20,7 +20,7 @@ struct CardsViewModel {
     
     func getCards() {
         DataRepository.getInstance()
-            .getCards().subscribe(onNext: {
+            .apiGetCards().subscribe(onNext: {
                 self.model.accept($0.map {
                     BehaviorRelay(value: $0)
                 })

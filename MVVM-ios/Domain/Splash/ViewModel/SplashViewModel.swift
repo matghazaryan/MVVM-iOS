@@ -25,7 +25,7 @@ struct SplashViewModel {
     }
     
     func getConfigs() {
-        DataRepository.getInstance().getConfigs()
+        DataRepository.getInstance().apiGetConfigs()
             .subscribe(onNext: {
                 self.configs.accept($0)
                 self.login()
@@ -34,13 +34,13 @@ struct SplashViewModel {
     }
     
     func login() {
-        if DataRepository.getInstance().getRememberMe() {
+        if DataRepository.getInstance().prefGetRememberMe() {
             guard let email = DataRepository.getInstance().getEmail(),
                 let password = DataRepository.getInstance().getPassword() else {
                     user.accept(nil)
                     return
             }
-            DataRepository.getInstance().login(email: email, password: password)
+            DataRepository.getInstance().apiLogin(email: email, password: password)
                 .subscribe(onNext: {
                     self.user.accept($0)
                 }, onError: {

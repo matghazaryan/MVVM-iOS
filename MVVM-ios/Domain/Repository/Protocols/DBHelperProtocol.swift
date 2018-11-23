@@ -10,6 +10,6 @@ import Foundation
 import RxSwift
 
 protocol DBHelperProtocol {
-    func getConfigsFromCache() -> Observable<Configs?>
-    func getCardsFromCache() -> Observable<[Card]>
+    func dbGetConfigsFromCache() -> Observable<Configs?>
+    func dbGetCardsFromCache() -> Observable<[Card]>
 }
