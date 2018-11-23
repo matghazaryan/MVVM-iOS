@@ -24,8 +24,8 @@ struct AccountViewModel {
     }
     
     func logOut() {
-        DataRepository.getInstance().logOut().subscribe(onNext: {
-            self.isLogin.accept($0)
+        DataRepository.getInstance().apiLogOut().subscribe(onNext: {
+            self.isLogin.accept(!$0)
         })
             .disposed(by: disposeBag)
     }

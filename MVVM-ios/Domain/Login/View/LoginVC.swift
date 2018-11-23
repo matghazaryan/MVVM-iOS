@@ -26,25 +26,23 @@ class LoginVC: UIViewController {
         viewModel = LoginViewModel()
         viewModel?.bindForValidation(login: loginTextField.rx.text, password: passwordTextField.rx.text)
         viewModel?.validFields.bind(to: loginButton.rx.isEnabled).disposed(by: disposeBag)
-        loginButton.rx.tap.subscribe({ [weak self] _ in
-            self?.viewModel?.doLogin(login: (self?.loginTextField.text)!, password: (self?.passwordTextField.text)!)
-            .subscribe(onNext: {
-                if let user = $0 {
-                    if self?.checkBox.isChecked == true {
-                        self?.viewModel?.rememberMe = true
-                        DataRepository.getInstance().saveEmail((self?.loginTextField.text)!)
-                        DataRepository.getInstance().savePassword((self?.passwordTextField.text)!)
-                    }
-                    let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
-                    let viewModel = AccountViewModel(user: user)
-                    nextVC.viewModel = viewModel
-                    UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: nextVC)
-                } else {
-                    print("error")
+        viewModel?.bindToLoginAction(loginButton.rx.tap)
+        viewModel?.model.subscribe(onNext: {[weak self] in
+            if let user = $0 {
+                if self?.checkBox.isChecked == true {
+                    self?.viewModel?.rememberMe = true
+                    DataRepository.getInstance().saveEmail((self?.loginTextField.text)!)
+                    DataRepository.getInstance().savePassword((self?.passwordTextField.text)!)
                 }
-            })
-            .disposed(by: (self?.disposeBag)!)
-        }).disposed(by: disposeBag)
+                let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
+                let viewModel = AccountViewModel(user: user)
+                nextVC.viewModel = viewModel
+                UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: nextVC)
+            } else {
+                print("error")
+            }
+        })
+        .disposed(by: disposeBag)
     }
 
 }

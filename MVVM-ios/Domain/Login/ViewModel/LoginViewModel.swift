@@ -16,6 +16,10 @@ struct LoginViewModel {
     private(set) var validLogin: Observable<Bool>
     private(set) var validPassword: Observable<Bool>
     private(set) var validFields: Observable<Bool>
+    private var user: Observable<(login: String, password: String)>
+    private(set) var model: Observable<User?>
+    
+    
     var rememberMe: Bool {
         set {
             DataRepository.getInstance().prefSetRememberMe(newValue)
@@ -29,6 +33,8 @@ struct LoginViewModel {
         validLogin = Observable.just(false)
         validFields = Observable.just(false)
         validPassword = Observable.just(false)
+        user = Observable.just((login: "", password: ""))
+        model = Observable.just(nil)
     }
     
     mutating func bindForValidation(login: ControlProperty<String?>, password: ControlProperty<String?>) {
@@ -49,9 +55,18 @@ struct LoginViewModel {
         validFields = Observable.combineLatest(validLogin, validPassword, resultSelector: { validLogin, validPassword in
             return validLogin && validPassword
         })
+         user = Observable.combineLatest(login.orEmpty, password.orEmpty, resultSelector: { login, pass in
+            return (login: login, password: pass)
+         })
     }
     
-    func doLogin(login: String, password: String) -> Observable<User?> {
-        return DataRepository.getInstance().apiLogin(email: login, password: password)
+    mutating func bindToLoginAction(_ tap: ControlEvent<Void>) {
+        model = tap.asObservable()
+            .withLatestFrom(user)
+            .flatMap {login, password -> Observable<User?> in
+                return DataRepository.getInstance().apiLogin(email: login, password: password)
+            }
+            .retry()
+            .share(replay: 1)
     }
 }
