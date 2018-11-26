@@ -12,18 +12,31 @@ import RxCocoa
 
 class SettingViewModel {
     var imageData: BehaviorRelay<Data?>
-    var buttonTap = PublishRelay<Void>()
+    var successUpload: Observable<Bool>
     
     init() {
         imageData = BehaviorRelay(value: nil)
+        successUpload = Observable<Bool>.just(false)
     }
     
     func setImageData(_ data: Data?) {
         imageData.accept(data)
     }
     
-    func uploadFile() -> PublishRelay<Void> {
-        print("file upload.....")
-        return PublishRelay<Void>()
+    func bindToUpload(_ tap: ControlEvent<Void>) {
+        successUpload = tap.asObservable()
+            .withLatestFrom(imageData)
+            .flatMap({ data -> Observable<Bool> in
+                guard let data = data else {
+                    return Observable.just(false)
+                }
+                print("file upload...")
+                return DataRepository.getInstance().apiUploadImage(data)
+                .map({ response -> Bool in
+                    return response.completed
+                })
+            })
+            .retry()
+            .share(replay: 1)
     }
 }

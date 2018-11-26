@@ -13,4 +13,8 @@ protocol UserDefaultsHelper {
     func prefUpdateToken(_ token: String?)
     func prefSetRememberMe(_ value: Bool)
     func prefGetRememberMe() -> Bool
+    func prefSaveConfigJson(_ json: Data?)
+    func prefGetConfigJson() -> Data?
+    func prefSetAvatarURL(_ url: URL?)
+    func prefGetAvatarURL() -> URL?
 }

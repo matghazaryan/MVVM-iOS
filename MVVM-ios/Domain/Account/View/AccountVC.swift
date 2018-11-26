@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 import RxSwift
 import RxCocoa
 
@@ -33,6 +34,27 @@ class AccountVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let url = DataRepository.getInstance().prefGetAvatarURL() else {
+            userImage.image = #imageLiteral(resourceName: "avatar")
+            return
+        }
+        let asset = PHAsset.fetchAssets(withALAssetURLs: [url], options: nil)
+        guard let result = asset.firstObject else {
+            userImage.image = #imageLiteral(resourceName: "avatar")
+            return
+        }
+        let imageManager = PHImageManager.default()
+        imageManager.requestImageData(for: result, options: nil) { data, string, orientation, dict in
+            guard let data = data else {
+                return
+            }
+            let image = UIImage(data: data)
+            self.userImage.image = image
+        }
+    }
+    
     private func bindViews() {
         tableView.rx.itemSelected.bind {[weak self] indexPath in
             guard let vc = self?.viewControllerForIndex(indexPath.row) else {
@@ -48,9 +70,9 @@ class AccountVC: UIViewController {
                 cell.textLabel?.text = model
             }
             .disposed(by: disposeBag)
-        viewModel?.model.subscribe(onNext: {[weak self] user in
-            self?.nameLabel.text = user?.email
-        })
+        viewModel?.model
+            .map({ $0?.email })
+            .bind(to: nameLabel.rx.text)
             .disposed(by: disposeBag)
         logOutButton.rx.tap.bind {[weak self] in
             self?.viewModel?.logOut()
@@ -58,6 +80,7 @@ class AccountVC: UIViewController {
             .disposed(by: disposeBag)
         viewModel?.isLogin.subscribe(onNext: {[weak self] logedIn in
             if !logedIn {
+                DataRepository.getInstance().prefSetRememberMe(false)
                 self?.dismiss(animated: true)
             }
         })

@@ -32,9 +32,7 @@ class SettingsVC: UITableViewController {
     
     private func setupNavigation() {
         let saveButton = UIBarButtonItem(title: "Save", style: .done, target: nil, action: nil)
-        saveButton.rx.tap.bind{
-            print("ipload...")
-            }.disposed(by: disposeBag)
+        viewModel.bindToUpload(saveButton.rx.tap)
         self.navigationItem.rightBarButtonItem = saveButton
     }
     
@@ -44,8 +42,12 @@ class SettingsVC: UITableViewController {
             guard let weakSelf = self else { return }
             self?.present(weakSelf.imagePicker, animated: true, completion: nil)
         }).disposed(by: disposeBag)
-        
-        
+        viewModel.successUpload.subscribe(onNext: {
+            if $0 {
+                self.navigationController?.popViewController(animated: true)
+            }
+        })
+        .disposed(by: disposeBag)
         viewModel.imageData.map({ unwrapedData -> UIImage? in
             guard let data = unwrapedData,
                 let image = UIImage(data: data) else {
@@ -63,6 +65,8 @@ extension SettingsVC: UIImagePickerControllerDelegate & UINavigationControllerDe
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let imageData = (info[.originalImage] as? UIImage)?.pngData()
         viewModel.setImageData(imageData)
+        let url = info[.referenceURL] as? URL
+        DataRepository.getInstance().prefSetAvatarURL(url)
         imagePicker.dismiss(animated: true, completion: nil)
     }
 }

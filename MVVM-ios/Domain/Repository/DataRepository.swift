@@ -15,6 +15,8 @@ import CoreData
 enum UserDefaultsKeys: String {
     case token
     case rememberMe
+    case configs
+    case avatar
 }
 
 enum KeychainKeys: String {
@@ -39,8 +41,19 @@ class DataRepository: DataRepositoryProtocol {
             .request(.configs)
             .subscribeOn(CurrentThreadScheduler.instance)
             .observeOn(MainScheduler.asyncInstance)
+            .do(onSuccess: {[weak self] response in
+                self?.prefSaveConfigJson(response.data)
+                }, onError: {
+                    print($0.localizedDescription)
+            })
+            .asDriver(onErrorRecover: {[weak self] error -> SharedSequence<DriverSharingStrategy, Response> in
+                guard let data = self?.prefGetConfigJson() else {
+                        return SharedSequence.just(Response.init(statusCode: 200, data: Data()))
+                    }
+                return SharedSequence.just(Response.init(statusCode: 200, data: data))
+            })
             .map({response -> Configs? in
-                return try JSONDecoder().decode(Configs?.self, from: response.data, nestedKeys: "data")
+                return try? JSONDecoder().decode(Configs.self, from: response.data, nestedKeys: "data")
             })
             .asObservable()
     }
@@ -140,6 +153,22 @@ class DataRepository: DataRepositoryProtocol {
     
     func prefGetRememberMe() -> Bool {
         return userDefaults.bool(forKey: UserDefaultsKeys.rememberMe.rawValue)
+    }
+    
+    func prefSaveConfigJson(_ json: Data?) {
+        userDefaults.set(json, forKey: UserDefaultsKeys.configs.rawValue)
+    }
+    
+    func prefGetConfigJson() -> Data? {
+        return userDefaults.data(forKey: UserDefaultsKeys.configs.rawValue)
+    }
+    
+    func prefSetAvatarURL(_ url: URL?) {
+        userDefaults.set(url, forKey: UserDefaultsKeys.avatar.rawValue)
+    }
+    
+    func prefGetAvatarURL() -> URL? {
+        return userDefaults.url(forKey: UserDefaultsKeys.avatar.rawValue)
     }
     
     // MARK: - KeychainManager

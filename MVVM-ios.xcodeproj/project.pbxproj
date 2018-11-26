@@ -423,7 +423,7 @@
 		A4ADF62A21A68A8300ABB7A5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A4ADF62B21A68AC700ABB7A5 /* CoewData */,
+				A4ADF62B21A68AC700ABB7A5 /* CoreData */,
 				A4944BDB219C5D4100F078C8 /* Transaction.swift */,
 				A4079CDB219306FB00A7178C /* Configs.swift */,
 				A47F7EE72195CB6D001FD889 /* User.swift */,
@@ -431,13 +431,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		A4ADF62B21A68AC700ABB7A5 /* CoewData */ = {
+		A4ADF62B21A68AC700ABB7A5 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 				A4944BD7219C5D2400F078C8 /* Card+CoreDataProperties.swift */,
 				A4944BD9219C5D3200F078C8 /* Card+CoreDataClass.swift */,
 			);
-			path = CoewData;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		A4ADF62C21A68DCA00ABB7A5 /* View */ = {

@@ -9,8 +9,16 @@
 import UIKit
 
 class GradientView: UIView {
-    var startColor: UIColor = .white
-    var endColor: UIColor = .white
+    var startColor: UIColor = .white {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    var endColor: UIColor = .white {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else {
@@ -20,9 +28,9 @@ class GradientView: UIView {
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         
         guard let startColorComponents = startColor.cgColor.components,
-            startColorComponents.count == 3,
+            startColorComponents.count == 4,
             let endColorComponents = endColor.cgColor.components,
-            endColorComponents.count == 3 else { return }
+            endColorComponents.count == 4 else { return }
         let colorComponents: [CGFloat] = [startColorComponents[0], startColorComponents[1],
                                           startColorComponents[2], startColorComponents[3],
                                           endColorComponents[0], endColorComponents[1],

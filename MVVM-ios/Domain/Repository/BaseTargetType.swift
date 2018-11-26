@@ -15,11 +15,17 @@ enum BaseTargetType {
     case logout
     case transactions(page: Int)
     case cards
+    case uploadImage(Data)
 }
 
 extension BaseTargetType: TargetType {
     var baseURL: URL {
-        return try! "https://www.mocky.io/v2".asURL()
+        switch self {
+        case .uploadImage(_):
+            return try! "https://up.flickr.com/services".asURL()
+        default:
+            return try! "https://www.mocky.io/v2".asURL()
+        }
     }
     
     var path: String {
@@ -53,6 +59,8 @@ extension BaseTargetType: TargetType {
             }
         case .cards:
             return "5bec1fe1330000cd25fbc282"
+        case .uploadImage(_):
+            return "upload"
         }
     }
     
@@ -68,6 +76,8 @@ extension BaseTargetType: TargetType {
             return .post
         case .cards:
             return .get
+        case .uploadImage(_):
+            return .post
         }
     }
     
@@ -83,6 +93,8 @@ extension BaseTargetType: TargetType {
             return "transactions".utf8Encoded
         case .cards:
             return "cards".utf8Encoded
+        case .uploadImage(_):
+            return "uploadImage".utf8Encoded
         }
     }
     
@@ -92,12 +104,18 @@ extension BaseTargetType: TargetType {
         params["applicationId"] = BaseTargetType.getUDID()
         params["applicationVersion"] = BaseTargetType.getApplicationVersionNumber()
         params["deviceScale"] = BaseTargetType.getDeviceScale()
-        params["jwt"] = DataRepository.getInstance().getToken()
+        params["jwt"] = DataRepository.getInstance().prefGetToken()
         switch self {
         case .login(let email, let password):
             params["email"] = email
             params["password"] = password
             return .requestParameters(parameters: params, encoding: URLEncoding(destination: .queryString))
+        case .uploadImage(let data):
+            let params: [String: Any] = ["api_key": "ca370d51a054836007519a00ff4ce59e",
+                                         "photo": data,
+                                         "title": "title",
+                                         "description": "desc"]
+            return .requestParameters(parameters: params, encoding: URLEncoding(destination: .httpBody))
         default:
             return .requestParameters(parameters: params, encoding: URLEncoding(destination: .queryString))
         }
@@ -115,6 +133,8 @@ extension BaseTargetType: TargetType {
         case .transactions(_):
             return nil
         case .cards:
+            return nil
+        case .uploadImage(_):
             return nil
         }
     }
