@@ -53,6 +53,7 @@
 		A4944BEA219D415D00F078C8 /* CardsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BE9219D415D00F078C8 /* CardsVC.swift */; };
 		A4ADF625219D43FE00ABB7A5 /* KeyValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ADF624219D43FE00ABB7A5 /* KeyValueView.swift */; };
 		A4ADF629219D604300ABB7A5 /* KeyValueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4ADF628219D604300ABB7A5 /* KeyValueView.xib */; };
+		A4ADF63021A6985B00ABB7A5 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ADF62F21A6985B00ABB7A5 /* SettingViewModel.swift */; };
 		A4B5716121A29F9300348A0A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5716021A29F9300348A0A /* CardView.swift */; };
 		A4B5716321A29FDB00348A0A /* CardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B5716221A29FDB00348A0A /* CardView.xib */; };
 		A4B5716621A2A73C00348A0A /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5716421A2A73C00348A0A /* CardCollectionViewCell.swift */; };
@@ -115,6 +116,7 @@
 		A4944BE9219D415D00F078C8 /* CardsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsVC.swift; sourceTree = "<group>"; };
 		A4ADF624219D43FE00ABB7A5 /* KeyValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueView.swift; sourceTree = "<group>"; };
 		A4ADF628219D604300ABB7A5 /* KeyValueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyValueView.xib; sourceTree = "<group>"; };
+		A4ADF62F21A6985B00ABB7A5 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		A4B5716021A29F9300348A0A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		A4B5716221A29FDB00348A0A /* CardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardView.xib; sourceTree = "<group>"; };
 		A4B5716421A2A73C00348A0A /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		A4079CCE2193007500A7178C /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				A4ADF62A21A68A8300ABB7A5 /* Models */,
 				A4944BD6219C5AB600F078C8 /* Settings */,
 				A4944BD2219C5A9800F078C8 /* Transactions */,
 				A4944BCE219C5A7900F078C8 /* Cards */,
@@ -240,17 +243,8 @@
 			children = (
 				A4079CD62193069800A7178C /* ViewModel */,
 				A4079CD52193069200A7178C /* View */,
-				A4079CD42193068D00A7178C /* Model */,
 			);
 			path = Splash;
-			sourceTree = "<group>";
-		};
-		A4079CD42193068D00A7178C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				A4079CDB219306FB00A7178C /* Configs.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		A4079CD52193069200A7178C /* View */ = {
@@ -294,27 +288,10 @@
 		A4079CF12193266900A7178C /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				A4ADF62C21A68DCA00ABB7A5 /* View */,
 				A4079CF42193267B00A7178C /* ViewModel */,
-				A4079CF32193267700A7178C /* Model */,
-				A4079CF22193267000A7178C /* View */,
 			);
 			path = Login;
-			sourceTree = "<group>";
-		};
-		A4079CF22193267000A7178C /* View */ = {
-			isa = PBXGroup;
-			children = (
-				A4079CF5219326CE00A7178C /* LoginVC.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		A4079CF32193267700A7178C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				A47F7EE72195CB6D001FD889 /* User.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		A4079CF42193267B00A7178C /* ViewModel */ = {
@@ -338,16 +315,8 @@
 			children = (
 				A40A2FB7219975F000307984 /* ViewModel */,
 				A40A2FB6219975EA00307984 /* View */,
-				A40A2FB5219975E000307984 /* Model */,
 			);
 			path = Account;
-			sourceTree = "<group>";
-		};
-		A40A2FB5219975E000307984 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		A40A2FB6219975EA00307984 /* View */ = {
@@ -388,18 +357,8 @@
 			children = (
 				A4944BD1219C5A9100F078C8 /* ViewModel */,
 				A4944BD0219C5A8C00F078C8 /* View */,
-				A4944BCF219C5A8400F078C8 /* Model */,
 			);
 			path = Cards;
-			sourceTree = "<group>";
-		};
-		A4944BCF219C5A8400F078C8 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				A4944BD7219C5D2400F078C8 /* Card+CoreDataProperties.swift */,
-				A4944BD9219C5D3200F078C8 /* Card+CoreDataClass.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		A4944BD0219C5A8C00F078C8 /* View */ = {
@@ -428,17 +387,8 @@
 			children = (
 				A4944BD5219C5AB000F078C8 /* ViewModel */,
 				A4944BD4219C5AAA00F078C8 /* View */,
-				A4944BD3219C5AA200F078C8 /* Model */,
 			);
 			path = Transactions;
-			sourceTree = "<group>";
-		};
-		A4944BD3219C5AA200F078C8 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				A4944BDB219C5D4100F078C8 /* Transaction.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		A4944BD4219C5AAA00F078C8 /* View */ = {
@@ -464,9 +414,54 @@
 		A4944BD6219C5AB600F078C8 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				A4944BE5219D411400F078C8 /* SettingsVC.swift */,
+				A4ADF62D21A6984500ABB7A5 /* ViewModel */,
+				A4ADF62E21A6984D00ABB7A5 /* View */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		A4ADF62A21A68A8300ABB7A5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A4ADF62B21A68AC700ABB7A5 /* CoewData */,
+				A4944BDB219C5D4100F078C8 /* Transaction.swift */,
+				A4079CDB219306FB00A7178C /* Configs.swift */,
+				A47F7EE72195CB6D001FD889 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A4ADF62B21A68AC700ABB7A5 /* CoewData */ = {
+			isa = PBXGroup;
+			children = (
+				A4944BD7219C5D2400F078C8 /* Card+CoreDataProperties.swift */,
+				A4944BD9219C5D3200F078C8 /* Card+CoreDataClass.swift */,
+			);
+			path = CoewData;
+			sourceTree = "<group>";
+		};
+		A4ADF62C21A68DCA00ABB7A5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4079CF5219326CE00A7178C /* LoginVC.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A4ADF62D21A6984500ABB7A5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A4ADF62F21A6985B00ABB7A5 /* SettingViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A4ADF62E21A6984D00ABB7A5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4944BE5219D411400F078C8 /* SettingsVC.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		A4B5717021A2E67700348A0A /* Biometric */ = {
@@ -667,6 +662,7 @@
 				A4BDDC5121A578EA00B5B841 /* CardCellViewModel.swift in Sources */,
 				A4079CEB2193136F00A7178C /* String+Encoding.swift in Sources */,
 				A4944BE0219D40D100F078C8 /* TransactionsVC.swift in Sources */,
+				A4ADF63021A6985B00ABB7A5 /* SettingViewModel.swift in Sources */,
 				A4944BDE219C5D5400F078C8 /* TransactionViewModel.swift in Sources */,
 				A4079CE521930F6500A7178C /* APIHelperProtocol.swift in Sources */,
 				A40A2FB321996F0A00307984 /* CheckBox.swift in Sources */,

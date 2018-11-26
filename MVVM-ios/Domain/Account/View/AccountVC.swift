@@ -73,7 +73,8 @@ class AccountVC: UIViewController {
             let vc: TransactionsVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
             return vc
         case Indexes.settings.rawValue:
-            return UIViewController()
+            let vc: SettingsVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
+            return vc
         default:
             return UIViewController()
         }
