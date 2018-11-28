@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  MVVM-ios
+
+  Created by Hovhannes Stepanyan on 11/26/18.
+  Copyright © 2018 Matevos Ghazaryan. All rights reserved.
+*/
+
+"Cards" = "Карты";
+"Transactions" = "Транзакции";
+"Settings" = "Настройки";
