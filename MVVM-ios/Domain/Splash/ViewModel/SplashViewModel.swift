@@ -34,19 +34,25 @@ struct SplashViewModel {
     }
     
     func login() {
-        if DataRepository.getInstance().prefGetRememberMe() {
-            guard let email = DataRepository.getInstance().getEmail(),
-                let password = DataRepository.getInstance().getPassword() else {
-                    user.accept(nil)
-                    return
+        if DataRepository.getInstance().prefGetRememberMe() && BiometricUtils.biometricType() != .none {
+            BiometricUtils.authUser(localizedReason: "For Login") { success, error in
+                if success {
+                    guard let email = DataRepository.getInstance().getEmail(),
+                        let password = DataRepository.getInstance().getPassword() else {
+                            self.user.accept(nil)
+                            return
+                    }
+                    DataRepository.getInstance().apiLogin(email: email, password: password)
+                        .subscribe(onNext: {
+                            self.user.accept($0)
+                        }, onError: {
+                            self.error.accept($0)
+                        })
+                        .disposed(by: self.disposeBag)
+                } else {
+                    self.user.accept(nil)
+                }
             }
-            DataRepository.getInstance().apiLogin(email: email, password: password)
-                .subscribe(onNext: {
-                    self.user.accept($0)
-                }, onError: {
-                    self.error.accept($0)
-                })
-                .disposed(by: disposeBag)
         } else {
             user.accept(nil)
         }

@@ -25,6 +25,7 @@ class SplashVC: UIViewController {
     
     private func bindViews() {
         viewModel?.user
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { user in
                 if user != nil {
                     let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
