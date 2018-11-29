@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1304B8D18FD15D7A566D4BB7 /* Pods_MVVM_ios.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BE9A7E7A5EB6C37A773801B /* Pods_MVVM_ios.framework */; };
 		91BC34FE2192C2D900CDD785 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BC34FD2192C2D900CDD785 /* AppDelegate.swift */; };
-		91BC35032192C2D900CDD785 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91BC35012192C2D900CDD785 /* Main.storyboard */; };
 		91BC35062192C2D900CDD785 /* MVVM_ios.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 91BC35042192C2D900CDD785 /* MVVM_ios.xcdatamodeld */; };
 		91BC35082192C2DB00CDD785 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91BC35072192C2DB00CDD785 /* Assets.xcassets */; };
 		91BC350B2192C2DB00CDD785 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91BC35092192C2DB00CDD785 /* LaunchScreen.storyboard */; };
@@ -29,6 +28,7 @@
 		A40A2FBD2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FBC2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift */; };
 		A40A2FBF219AA6BA00307984 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FBE219AA6B900307984 /* CoreDataManager.swift */; };
 		A40A2FC3219AB28F00307984 /* String+NS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FC2219AB28F00307984 /* String+NS.swift */; };
+		A46AA75D21AFD7870057D294 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A46AA75C21AFD7870057D294 /* Main.storyboard */; };
 		A47F7EE42195AE04001FD889 /* UITextView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47F7EE32195AE04001FD889 /* UITextView+Extensions.swift */; };
 		A47F7EE62195AFAD001FD889 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47F7EE52195AFAD001FD889 /* LoginViewModel.swift */; };
 		A47F7EE82195CB6D001FD889 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47F7EE72195CB6D001FD889 /* User.swift */; };
@@ -105,9 +105,8 @@
 		A40A2FBC2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TableViewCell+ReuseIdentifier.swift"; sourceTree = "<group>"; };
 		A40A2FBE219AA6B900307984 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		A40A2FC2219AB28F00307984 /* String+NS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NS.swift"; sourceTree = "<group>"; };
-		A41D921421AD09A0005EB972 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A41D921521AD09A1005EB972 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A41D921621AD09A2005EB972 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A46AA75C21AFD7870057D294 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A47F7EE32195AE04001FD889 /* UITextView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+Extensions.swift"; sourceTree = "<group>"; };
 		A47F7EE52195AFAD001FD889 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		A47F7EE72195CB6D001FD889 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -184,7 +183,6 @@
 			children = (
 				A4079CCE2193007500A7178C /* Domain */,
 				A4079CCF2193007F00A7178C /* General */,
-				91BC35012192C2D900CDD785 /* Main.storyboard */,
 			);
 			path = "MVVM-ios";
 			sourceTree = "<group>";
@@ -218,6 +216,7 @@
 		A4079CD0219300BF00A7178C /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				A46AA75C21AFD7870057D294 /* Main.storyboard */,
 				A4B5717021A2E67700348A0A /* Biometric */,
 				A48B4082219559400089008C /* Reachibility */,
 				A48B4078219558860089008C /* InApp Localization */,
@@ -575,11 +574,11 @@
 				91BC350B2192C2DB00CDD785 /* LaunchScreen.storyboard in Resources */,
 				91BC35082192C2DB00CDD785 /* Assets.xcassets in Resources */,
 				A4B5716321A29FDB00348A0A /* CardView.xib in Resources */,
+				A46AA75D21AFD7870057D294 /* Main.storyboard in Resources */,
 				A4944BE4219D40F000F078C8 /* TransactionCell.xib in Resources */,
 				A4ADF629219D604300ABB7A5 /* KeyValueView.xib in Resources */,
 				A4C6F36321AC320700859FA1 /* Localizable.strings in Resources */,
 				A4B5716721A2A73C00348A0A /* CardCollectionViewCell.xib in Resources */,
-				91BC35032192C2D900CDD785 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -699,15 +698,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		91BC35012192C2D900CDD785 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A41D921421AD09A0005EB972 /* ru */,
-				A41D921621AD09A2005EB972 /* en */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		91BC35092192C2DB00CDD785 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

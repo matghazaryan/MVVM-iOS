@@ -9,3 +9,10 @@
 "Cards" = "Карты";
 "Transactions" = "Транзакции";
 "Settings" = "Настройки";
+"Login" = "Логин";
+"Password" = "Пароль";
+"Remember me" = "запомни меня";
+"Login_button" = "Войти";
+"Log Out" = "Выйти";
+"Application_Language" = "Язык интерфейса";
+"Save" = "Сохранить";

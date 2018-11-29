@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 import RxSwift
 import RxCocoa
 
@@ -30,8 +31,29 @@ class SettingsVC: UITableViewController {
         bindViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let url = DataRepository.getInstance().prefGetAvatarURL() else {
+            avatar.image = #imageLiteral(resourceName: "avatar")
+            return
+        }
+        let asset = PHAsset.fetchAssets(withALAssetURLs: [url], options: nil)
+        guard let result = asset.firstObject else {
+            avatar.image = #imageLiteral(resourceName: "avatar")
+            return
+        }
+        let imageManager = PHImageManager.default()
+        imageManager.requestImageData(for: result, options: nil) { data, string, orientation, dict in
+            guard let data = data else {
+                return
+            }
+            let image = UIImage(data: data)
+            self.avatar.image = image
+        }
+    }
+    
     private func setupNavigation() {
-        let saveButton = UIBarButtonItem(title: "Save", style: .done, target: nil, action: nil)
+        let saveButton = UIBarButtonItem(title: "Save".localized, style: .done, target: nil, action: nil)
         viewModel.bindToUpload(saveButton.rx.tap)
         self.navigationItem.rightBarButtonItem = saveButton
     }
@@ -57,6 +79,10 @@ class SettingsVC: UITableViewController {
         })
             .bind(to: avatar.rx.image)
             .disposed(by: disposeBag)
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.navigationController?.pushViewController(SelectLanguageVC(), animated: true)
     }
 
 }
