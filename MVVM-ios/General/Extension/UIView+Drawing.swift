@@ -8,12 +8,15 @@
 
 import UIKit
 
+@IBDesignable
 class GradientView: UIView {
+    @IBInspectable
     var startColor: UIColor = .white {
         didSet {
             setNeedsDisplay()
         }
     }
+    @IBInspectable
     var endColor: UIColor = .white {
         didSet {
             setNeedsDisplay()
@@ -31,10 +34,13 @@ class GradientView: UIView {
             startColorComponents.count == 4,
             let endColorComponents = endColor.cgColor.components,
             endColorComponents.count == 4 else { return }
-        let colorComponents: [CGFloat] = [startColorComponents[0], startColorComponents[1],
-                                          startColorComponents[2], startColorComponents[3],
-                                          endColorComponents[0], endColorComponents[1],
-                                          endColorComponents[2], endColorComponents[3]]
+//        let colorComponents: [CGFloat] = [startColorComponents[0], startColorComponents[1],
+//                                          startColorComponents[2], startColorComponents[3],
+//                                          endColorComponents[0], endColorComponents[1],
+//                                          endColorComponents[2], endColorComponents[3]]
+        var colorComponents: [CGFloat] = [CGFloat]()
+        colorComponents.append(contentsOf: startColorComponents)
+        colorComponents.append(contentsOf: endColorComponents)
         
         let locations:[CGFloat] = [0.0, 1.0]
         guard let gradient = CGGradient(colorSpace: colorSpace,colorComponents: colorComponents,locations: locations,count: 2) else { return }

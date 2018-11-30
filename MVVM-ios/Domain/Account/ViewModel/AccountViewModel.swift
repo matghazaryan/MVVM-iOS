@@ -16,7 +16,7 @@ class AccountViewModel {
     var model: BehaviorRelay<User?>
     let isLogin: PublishRelay<Bool> = PublishRelay()
     let disposeBag = DisposeBag()
-    let cellTitles = BehaviorRelay<[String]>(value: ["Cards".localized, "Transactions".localized, "Settings".localized])
+    let cellTitles = BehaviorRelay<[String]>(value: [])
     
     init(user: User) {
         model = BehaviorRelay(value: user)

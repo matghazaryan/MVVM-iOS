@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 let languageChangeNotification = Notification.Name("am.hovhannes.personal.language.manager.language.change")
 
@@ -15,7 +17,7 @@ class LanguageManager {
         case current
     }
     
-    private static let sInstance = LanguageManager()
+    static let sInstance = LanguageManager()
     private static let localization = "am.hovhannes.personal.language.manager"
     private let userDefaults = UserDefaults(suiteName: "am.hovhannes.personal.language.manager.userdefaults")
     private lazy var supportedLanguages = Bundle.main.localizations
@@ -26,6 +28,13 @@ class LanguageManager {
         }
     }
     
+    var languageChange: PublishRelay<String?> = PublishRelay()
+    var currentLocalized: String? {
+        let identifier = LanguageManager.current().valueOr("en")
+        let locale = NSLocale(localeIdentifier: identifier)
+       return locale.displayName(forKey: NSLocale.Key.identifier, value: identifier)
+    }
+    
     static func current() -> String? {
         return sInstance.userDefaults?.string(forKey: Keys.current.rawValue)
     }
@@ -33,8 +42,13 @@ class LanguageManager {
     static func setCurrent(_ value: String?) {
         if let lang = value {
             sInstance.userDefaults?.set(lang, forKey: Keys.current.rawValue)
+            // important to post value after set in userDefaults
+            sInstance.languageChange.accept(lang)
         } else {
-            sInstance.userDefaults?.set(Bundle.main.preferredLocalizations.first, forKey: Keys.current.rawValue)
+            let lang = Bundle.main.preferredLocalizations.first
+            sInstance.userDefaults?.set(lang, forKey: Keys.current.rawValue)
+            // important to post value after set in userDefaults
+            sInstance.languageChange.accept(lang)
         }
         NotificationCenter.default.post(name: languageChangeNotification, object: self)
     }
@@ -42,6 +56,8 @@ class LanguageManager {
     static func setCurrent(_ index: Int) {
         let lang = sInstance.supportedLanguages[index]
         sInstance.userDefaults?.set(lang, forKey: Keys.current.rawValue)
+        // important to post value after set in userDefaults
+        sInstance.languageChange.accept(lang)
         NotificationCenter.default.post(name: languageChangeNotification, object: self)
     }
     

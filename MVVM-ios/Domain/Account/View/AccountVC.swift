@@ -30,6 +30,8 @@ class AccountVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
+        self.viewModel?.cellTitles.accept(["Cards".localized, "Transactions".localized, "Settings".localized])
+        navigationItem.title = "Account".localized
         bindViews()
         // Do any additional setup after loading the view.
     }
@@ -83,6 +85,13 @@ class AccountVC: UIViewController {
                 DataRepository.getInstance().prefSetRememberMe(false)
                 self?.dismiss(animated: true)
             }
+        })
+            .disposed(by: disposeBag)
+        LanguageManager.sInstance.languageChange.subscribe({_ in
+            self.view = nil
+            self.viewModel?.cellTitles.accept(["Cards".localized, "Transactions".localized, "Settings".localized])
+            self.navigationItem.title = "Account".localized
+            self.viewWillAppear(true)
         })
             .disposed(by: disposeBag)
     }

@@ -14,6 +14,7 @@ import RxCocoa
 class SettingsVC: UITableViewController {
 
     @IBOutlet private weak var avatar: UIImageView!
+    
     let viewModel = SettingViewModel()
     lazy var imagePicker: UIImagePickerController =  {
         let picker = UIImagePickerController()
