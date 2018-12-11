@@ -19,34 +19,34 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfj-u5-sZD" customClass="GradientView" customModule="MVVM_ios" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="297" height="150"/>
+                        <rect key="frame" x="16" y="0.0" width="265" height="150"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="BIC-vD-n4x">
-                                <rect key="frame" x="18" y="8" width="279" height="134"/>
+                                <rect key="frame" x="18" y="8" width="247" height="134"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some Bank" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S4L-pn-do6">
-                                        <rect key="frame" x="0.0" y="0.0" width="279" height="24.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="247" height="24.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M8Z-x6-HTw">
-                                        <rect key="frame" x="0.0" y="34.5" width="279" height="24.5"/>
+                                        <rect key="frame" x="0.0" y="34.5" width="247" height="24.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NBa-hp-5BW">
-                                        <rect key="frame" x="0.0" y="69" width="279" height="24.5"/>
+                                        <rect key="frame" x="0.0" y="69" width="247" height="24.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid Truh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxB-3X-sh2">
-                                                <rect key="frame" x="0.0" y="0.0" width="165.5" height="24.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid Truh" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxB-3X-sh2">
+                                                <rect key="frame" x="0.0" y="0.0" width="146.5" height="24.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uly-Qv-bcS">
-                                                <rect key="frame" x="175.5" y="0.0" width="103.5" height="24.5"/>
+                                                <rect key="frame" x="156.5" y="0.0" width="90.5" height="24.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -54,7 +54,7 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNl-AB-ISR">
-                                        <rect key="frame" x="0.0" y="103.5" width="279" height="30.5"/>
+                                        <rect key="frame" x="0.0" y="103.5" width="247" height="30.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -69,16 +69,28 @@
                             <constraint firstAttribute="bottom" secondItem="BIC-vD-n4x" secondAttribute="bottom" constant="8" id="FT0-jH-R8k"/>
                             <constraint firstItem="BIC-vD-n4x" firstAttribute="top" secondItem="jfj-u5-sZD" secondAttribute="top" constant="8" id="mwd-VK-uop"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="15"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="jfj-u5-sZD" secondAttribute="bottom" id="4pb-yU-RCJ"/>
                 <constraint firstItem="jfj-u5-sZD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Lc9-dX-fqo"/>
-                <constraint firstItem="jfj-u5-sZD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="OS2-ZC-wka"/>
-                <constraint firstAttribute="trailing" secondItem="jfj-u5-sZD" secondAttribute="trailing" id="Uby-b9-m0u"/>
+                <constraint firstItem="jfj-u5-sZD" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="OS2-ZC-wka"/>
+                <constraint firstAttribute="trailing" secondItem="jfj-u5-sZD" secondAttribute="trailing" constant="16" id="Uby-b9-m0u"/>
             </constraints>
             <size key="customSize" width="297" height="150"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.clipsToBounds" value="YES"/>
+                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                    <integer key="value" value="5"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="cardNumberLabel" destination="M8Z-x6-HTw" id="eps-Ce-8PE"/>
                 <outlet property="cardView" destination="jfj-u5-sZD" id="01p-S3-HjP"/>

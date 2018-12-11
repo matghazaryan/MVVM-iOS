@@ -15,12 +15,11 @@ class CardCollectionViewCell: UICollectionViewCell {
     @IBOutlet private weak var cardNumberLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var holderLabel: UILabel!
-    var viewModel: CardCellViewModel? {
+    var model: Card? {
         didSet {
             bindViews()
         }
     }
-    private let disposeBag = DisposeBag()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,16 +27,12 @@ class CardCollectionViewCell: UICollectionViewCell {
     }
     
     private func bindViews() {
-        viewModel?.model
-            .subscribe(onNext: {[weak self] model in
-                self?.cardNumberLabel.text = model.cardNumber
-                self?.dateLabel.text = "\(model.expDateMonth)/\(model.expDateYear)"
-                self?.holderLabel.text = model.embossingName
-                let startColor = UIColor(hexString: model.cardColor1)
-                let endColor = UIColor(hexString: model.cardColor2)
-                self?.cardView.startColor = startColor
-                self?.cardView.endColor = endColor
-            })
-            .disposed(by: disposeBag)
+        self.cardNumberLabel.text = model?.cardNumber
+        self.dateLabel.text = "\(String(describing: model?.expDateMonth))/\(String(describing: model?.expDateYear))"
+        self.holderLabel.text = model?.embossingName
+        let startColor = UIColor(hexString: (model?.cardColor1).valueOr("FFFFFF"))
+        let endColor = UIColor(hexString: (model?.cardColor2).valueOr("FFFFFF"))
+        self.cardView.startColor = startColor
+        self.cardView.endColor = endColor
     }
 }

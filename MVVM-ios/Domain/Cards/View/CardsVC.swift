@@ -30,17 +30,10 @@ class CardsVC: UIViewController {
         
         viewModel.model
             .bind(to: collectionView.rx.items(cellIdentifier: CardCollectionViewCell.reuseIdentifier, cellType: CardCollectionViewCell.self)) { indexPath, model, cell in
-                cell.viewModel = CardCellViewModel(model: model)
+                cell.model = model
             }
             .disposed(by: disposeBag)
-        viewModel.model.subscribe(onNext: {card in
-            print(card)
-        }).disposed(by: disposeBag)
-        
-        collectionView.rx.modelSelected(BehaviorRelay<Card>.self).subscribe(onNext: { card in
-            card.value.embossingName = "poxecinq"
-        })
-        .disposed(by: disposeBag)
+        //change delegate to ourself for manage size of cell
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
     }
 

@@ -63,7 +63,6 @@
 		A4B5716F21A2DEF000348A0A /* UIView+Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5716E21A2DEF000348A0A /* UIView+Drawing.swift */; };
 		A4B5717221A2EBD200348A0A /* BiometricUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B5717121A2EBD200348A0A /* BiometricUtils.swift */; };
 		A4BDDC4F21A5326500B5B841 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDDC4E21A5326500B5B841 /* UIStackView+Extensions.swift */; };
-		A4BDDC5121A578EA00B5B841 /* CardCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDDC5021A578EA00B5B841 /* CardCellViewModel.swift */; };
 		A4C6F36321AC320700859FA1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A4C6F36521AC320700859FA1 /* Localizable.strings */; };
 		A4DC8F8121BE5B4C00B1DDF2 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC8F8021BE5B4C00B1DDF2 /* BaseViewModel.swift */; };
 		A4EC4BF921AED79B00574FF3 /* SelectLanguageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC4BF821AED79B00574FF3 /* SelectLanguageVC.swift */; };
@@ -142,7 +141,6 @@
 		A4B5716E21A2DEF000348A0A /* UIView+Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Drawing.swift"; sourceTree = "<group>"; };
 		A4B5717121A2EBD200348A0A /* BiometricUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricUtils.swift; sourceTree = "<group>"; };
 		A4BDDC4E21A5326500B5B841 /* UIStackView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extensions.swift"; sourceTree = "<group>"; };
-		A4BDDC5021A578EA00B5B841 /* CardCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCellViewModel.swift; sourceTree = "<group>"; };
 		A4C6F36421AC320700859FA1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A4C6F36921AC34A000859FA1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A4DC8F8021BE5B4C00B1DDF2 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -399,7 +397,6 @@
 			isa = PBXGroup;
 			children = (
 				A4944BE7219D413200F078C8 /* CardsViewModel.swift */,
-				A4BDDC5021A578EA00B5B841 /* CardCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -711,7 +708,6 @@
 				A4ADF625219D43FE00ABB7A5 /* KeyValueView.swift in Sources */,
 				A48B4072219558530089008C /* JSONDecoder+MultipleLevels.swift in Sources */,
 				91BC34FE2192C2D900CDD785 /* AppDelegate.swift in Sources */,
-				A4BDDC5121A578EA00B5B841 /* CardCellViewModel.swift in Sources */,
 				A4079CEB2193136F00A7178C /* String+Encoding.swift in Sources */,
 				A4944BE0219D40D100F078C8 /* TransactionsVC.swift in Sources */,
 				A4ADF63021A6985B00ABB7A5 /* SettingViewModel.swift in Sources */,
