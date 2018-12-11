@@ -71,13 +71,13 @@ class DataRepository: DataRepositoryProtocol {
             .asObservable()
     }
     
-    func apiLogOut() -> Observable<Bool> {
+    func apiLogOut() -> Observable<Void> {
         return apiProvider.rx
             .request(.logout)
             .observeOn(MainScheduler.asyncInstance)
-            .map({ response -> Bool in
+            .map({ response -> Void in
                 print(response)
-                return true
+                return
             })
             .asObservable()
     }

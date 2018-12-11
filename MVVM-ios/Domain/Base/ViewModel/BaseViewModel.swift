@@ -39,6 +39,15 @@ class BaseViewModel {
             observable.accept(param)
             return
         }
-        (data as! PublishRelay<T?>).accept(param)
+        if let param = param {
+            (data as! PublishRelay<T>).accept(param)
+        } else {
+            (data as! PublishRelay<T?>).accept(param)
+        }
+    }
+    
+    private func isOptional<T>(_ type: T) -> Bool {
+        let typeName = String(describing: type)
+        return typeName.hasPrefix("Optional") || typeName.hasPrefix("nil")
     }
 }

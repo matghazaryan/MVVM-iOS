@@ -72,21 +72,18 @@ class AccountVC: UIViewController {
                 cell.textLabel?.text = model
             }
             .disposed(by: disposeBag)
-        viewModel?.model
-            .map({ $0?.email })
+        viewModel?.email
             .bind(to: nameLabel.rx.text)
             .disposed(by: disposeBag)
-        logOutButton.rx.tap.bind {[weak self] in
-            self?.viewModel?.logOut()
-            }
+        viewModel?.logOut(on: logOutButton.rx.tap)
+        if let logOutObservable: Observable<Void?> = viewModel?.getAction(Action.openLoginVC) {
+            logOutObservable
+                .subscribe({[weak self] _ in
+                    self?.dismiss(animated: true)
+                })
             .disposed(by: disposeBag)
-        viewModel?.isLogin.subscribe(onNext: {[weak self] logedIn in
-            if !logedIn {
-                DataRepository.getInstance().prefSetRememberMe(false)
-                self?.dismiss(animated: true)
-            }
-        })
-            .disposed(by: disposeBag)
+        }
+        // listen localization changes
         LanguageManager.sInstance.languageChange.subscribe({_ in
             self.view = nil
             self.viewModel?.cellTitles.accept(["Cards".localized, "Transactions".localized, "Settings".localized])

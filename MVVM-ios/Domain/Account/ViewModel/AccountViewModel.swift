@@ -11,22 +11,26 @@ import RxSwift
 import RxCocoa
 import Moya
 
-class AccountViewModel {
+class AccountViewModel: BaseViewModel {
     
-    var model: BehaviorRelay<User?>
-    let isLogin: PublishRelay<Bool> = PublishRelay()
+    var email: BehaviorRelay<String?>
     let disposeBag = DisposeBag()
     let cellTitles = BehaviorRelay<[String]>(value: [])
     
     init(user: User) {
-        model = BehaviorRelay(value: user)
-        isLogin.accept(true)
+        email = BehaviorRelay(value: user.email)
     }
     
-    func logOut() {
-        DataRepository.getInstance().apiLogOut().subscribe(onNext: {
-            self.isLogin.accept(!$0)
-        })
+    func logOut(on tap: ControlEvent<Void>) {
+        tap.asObservable()
+            .flatMap { _ -> Observable<Void> in
+                return DataRepository.getInstance().apiLogOut()
+        }
+            .retry()
+            .subscribe({[weak self] _ in
+                DataRepository.getInstance().prefSetRememberMe(false)
+                self?.doAction(Action.openLoginVC, param: Optional<Void>(nilLiteral: ()))
+            })
             .disposed(by: disposeBag)
     }
 }
