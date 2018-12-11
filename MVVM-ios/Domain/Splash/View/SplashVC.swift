@@ -48,7 +48,7 @@ class SplashVC: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        (viewModel.getAction(Action.showBiometric) as Observable<User>)
+        (viewModel.getAction(Action.showBiometric) as Observable<User?>)
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: {[weak self] _ in
                 self?.showBiometric()
@@ -62,10 +62,11 @@ class SplashVC: UIViewController {
     }
     
     private func openAccount(user: User) {
+        openLogin()
         let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
         let viewModel = AccountViewModel(user: user)
         nextVC.viewModel = viewModel
-        UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: nextVC)
+        UIApplication.shared.keyWindow?.rootViewController?.present(UINavigationController(rootViewController: nextVC), animated: true)
     }
     
     private func openLogin() {
