@@ -65,6 +65,7 @@
 		A4BDDC4F21A5326500B5B841 /* UIStackView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDDC4E21A5326500B5B841 /* UIStackView+Extensions.swift */; };
 		A4BDDC5121A578EA00B5B841 /* CardCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BDDC5021A578EA00B5B841 /* CardCellViewModel.swift */; };
 		A4C6F36321AC320700859FA1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A4C6F36521AC320700859FA1 /* Localizable.strings */; };
+		A4DC8F8121BE5B4C00B1DDF2 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC8F8021BE5B4C00B1DDF2 /* BaseViewModel.swift */; };
 		A4EC4BF921AED79B00574FF3 /* SelectLanguageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC4BF821AED79B00574FF3 /* SelectLanguageVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -144,6 +145,7 @@
 		A4BDDC5021A578EA00B5B841 /* CardCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCellViewModel.swift; sourceTree = "<group>"; };
 		A4C6F36421AC320700859FA1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A4C6F36921AC34A000859FA1 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A4DC8F8021BE5B4C00B1DDF2 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		A4EC4BF821AED79B00574FF3 /* SelectLanguageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLanguageVC.swift; sourceTree = "<group>"; };
 		AAF51DB13A53C6CD1976688A /* Pods-MVVM-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVM-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVM-ios/Pods-MVVM-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -190,6 +192,7 @@
 		A4079CCE2193007500A7178C /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				A4DC8F7D21BE5B2D00B1DDF2 /* Base */,
 				A4ADF62A21A68A8300ABB7A5 /* Models */,
 				A4944BD6219C5AB600F078C8 /* Settings */,
 				A4944BD2219C5A9800F078C8 /* Transactions */,
@@ -492,6 +495,30 @@
 			path = Biometric;
 			sourceTree = "<group>";
 		};
+		A4DC8F7D21BE5B2D00B1DDF2 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				A4DC8F7F21BE5B3A00B1DDF2 /* ViewModel */,
+				A4DC8F7E21BE5B3500B1DDF2 /* View */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		A4DC8F7E21BE5B3500B1DDF2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A4DC8F7F21BE5B3A00B1DDF2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A4DC8F8021BE5B4C00B1DDF2 /* BaseViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		A6C8F3565FD10568B2631469 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -644,6 +671,7 @@
 			files = (
 				A48B4088219561DF0089008C /* UIViewController+StoryBoard.swift in Sources */,
 				A48B4070219558100089008C /* UIView+Localization.swift in Sources */,
+				A4DC8F8121BE5B4C00B1DDF2 /* BaseViewModel.swift in Sources */,
 				A4079CE321930F5100A7178C /* DataRepositoryProtocol.swift in Sources */,
 				A4079CE721930F8600A7178C /* DBHelperProtocol.swift in Sources */,
 				A4B5716621A2A73C00348A0A /* CardCollectionViewCell.swift in Sources */,

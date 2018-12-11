@@ -10,51 +10,56 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-struct SplashViewModel {
+class SplashViewModel: BaseViewModel {
     
     private(set) var configs: BehaviorRelay<Configs?>
     private(set) var user: PublishRelay<User?>
     private(set) var error: PublishRelay<Error?>
     private(set) var disposeBag: DisposeBag
     
-    init(disposeBag: DisposeBag) {
-        self.disposeBag = disposeBag
+    override init() {
+        disposeBag = DisposeBag()
         configs = BehaviorRelay(value: nil)
         user = PublishRelay()
         error = PublishRelay()
     }
     
     func getConfigs() {
-        DataRepository.getInstance().apiGetConfigs()
+        DataRepository.getInstance().apiGetConfigs().take(1)
             .subscribe(onNext: {
                 self.configs.accept($0)
-                self.login()
+                self.toNextVC()
+            }, onError: {
+                self.error.accept($0)
+                self.doAction(Action.openErrorDialog, param: $0)
+            }, onDisposed: {
+                print("\(self) disposed")
             })
             .disposed(by: disposeBag)
     }
     
-    func login() {
+    func toNextVC() {
         if DataRepository.getInstance().prefGetRememberMe() && BiometricUtils.biometricType() != .none {
-            BiometricUtils.authUser(localizedReason: "For Login") { success, error in
-                if success {
-                    guard let email = DataRepository.getInstance().getEmail(),
-                        let password = DataRepository.getInstance().getPassword() else {
-                            self.user.accept(nil)
-                            return
-                    }
-                    DataRepository.getInstance().apiLogin(email: email, password: password)
-                        .subscribe(onNext: {
-                            self.user.accept($0)
-                        }, onError: {
-                            self.error.accept($0)
-                        })
-                        .disposed(by: self.disposeBag)
-                } else {
-                    self.user.accept(nil)
-                }
-            }
+            self.doAction(Action.showBiometric, param: Optional<User>(nilLiteral: ()))
         } else {
-            user.accept(nil)
+            self.doAction(Action.openLoginVC, param: Optional<User>(nilLiteral: ()))
         }
+    }
+    
+    func login() {
+        guard let email = DataRepository.getInstance().getEmail(),
+            let password = DataRepository.getInstance().getPassword() else {
+                self.doAction(Action.openErrorDialog, param: Optional<Error>(nilLiteral: ()))
+                return
+        }
+        
+        DataRepository.getInstance().apiLogin(email: email, password: password)
+            .subscribe(onNext: {
+                self.doAction(Action.openAccount, param: $0)
+            }, onError: {
+                self.error.accept($0)
+                self.doAction(Action.openErrorDialog, param: $0)
+            })
+            .disposed(by: disposeBag)
     }
 }

@@ -17,34 +17,69 @@ class SplashVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = SplashViewModel(disposeBag: disposeBag)
+        viewModel = SplashViewModel()
         bindViews()
         // Do any additional setup after loading the view.
         viewModel?.getConfigs()
     }
     
     private func bindViews() {
-        viewModel?.user
+        guard let viewModel = self.viewModel else {
+            return
+        }
+        (viewModel.getAction(Action.doLogin) as Observable<User>)
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { user in
-                if user != nil {
-                    let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
-                    let viewModel = AccountViewModel(user: user!)
-                    nextVC.viewModel = viewModel
-                    UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: nextVC)
-                } else {
-                    let nextVC: LoginVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
-                    UIApplication.shared.keyWindow?.rootViewController = nextVC
-                }
-            }, onError: { error in
-                print(error)
-            }, onDisposed: {
-                print("doisposed")
+            .subscribe(onNext: { _ in
+                viewModel.login()
             })
             .disposed(by: disposeBag)
-        viewModel?.error.subscribe(onNext: { error in
+        
+        (viewModel.getAction(Action.openAccount) as Observable<User>)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: {[weak self] user in
+                self?.openAccount(user: user)
+            })
+            .disposed(by: disposeBag)
+        
+        (viewModel.getAction(Action.openLoginVC) as Observable<User?>)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: {[weak self] _ in
+                self?.openLogin()
+            })
+            .disposed(by: disposeBag)
+        
+        (viewModel.getAction(Action.showBiometric) as Observable<User>)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: {[weak self] _ in
+                self?.showBiometric()
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.error.subscribe(onNext: { error in
             print(error?.localizedDescription)
         })
         .disposed(by: disposeBag)
+    }
+    
+    private func openAccount(user: User) {
+        let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
+        let viewModel = AccountViewModel(user: user)
+        nextVC.viewModel = viewModel
+        UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: nextVC)
+    }
+    
+    private func openLogin() {
+        let nextVC: LoginVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
+        UIApplication.shared.keyWindow?.rootViewController = nextVC
+    }
+    
+    private func showBiometric() {
+        BiometricUtils.authUser(localizedReason: "For Login") { success, error in
+            if success {
+                self.viewModel?.login()
+            } else {
+                self.openLogin()
+            }
+        }
     }
 }
