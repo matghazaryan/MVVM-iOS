@@ -33,8 +33,21 @@ class CardsVC: UIViewController {
                 cell.model = model
             }
             .disposed(by: disposeBag)
+        collectionView.rx.modelSelected(Card.self)
+            .subscribe(onNext: {[weak self] card in
+                self?.viewModel.cardSelected(card)
+            }, onError: { error in
+                UIAlertController.showError(error)
+            })
+        .disposed(by: disposeBag)
         //change delegate to ourself for manage size of cell
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        
+        (viewModel.getAction(Action.onCardTap) as Observable<String>)
+            .subscribe(onNext: {
+                UIAlertController.showAsToastWith(message: $0)
+            })
+        .disposed(by: disposeBag)
     }
 
 }

@@ -58,7 +58,26 @@ extension UIAlertController {
         }
         
         DispatchQueue.main.async {
-            UIApplication.shared.keyWindow?.rootViewController?.present(self, animated: animated, completion: completion)
+            guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else {
+                return
+            }
+            var viewControllerForPresent: UIViewController? = rootVC
+            while true {
+                var tempVC : UIViewController? = nil
+                if let navigationRoot = viewControllerForPresent as? UINavigationController {
+                    tempVC = navigationRoot.viewControllers.last
+                } else if viewControllerForPresent?.presentedViewController != nil {
+                    tempVC = viewControllerForPresent?.presentedViewController
+                } else {
+                    break
+                }
+                if tempVC == viewControllerForPresent {
+                    break
+                } else {
+                    viewControllerForPresent = tempVC
+                }
+            }
+            viewControllerForPresent?.present(self, animated: animated, completion: completion)
             if vibrate {
                 AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
             }
@@ -154,3 +173,25 @@ extension UIAlertController {
     }
 }
 
+extension UIAlertController {
+    
+    public enum ToastDuration: Double {
+        case short = 0.7
+        case normal = 1.5
+        case long = 3
+    }
+    
+    static func showWith(message: String?) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(title: "Ok")
+        alert.show()
+    }
+    
+    static func showAsToastWith(message: String?, duration: ToastDuration = .normal) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.show()
+        DispatchQueue.main.asyncAfter(deadline: .now() + duration.rawValue) {
+            alert.dismiss(animated: true, completion: nil)
+        }
+    }
+}

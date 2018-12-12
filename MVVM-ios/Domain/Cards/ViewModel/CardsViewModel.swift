@@ -27,4 +27,9 @@ class CardsViewModel: BaseViewModel {
             })
             .disposed(by: disposeBag)
     }
+    
+    func cardSelected(_ card: Card) {
+        let message = "You select \(card.cardNumber) card"
+        doAction(Action.onCardTap, param: message)
+    }
 }
