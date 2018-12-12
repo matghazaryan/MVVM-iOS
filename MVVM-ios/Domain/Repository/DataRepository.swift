@@ -82,15 +82,13 @@ class DataRepository: DataRepositoryProtocol {
             .asObservable()
     }
     
-    func apiGetTransactions(page: Int) -> Observable<(transactions: [Transaction], hasNextPage: Bool)> {
+    func apiGetTransactions(page: Int) -> Observable<TransactionData> {
         return apiProvider.rx
             .request(BaseTargetType.transactions(page: page))
             .observeOn(MainScheduler.asyncInstance)
-            .map({ response -> (transactions: [Transaction], hasNextPahde: Bool) in
-                let transactions = try JSONDecoder().decode([Transaction].self, from: response.data, nestedKeys: "data", "transactions")
-                let json = try JSONSerialization.jsonObject(with: response.data, options: .mutableContainers) as! [String: Any]
-                let hasNextPage = ((json["data"] as! [String: Any])["next_page"] != nil)
-                return (transactions, hasNextPage)
+            .map({ response -> TransactionData in
+                let transactions = try JSONDecoder().decode(TransactionData.self, from: response.data, nestedKeys: "data")
+                return transactions
             })
             .asObservable()
     }

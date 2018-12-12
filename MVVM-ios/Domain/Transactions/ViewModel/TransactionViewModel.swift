@@ -10,8 +10,8 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-class TransactionViewModel {
-    private(set) var model: BehaviorRelay<[Transaction]?>
+class TransactionViewModel: BaseViewModel {
+    private(set) var model: BehaviorRelay<[TransactionGroup]?>
     private(set) var error: PublishSubject<Error?>
     private(set) var hasNextPage = true
     private(set) var currentPage = 1
@@ -25,15 +25,16 @@ class TransactionViewModel {
     }
     
     func fetchNext() {
-        print("alasad")
         if hasNextPage && !isLoading {
             isLoading = true
             DataRepository.getInstance().apiGetTransactions(page: currentPage)
                 .subscribe(onNext: {[weak self] in
-                    self?.currentPage += 1
                     self?.hasNextPage = $0.hasNextPage
+                    if $0.hasNextPage {
+                        self?.currentPage += 1
+                    }
                     self?.isLoading = false
-                    self?.model.accept((self?.model.value).valueOr([Transaction]()) + $0.transactions)
+                    self?.model.accept((self?.model.value).valueOr([TransactionGroup]()) + $0.transactions)
                     }, onError: {[weak self] in
                         self?.error.onNext($0)
                 })

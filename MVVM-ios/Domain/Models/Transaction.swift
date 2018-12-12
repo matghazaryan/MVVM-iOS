@@ -9,28 +9,46 @@
 import Foundation
 import RxDataSources
 
-struct Transaction: Codable {
-    var transactionDetails: [TransactionDetail]
+struct TransactionData: Decodable {
+    var transactions: [TransactionGroup]
+    var hasNextPage: Bool
+    
     
     enum CodingKeys: String, CodingKey {
-        case transactionDetails = "transaction_details"
+        case transactions = "transactions"
+        case hasNextPage = "next_page"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        transactions = try container.decode([TransactionGroup].self, forKey: .transactions)
+        hasNextPage = (try container.decodeIfPresent(Int.self, forKey: .hasNextPage) != nil)
     }
 }
 
-struct TransactionSectionModel: SectionModelType {
-    var items: [Transaction]
+struct TransactionGroup: Decodable {
+    var transactionList: [Transaction]
     
-    init(original: TransactionSectionModel, items: [Transaction]) {
+    enum CodingKeys: String, CodingKey {
+        case transactionList = "transaction_details"
+    }
+}
+
+struct Transaction: Codable {
+    var label: String
+    var value: String
+}
+
+struct TransactionSectionModel: SectionModelType {
+    var items: [TransactionGroup]
+    
+    init(original: TransactionSectionModel, items: [TransactionGroup]) {
         self = original
         self.items = items
     }
     
-    init(items: [Transaction]) {
+    init(items: [TransactionGroup]) {
         self.items = items
     }
 }
 
-struct TransactionDetail: Codable {
-    var label: String
-    var value: String
-}

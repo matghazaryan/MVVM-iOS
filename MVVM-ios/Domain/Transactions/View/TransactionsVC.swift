@@ -31,7 +31,7 @@ class TransactionsVC: UITableViewController {
     private func bindViews() {
         let rxDataSource = RxTableViewSectionedReloadDataSource<TransactionSectionModel>(configureCell: { dataSource, tableView, indexPath, model -> TransactionCell in
             let cell = tableView.dequeueReusableCell(withIdentifier: TransactionCell.reuseIdentifier, for: indexPath) as! TransactionCell
-            let subViews = model.transactionDetails.map({ detail -> KeyValueView in
+            let subViews = model.transactionList.map({ detail -> KeyValueView in
                 let view = KeyValueView.loadFromNib()
                 view.keyLabel.text = detail.label
                 view.valueLabel.text = detail.value
