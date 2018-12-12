@@ -28,7 +28,7 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     private func bindViews() {
         self.cardNumberLabel.text = model?.cardNumber
-        self.dateLabel.text = "\(String(describing: model?.expDateMonth))/\(String(describing: model?.expDateYear))"
+        self.dateLabel.text = "\((model?.expDateMonth).valueOr(""))/\((model?.expDateYear).valueOr(""))"
         self.holderLabel.text = model?.embossingName
         let startColor = UIColor(hexString: (model?.cardColor1).valueOr("FFFFFF"))
         let endColor = UIColor(hexString: (model?.cardColor2).valueOr("FFFFFF"))
