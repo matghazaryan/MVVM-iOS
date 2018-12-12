@@ -22,22 +22,24 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loginTextField.keyboardType = .emailAddress
+        loginTextField.text = "as@ss.sa"
+        passwordTextField.text = "adkjfewhuvwjhebkwe"
         // Do any additional setup after loading the view.
         viewModel = LoginViewModel()
         viewModel?.bindForValidation(login: loginTextField.rx.text, password: passwordTextField.rx.text)
         viewModel?.validFields.bind(to: loginButton.rx.isEnabled).disposed(by: disposeBag)
         viewModel?.bindToLoginAction(loginButton.rx.tap)
-        viewModel?.model.subscribe(onNext: {[weak self] in
+        checkBox.onCheckChange.asObservable().bind(to: viewModel!.isChecked).disposed(by: disposeBag)
+        checkBox.onCheckChange.asObservable().subscribe({
+            print($0)
+        }).disposed(by: disposeBag)
+        viewModel?.model.subscribe(onNext: {
             if let user = $0 {
-                if self?.checkBox.isChecked == true {
-                    self?.viewModel?.rememberMe = true
-                    DataRepository.getInstance().saveEmail((self?.loginTextField.text)!)
-                    DataRepository.getInstance().savePassword((self?.passwordTextField.text)!)
-                }
                 let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
                 let viewModel = AccountViewModel(user: user)
                 nextVC.viewModel = viewModel
-                UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: nextVC)
+                UIApplication.shared.keyWindow?.rootViewController?.present(UINavigationController(rootViewController: nextVC), animated: false, completion: nil)
             } else {
                 print("error")
             }

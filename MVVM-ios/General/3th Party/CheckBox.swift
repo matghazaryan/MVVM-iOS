@@ -7,8 +7,19 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class CheckBox: UIButton {
+    
+    lazy var onCheckChange: ControlProperty<Bool> = {
+        let values = PublishRelay<Bool>()
+        let valueSink = Binder<Bool>(self) { checkBox, checked in
+            checkBox.isChecked = checked
+            values.accept(checked)
+        }
+        return ControlProperty(values: values, valueSink: valueSink)
+    }()
 
     var isChecked: Bool {
         set {
@@ -27,6 +38,7 @@ class CheckBox: UIButton {
     
     @objc private func setChecked(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        onCheckChange.onNext(sender.isSelected)
     }
     
     override init(frame: CGRect) {

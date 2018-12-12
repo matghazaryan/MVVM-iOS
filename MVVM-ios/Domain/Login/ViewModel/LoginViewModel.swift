@@ -11,13 +11,15 @@ import RxSwift
 import RxCocoa
 import Moya
 
-struct LoginViewModel {
+class LoginViewModel: BaseViewModel {
     
-    private(set) var validLogin: Observable<Bool>
-    private(set) var validPassword: Observable<Bool>
+    private(set) var login: Observable<String>
+    private(set) var password: Observable<String>
     private(set) var validFields: Observable<Bool>
+    
     private var user: Observable<(login: String, password: String)>
     private(set) var model: Observable<User?>
+    private(set) var isChecked: BehaviorRelay<Bool>
     
     
     var rememberMe: Bool {
@@ -29,44 +31,52 @@ struct LoginViewModel {
         }
     }
     
-    init() {
-        validLogin = Observable.just(false)
+    override init() {
+        login = Observable.just("")
         validFields = Observable.just(false)
-        validPassword = Observable.just(false)
+        password = Observable.just("")
         user = Observable.just((login: "", password: ""))
         model = Observable.just(nil)
+        isChecked = BehaviorRelay(value: false)
     }
     
-    mutating func bindForValidation(login: ControlProperty<String?>, password: ControlProperty<String?>) {
-        validLogin = login.orEmpty
-            .map({ string -> Bool in
-                let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-                let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-                return emailTest.evaluate(with: string)
-            })
+    func bindForValidation(login: ControlProperty<String?>, password: ControlProperty<String?>) {
+        self.login = login.orEmpty
             .share(replay: 1)
         
-        validPassword = password.orEmpty
-            .map({ string -> Bool in
-                return string.count > 8
-            })
+        self.password = password.orEmpty
             .share(replay: 1)
         
-        validFields = Observable.combineLatest(validLogin, validPassword, resultSelector: { validLogin, validPassword in
-            return validLogin && validPassword
+        validFields = Observable.combineLatest(self.login, self.password, resultSelector: { validLogin, validPassword in
+            let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+            let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+            return emailTest.evaluate(with: validLogin) && validPassword.count > 8
         })
          user = Observable.combineLatest(login.orEmpty, password.orEmpty, resultSelector: { login, pass in
             return (login: login, password: pass)
          })
     }
     
-    mutating func bindToLoginAction(_ tap: ControlEvent<Void>) {
+    func bindToLoginAction(_ tap: ControlEvent<Void>) {
         model = tap.asObservable()
             .withLatestFrom(user)
             .flatMap {login, password -> Observable<User?> in
                 return DataRepository.getInstance().apiLogin(email: login, password: password)
             }
             .retry()
+            .do(onNext: {
+                if $0 != nil { // user get successfully
+                    if self.isChecked.value == true {
+                        DataRepository.getInstance().prefSetRememberMe(true)
+                        self.login.subscribe(onNext: {
+                            DataRepository.getInstance().saveEmail($0)
+                        }).dispose()
+                        self.password.subscribe(onNext: {
+                            DataRepository.getInstance().savePassword($0)
+                        }).dispose()
+                    }
+                }
+            })
             .share(replay: 1)
     }
 }
