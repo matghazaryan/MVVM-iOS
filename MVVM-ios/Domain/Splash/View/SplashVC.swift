@@ -56,7 +56,7 @@ class SplashVC: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.error.subscribe(onNext: { error in
-            print(error?.localizedDescription)
+            UIAlertController.showError(error)
         })
         .disposed(by: disposeBag)
     }
