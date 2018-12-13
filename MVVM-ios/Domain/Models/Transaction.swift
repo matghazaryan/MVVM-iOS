@@ -21,8 +21,8 @@ struct TransactionData: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        transactions = try container.decode([TransactionGroup].self, forKey: .transactions)
         hasNextPage = (try container.decodeIfPresent(Int.self, forKey: .hasNextPage) != nil)
+        transactions = try container.decode([TransactionGroup].self, forKey: .transactions)
     }
 }
 

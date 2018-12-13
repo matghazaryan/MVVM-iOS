@@ -89,6 +89,8 @@
 		A4D78A0A21C135B9007205D2 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D789F121C135B9007205D2 /* Button.swift */; };
 		A4DC8F8121BE5B4C00B1DDF2 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC8F8021BE5B4C00B1DDF2 /* BaseViewModel.swift */; };
 		A4EC4BF921AED79B00574FF3 /* SelectLanguageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC4BF821AED79B00574FF3 /* SelectLanguageVC.swift */; };
+		A4FFDB3F21C22D3E00DF2870 /* UIViewController+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFDB3E21C22D3E00DF2870 /* UIViewController+Swizzling.swift */; };
+		A4FFDB4121C23CE300DF2870 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFDB4021C23CE300DF2870 /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -191,6 +193,8 @@
 		A4D789F121C135B9007205D2 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		A4DC8F8021BE5B4C00B1DDF2 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		A4EC4BF821AED79B00574FF3 /* SelectLanguageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLanguageVC.swift; sourceTree = "<group>"; };
+		A4FFDB3E21C22D3E00DF2870 /* UIViewController+Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Swizzling.swift"; sourceTree = "<group>"; };
+		A4FFDB4021C23CE300DF2870 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		AAF51DB13A53C6CD1976688A /* Pods-MVVM-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVM-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVM-ios/Pods-MVVM-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -629,16 +633,9 @@
 			isa = PBXGroup;
 			children = (
 				A4DC8F7F21BE5B3A00B1DDF2 /* ViewModel */,
-				A4DC8F7E21BE5B3500B1DDF2 /* View */,
+				A4FFDB3D21C22D2A00DF2870 /* View */,
 			);
 			path = Base;
-			sourceTree = "<group>";
-		};
-		A4DC8F7E21BE5B3500B1DDF2 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		A4DC8F7F21BE5B3A00B1DDF2 /* ViewModel */ = {
@@ -647,6 +644,15 @@
 				A4DC8F8021BE5B4C00B1DDF2 /* BaseViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		A4FFDB3D21C22D2A00DF2870 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A4FFDB3E21C22D3E00DF2870 /* UIViewController+Swizzling.swift */,
+				A4FFDB4021C23CE300DF2870 /* BaseViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		A6C8F3565FD10568B2631469 /* Pods */ = {
@@ -819,6 +825,7 @@
 				A4D78A0521C135B9007205D2 /* DatePickerViewController.swift in Sources */,
 				A4944BDC219C5D4100F078C8 /* Transaction.swift in Sources */,
 				A4D789FE21C135B9007205D2 /* Optional+Extensions.swift in Sources */,
+				A4FFDB4121C23CE300DF2870 /* BaseViewController.swift in Sources */,
 				A4944BEA219D415D00F078C8 /* CardsVC.swift in Sources */,
 				A4079CD8219306C100A7178C /* SplashViewModel.swift in Sources */,
 				A4079CDA219306E800A7178C /* SplashVC.swift in Sources */,
@@ -831,6 +838,7 @@
 				A4EC4BF921AED79B00574FF3 /* SelectLanguageVC.swift in Sources */,
 				A4BDDC4F21A5326500B5B841 /* UIStackView+Extensions.swift in Sources */,
 				A4D78A0821C135B9007205D2 /* GradientSlider.swift in Sources */,
+				A4FFDB3F21C22D3E00DF2870 /* UIViewController+Swizzling.swift in Sources */,
 				A4D789FB21C135B9007205D2 /* UIImage+Extensions.swift in Sources */,
 				A4D789FD21C135B9007205D2 /* UIAlertController+Extensions.swift in Sources */,
 				A4D78A0321C135B9007205D2 /* TextViewController.swift in Sources */,

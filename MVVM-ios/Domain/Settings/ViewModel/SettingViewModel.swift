@@ -10,11 +10,11 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class SettingViewModel {
+class SettingViewModel: BaseViewModel {
     var imageData: BehaviorRelay<Data?>
     var successUpload: Observable<Bool>
     
-    init() {
+    override init() {
         imageData = BehaviorRelay(value: nil)
         successUpload = Observable<Bool>.just(false)
     }

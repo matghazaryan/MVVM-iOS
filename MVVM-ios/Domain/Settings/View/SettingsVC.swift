@@ -11,25 +11,26 @@ import Photos
 import RxSwift
 import RxCocoa
 
-class SettingsVC: UITableViewController {
-
+class SettingsVC: UITableViewController, BaseViewController {
+    
+    var viewModel: SettingViewModel = SettingViewModel()
+    
+    var disposeBag: DisposeBag = DisposeBag()
+    
     @IBOutlet private weak var avatar: UIImageView!
     
-    let viewModel = SettingViewModel()
     lazy var imagePicker: UIImagePickerController =  {
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = self
         return picker
     }()
-    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
+        setupNavigation()
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        setupNavigation()
-        bindViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,11 +56,10 @@ class SettingsVC: UITableViewController {
     
     private func setupNavigation() {
         let saveButton = UIBarButtonItem(title: "Save".localized, style: .done, target: nil, action: nil)
-        viewModel.bindToUpload(saveButton.rx.tap)
         self.navigationItem.rightBarButtonItem = saveButton
     }
     
-    private func bindViews() {
+    internal override func bindViews() {
         let tapGesture = avatar.gestureRecognizers?.first
         tapGesture?.rx.event.subscribe(onNext: {[weak self] _ in
             guard let weakSelf = self else { return }
@@ -70,7 +70,7 @@ class SettingsVC: UITableViewController {
                 self.navigationController?.popViewController(animated: true)
             }
         })
-        .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
         viewModel.imageData.map({ unwrapedData -> UIImage? in
             guard let data = unwrapedData,
                 let image = UIImage(data: data) else {
@@ -80,6 +80,35 @@ class SettingsVC: UITableViewController {
         })
             .bind(to: avatar.rx.image)
             .disposed(by: disposeBag)
+//        viewModel.bindToUpload(self.navigationItem.rightBarButtonItem!.rx.tap)
+        self.navigationItem.rightBarButtonItem!.rx.tap.asObservable()
+            .withLatestFrom(viewModel.imageData)
+            .flatMap { data -> Observable<Bool> in
+                guard let data = data else {
+                    return Observable.just(false)
+                }
+                return DataRepository.getInstance().apiUploadImage(data)
+                    .map({ response -> Bool in
+                        return response.completed
+                    })
+            }
+            .retry()
+            .share(replay: 1)
+            .subscribe(onNext: { complete in
+                if complete {
+                    self.navigationController?.popViewController(animated: true)
+                } else {
+                    UIAlertController.showAsToastWith(message: "incomplete")
+                }
+            }, onError: { error in
+                UIAlertController.showError(error)
+            })
+        .disposed(by: disposeBag)
+    }
+    
+    override func onLanguageChange(_ node: Notification) {
+        self.view = nil
+        self.viewWillAppear(true)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
