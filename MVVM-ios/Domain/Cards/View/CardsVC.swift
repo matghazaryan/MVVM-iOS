@@ -11,22 +11,21 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class CardsVC: UIViewController {
+class CardsVC: UIViewController, BaseViewController {
 
-    private var viewModel = CardsViewModel()
-    private let disposeBag = DisposeBag()
+    internal var viewModel = CardsViewModel()
+    internal let disposeBag = DisposeBag()
     @IBOutlet private weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
+        collectionView.register(CardCollectionViewCell.nib, forCellWithReuseIdentifier: CardCollectionViewCell.reuseIdentifier)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        collectionView.register(CardCollectionViewCell.nib, forCellWithReuseIdentifier: CardCollectionViewCell.reuseIdentifier)
-        bindViews()
         viewModel.getCards()
     }
     
-    private func bindViews() {
+    internal override func bindViews() {
         
         viewModel.model
             .bind(to: collectionView.rx.items(cellIdentifier: CardCollectionViewCell.reuseIdentifier, cellType: CardCollectionViewCell.self)) { indexPath, model, cell in

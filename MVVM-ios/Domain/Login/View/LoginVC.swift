@@ -10,41 +10,51 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, BaseViewController {
 
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var checkBox: CheckBox!
-    private var viewModel: LoginViewModel?
-    private let disposeBag = DisposeBag()
+    internal var viewModel: LoginViewModel = LoginViewModel()
+    internal let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         loginTextField.keyboardType = .emailAddress
         loginTextField.text = "as@ss.sa"
         passwordTextField.text = "adkjfewhuvwjhebkwe"
         // Do any additional setup after loading the view.
-        viewModel = LoginViewModel()
-        viewModel?.bindForValidation(login: loginTextField.rx.text, password: passwordTextField.rx.text)
-        viewModel?.validFields.bind(to: loginButton.rx.isEnabled).disposed(by: disposeBag)
-        viewModel?.bindToLoginAction(loginButton.rx.tap)
-        checkBox.onCheckChange.asObservable().bind(to: viewModel!.isChecked).disposed(by: disposeBag)
+        super.viewDidLoad()
+    }
+    
+    internal override func bindViews() {
+        viewModel.bindForValidation(login: loginTextField.rx.text, password: passwordTextField.rx.text)
+        viewModel.validFields.bind(to: loginButton.rx.isEnabled).disposed(by: disposeBag)
+        viewModel.bindToLoginAction(loginButton.rx.tap)
+        checkBox.onCheckChange.asObservable().bind(to: viewModel.isChecked).disposed(by: disposeBag)
         checkBox.onCheckChange.asObservable().subscribe({
             print($0)
         }).disposed(by: disposeBag)
-        viewModel?.model.subscribe(onNext: {
+        viewModel.model.subscribe(onNext: {
             if let user = $0 {
                 let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
                 let viewModel = AccountViewModel(user: user)
                 nextVC.viewModel = viewModel
-                UIApplication.shared.keyWindow?.rootViewController?.present(UINavigationController(rootViewController: nextVC), animated: false, completion: nil)
+                UIApplication.shared.keyWindow?.rootViewController?
+                    .present(UINavigationController(rootViewController: nextVC),
+                             animated: false,
+                             completion: nil)
             } else {
                 print("error")
             }
         })
-        .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
+    }
+    
+    override func onLanguageChange(_ note: Notification) {
+        self.view = nil
+        self.viewWillAppear(true)
     }
 
 }

@@ -10,27 +10,22 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class SplashVC: UIViewController {
+class SplashVC: UIViewController, BaseViewController {
     
     let disposeBag = DisposeBag()
-    var viewModel: SplashViewModel?
+    var viewModel: SplashViewModel = SplashViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = SplashViewModel()
-        bindViews()
         // Do any additional setup after loading the view.
-        viewModel?.getConfigs()
+        viewModel.getConfigs()
     }
     
-    private func bindViews() {
-        guard let viewModel = self.viewModel else {
-            return
-        }
+    internal override func bindViews() {
         (viewModel.getAction(Action.doLogin) as Observable<User>)
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { _ in
-                viewModel.login()
+            .subscribe(onNext: {[weak self] _ in
+                self?.viewModel.login()
             })
             .disposed(by: disposeBag)
         
@@ -77,7 +72,7 @@ class SplashVC: UIViewController {
     private func showBiometric() {
         BiometricUtils.authUser(localizedReason: "For Login") { success, error in
             if success {
-                self.viewModel?.login()
+                self.viewModel.login()
             } else {
                 self.openLogin()
             }

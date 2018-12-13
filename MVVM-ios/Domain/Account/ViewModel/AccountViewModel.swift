@@ -14,23 +14,29 @@ import Moya
 class AccountViewModel: BaseViewModel {
     
     var email: BehaviorRelay<String?>
-    let disposeBag = DisposeBag()
     let cellTitles = BehaviorRelay<[String]>(value: [])
     
     init(user: User) {
         email = BehaviorRelay(value: user.email)
+        cellTitles.accept(["Cards".localized, "Transactions".localized, "Settings".localized])
+
     }
     
-    func logOut(on tap: ControlEvent<Void>) {
-        tap.asObservable()
+    func logOut(on tap: ControlEvent<Void>) -> Observable<()> {
+        return tap.asObservable()
             .flatMap { _ -> Observable<Void> in
                 return DataRepository.getInstance().apiLogOut()
-        }
+            }
             .retry()
-            .subscribe({[weak self] _ in
+            .do(onNext: {[weak self] _ in
                 DataRepository.getInstance().prefSetRememberMe(false)
                 self?.doAction(Action.openLoginVC, param: Optional<Void>(nilLiteral: ()))
+                }, onError: {[weak self] error in
+                    self?.doAction(Action.openErrorDialog, param: error)
             })
-            .disposed(by: disposeBag)
+    }
+    
+    func onLanguageChange() {
+        cellTitles.accept(["Cards".localized, "Transactions".localized, "Settings".localized])
     }
 }

@@ -32,7 +32,7 @@ class LanguageManager {
     var currentLocalized: String? {
         let identifier = LanguageManager.current().valueOr("en")
         let locale = NSLocale(localeIdentifier: identifier)
-       return locale.displayName(forKey: NSLocale.Key.identifier, value: identifier)
+        return locale.displayName(forKey: NSLocale.Key.identifier, value: identifier)
     }
     
     static func current() -> String? {

@@ -12,23 +12,23 @@ import RxCocoa
 import RxOptional
 import RxDataSources
 
-class TransactionsVC: UITableViewController {
+class TransactionsVC: UITableViewController, BaseViewController {
+    var viewModel: TransactionViewModel = TransactionViewModel()
     
-    private var viewModel: TransactionViewModel?
-    private let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
+    
+    
+    
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-
         tableView.register(TransactionCell.nib, forCellReuseIdentifier: TransactionCell.reuseIdentifier)
-        viewModel = TransactionViewModel(disposeBag: disposeBag)
         tableView.dataSource = nil
         tableView.delegate = nil
-        bindViews()
-        viewModel?.fetchNext()
+        super.viewDidLoad()
+        viewModel.fetchNext()
     }
     
-    private func bindViews() {
+    internal override func bindViews() {
         let rxDataSource = RxTableViewSectionedReloadDataSource<TransactionSectionModel>(configureCell: { dataSource, tableView, indexPath, model -> TransactionCell in
             let cell = tableView.dequeueReusableCell(withIdentifier: TransactionCell.reuseIdentifier, for: indexPath) as! TransactionCell
             let subViews = model.transactionList.map({ detail -> KeyValueView in
@@ -44,7 +44,7 @@ class TransactionsVC: UITableViewController {
         })
         
         
-        viewModel?.model
+        viewModel.model
             .filterNil()
             .map({ transaction -> [TransactionSectionModel] in
                 let x = transaction.map({
@@ -60,8 +60,7 @@ class TransactionsVC: UITableViewController {
                     return
             }
             if indexPath == IndexPath(row: row - 1, section: section - 1) {
-                print("asala")
-                self?.viewModel?.fetchNext()
+                self?.viewModel.fetchNext()
             }
             }
             .disposed(by: disposeBag)

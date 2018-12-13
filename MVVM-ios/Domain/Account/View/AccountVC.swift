@@ -28,11 +28,9 @@ class AccountVC: UIViewController {
     @IBOutlet private weak var logOutButton: UIButton!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
-        self.viewModel?.cellTitles.accept(["Cards".localized, "Transactions".localized, "Settings".localized])
         navigationItem.title = "Account".localized
-        bindViews()
+        super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
@@ -57,7 +55,7 @@ class AccountVC: UIViewController {
         }
     }
     
-    private func bindViews() {
+    internal override func bindViews() {
         tableView.rx.itemSelected.bind {[weak self] indexPath in
             guard let vc = self?.viewControllerForIndex(indexPath.row) else {
                 return
@@ -75,22 +73,25 @@ class AccountVC: UIViewController {
         viewModel?.email
             .bind(to: nameLabel.rx.text)
             .disposed(by: disposeBag)
-        viewModel?.logOut(on: logOutButton.rx.tap)
+        viewModel?.logOut(on: logOutButton.rx.tap).subscribe().disposed(by: disposeBag)
         if let logOutObservable: Observable<Void?> = viewModel?.getAction(Action.openLoginVC) {
-            logOutObservable
-                .subscribe({[weak self] _ in
-                    self?.dismiss(animated: true)
-                })
+            logOutObservable.subscribe({[weak self] _ in
+                self?.dismiss(animated: true)
+            })
             .disposed(by: disposeBag)
         }
-        // listen localization changes
-        LanguageManager.sInstance.languageChange.subscribe({_ in
-            self.view = nil
-            self.viewModel?.cellTitles.accept(["Cards".localized, "Transactions".localized, "Settings".localized])
-            self.navigationItem.title = "Account".localized
-            self.viewWillAppear(true)
-        })
+        if let errorObservable: Observable<Error> = viewModel?.getAction(Action.openErrorDialog) {
+            errorObservable.subscribe(onNext: { error in
+                UIAlertController.showError(error)
+            })
             .disposed(by: disposeBag)
+        }
+    }
+    
+    override func onLanguageChange(_ note: Notification) {
+        viewModel?.onLanguageChange()
+        self.view = nil
+        self.viewWillAppear(true)
     }
     
     private func viewControllerForIndex(_ index: Int) -> UIViewController {

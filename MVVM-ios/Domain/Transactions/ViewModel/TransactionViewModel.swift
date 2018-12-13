@@ -16,12 +16,11 @@ class TransactionViewModel: BaseViewModel {
     private(set) var hasNextPage = true
     private(set) var currentPage = 1
     private var isLoading = false
-    private var disposeBag: DisposeBag
+    private let disposeBag = DisposeBag()
     
-    init(disposeBag: DisposeBag) {
+    override init() {
         model = BehaviorRelay(value: nil)
         error = PublishSubject()
-        self.disposeBag = disposeBag
     }
     
     func fetchNext() {
@@ -37,6 +36,9 @@ class TransactionViewModel: BaseViewModel {
                     self?.model.accept((self?.model.value).valueOr([TransactionGroup]()) + $0.transactions)
                     }, onError: {[weak self] in
                         self?.error.onNext($0)
+                    }, onDisposed: {
+                        print("Disposed call on \(TransactionViewModel.self)")
+                        print("page = \(self.currentPage)")
                 })
                 .disposed(by: disposeBag)
         }
