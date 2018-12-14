@@ -13,6 +13,7 @@ import RxCocoa
 class SettingViewModel: BaseViewModel {
     var imageData: BehaviorRelay<Data?>
     var successUpload: Observable<Bool>
+    var imagePath: URL?
     
     override init() {
         imageData = BehaviorRelay(value: nil)
@@ -32,9 +33,17 @@ class SettingViewModel: BaseViewModel {
                 }
                 print("file upload...")
                 return DataRepository.api().uploadImage(data)
-                .map({ response -> Bool in
-                    return response.completed
-                })
+                    .do(onNext: {[weak self] _ in
+                        DataRepository.preference().setAvatarURL(self?.imagePath)
+                        }, onError: {[weak self] error in
+                            self?.doAction(Action.openErrorDialog, param: error)
+                    })
+                    .skipWhile({ response -> Bool in
+                        response.progress != 1.0
+                    })
+                    .map({ response -> Bool in
+                        return response.completed
+                    })
             })
             .retry()
             .share(replay: 1)

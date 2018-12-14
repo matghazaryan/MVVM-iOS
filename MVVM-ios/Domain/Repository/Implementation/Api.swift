@@ -93,15 +93,6 @@ class Api: APIHelperProtocol {
         return apiProvider.rx
             .requestWithProgress(.uploadImage(data))
             .observeOn(MainScheduler.asyncInstance)
-            .do(onNext: { response in
-                if response.completed {
-                    print(response.response)
-                } else {
-                    print("progress = \(response.progress)")
-                }
-            }, onError: {
-                print("errror \($0)")
-            })
             .asObservable()
     }
 }

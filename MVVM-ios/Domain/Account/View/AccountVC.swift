@@ -91,6 +91,7 @@ class AccountVC: UIViewController {
     override func onLanguageChange(_ note: Notification) {
         viewModel?.onLanguageChange()
         self.view = nil
+        let _ = self.view
         self.viewWillAppear(true)
     }
     

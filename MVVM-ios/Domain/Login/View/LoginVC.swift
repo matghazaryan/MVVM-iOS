@@ -33,9 +33,7 @@ class LoginVC: UIViewController, BaseViewController {
         viewModel.validFields.bind(to: loginButton.rx.isEnabled).disposed(by: disposeBag)
         viewModel.bindToLoginAction(loginButton.rx.tap)
         checkBox.onCheckChange.asObservable().bind(to: viewModel.isChecked).disposed(by: disposeBag)
-        checkBox.onCheckChange.asObservable().subscribe({
-            print($0)
-        }).disposed(by: disposeBag)
+        
         viewModel.model.subscribe(onNext: {
             if let user = $0 {
                 let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")

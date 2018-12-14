@@ -65,6 +65,9 @@ class SettingsVC: UITableViewController, BaseViewController {
             guard let weakSelf = self else { return }
             self?.present(weakSelf.imagePicker, animated: true, completion: nil)
         }).disposed(by: disposeBag)
+        
+        viewModel.bindToUpload(self.navigationItem.rightBarButtonItem!.rx.tap)
+        
         viewModel.successUpload.subscribe(onNext: {
             if $0 {
                 self.navigationController?.popViewController(animated: true)
@@ -80,30 +83,12 @@ class SettingsVC: UITableViewController, BaseViewController {
         })
             .bind(to: avatar.rx.image)
             .disposed(by: disposeBag)
-//        viewModel.bindToUpload(self.navigationItem.rightBarButtonItem!.rx.tap)
-        self.navigationItem.rightBarButtonItem!.rx.tap.asObservable()
-            .withLatestFrom(viewModel.imageData)
-            .flatMap { data -> Observable<Bool> in
-                guard let data = data else {
-                    return Observable.just(false)
-                }
-                return DataRepository.api().uploadImage(data)
-                    .map({ response -> Bool in
-                        return response.completed
-                    })
-            }
-            .retry()
-            .share(replay: 1)
-            .subscribe(onNext: { complete in
-                if complete {
-                    self.navigationController?.popViewController(animated: true)
-                } else {
-                    UIAlertController.showAsToastWith(message: "incomplete")
-                }
-            }, onError: { error in
+        
+        (viewModel.getAction(Action.openErrorDialog) as Observable<Error>)
+            .subscribe(onNext: { error in
                 UIAlertController.showError(error)
             })
-        .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
     }
     
     override func onLanguageChange(_ node: Notification) {
@@ -121,8 +106,7 @@ extension SettingsVC: UIImagePickerControllerDelegate & UINavigationControllerDe
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let imageData = (info[.originalImage] as? UIImage)?.pngData()
         viewModel.setImageData(imageData)
-        let url = info[.referenceURL] as? URL
-        DataRepository.preference().setAvatarURL(url)
+        viewModel.imagePath = info[.referenceURL] as? URL
         imagePicker.dismiss(animated: true, completion: nil)
     }
 }
