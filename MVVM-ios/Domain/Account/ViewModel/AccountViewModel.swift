@@ -25,12 +25,15 @@ class AccountViewModel: BaseViewModel {
     func logOut(on tap: ControlEvent<Void>) -> Observable<()> {
         return tap.asObservable()
             .flatMap { _ -> Observable<Void> in
-                return DataRepository.getInstance().apiLogOut()
+                return DataRepository.api().logOut()
             }
             .retry()
             .do(onNext: {[weak self] _ in
-                DataRepository.getInstance().prefSetRememberMe(false)
+                DataRepository.preference().setRememberMe(false)
                 self?.doAction(Action.openLoginVC, param: Optional<Void>(nilLiteral: ()))
+                if !CoreDataManager.clearDataBase(Card.self) {
+                    print("database was not cleared")
+                }
                 }, onError: {[weak self] error in
                     self?.doAction(Action.openErrorDialog, param: error)
             })

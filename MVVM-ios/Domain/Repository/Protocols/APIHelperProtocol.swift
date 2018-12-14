@@ -15,10 +15,10 @@ protocol APIHelperProtocol {
     
     var apiProvider: MoyaProvider<MoyaTarget> { get }
     
-    func apiGetConfigs() -> Observable<Configs?>
-    func apiLogin(email: String, password: String) -> Observable<User?>
-    func apiLogOut() -> Observable<Void>
-    func apiGetTransactions(page: Int) -> Observable<TransactionData>
-    func apiGetCards() -> Observable<[Card]>
-    func apiUploadImage(_ data: Data) -> Observable<ProgressResponse>
+    func getConfigs() -> Observable<Configs?>
+    func login(email: String, password: String) -> Observable<User?>
+    func logOut() -> Observable<Void>
+    func getTransactions(page: Int) -> Observable<TransactionData>
+    func getCards() -> Observable<[Card]>
+    func uploadImage(_ data: Data) -> Observable<ProgressResponse>
 }

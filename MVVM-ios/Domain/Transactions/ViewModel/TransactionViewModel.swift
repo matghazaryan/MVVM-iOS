@@ -26,7 +26,7 @@ class TransactionViewModel: BaseViewModel {
     func fetchNext() {
         if hasNextPage && !isLoading {
             isLoading = true
-            DataRepository.getInstance().apiGetTransactions(page: currentPage)
+            DataRepository.api().getTransactions(page: currentPage)
                 .subscribe(onNext: {[weak self] in
                     self?.hasNextPage = $0.hasNextPage
                     if $0.hasNextPage {

@@ -24,10 +24,10 @@ class LoginViewModel: BaseViewModel {
     
     var rememberMe: Bool {
         set {
-            DataRepository.getInstance().prefSetRememberMe(newValue)
+            DataRepository.preference().setRememberMe(newValue)
         }
         get {
-            return DataRepository.getInstance().prefGetRememberMe()
+            return DataRepository.preference().getRememberMe()
         }
     }
     
@@ -61,18 +61,18 @@ class LoginViewModel: BaseViewModel {
         model = tap.asObservable()
             .withLatestFrom(user)
             .flatMap {login, password -> Observable<User?> in
-                return DataRepository.getInstance().apiLogin(email: login, password: password)
+                return DataRepository.api().login(email: login, password: password)
             }
             .retry()
             .do(onNext: {
                 if $0 != nil { // user get successfully
                     if self.isChecked.value == true {
-                        DataRepository.getInstance().prefSetRememberMe(true)
+                        DataRepository.preference().setRememberMe(true)
                         self.login.subscribe(onNext: {
-                            DataRepository.getInstance().saveEmail($0)
+                            DataRepository.keychain().saveEmail($0)
                         }).dispose()
                         self.password.subscribe(onNext: {
-                            DataRepository.getInstance().savePassword($0)
+                            DataRepository.keychain().savePassword($0)
                         }).dispose()
                     }
                 }

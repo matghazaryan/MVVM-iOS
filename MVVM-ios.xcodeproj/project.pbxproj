@@ -16,7 +16,6 @@
 		A4079CDA219306E800A7178C /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079CD9219306E800A7178C /* SplashVC.swift */; };
 		A4079CDC219306FB00A7178C /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079CDB219306FB00A7178C /* Configs.swift */; };
 		A4079CE121930F3C00A7178C /* DataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079CE021930F3C00A7178C /* DataRepository.swift */; };
-		A4079CE321930F5100A7178C /* DataRepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079CE221930F5100A7178C /* DataRepositoryProtocol.swift */; };
 		A4079CE521930F6500A7178C /* APIHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079CE421930F6500A7178C /* APIHelperProtocol.swift */; };
 		A4079CE721930F8600A7178C /* DBHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079CE621930F8600A7178C /* DBHelperProtocol.swift */; };
 		A4079CE92193119300A7178C /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4079CE82193119300A7178C /* BaseTargetType.swift */; };
@@ -38,7 +37,7 @@
 		A48B4085219559550089008C /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48B4083219559550089008C /* ReachabilityService.swift */; };
 		A48B4086219559550089008C /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48B4084219559550089008C /* Reachability.swift */; };
 		A48B4088219561DF0089008C /* UIViewController+StoryBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48B4087219561DF0089008C /* UIViewController+StoryBoard.swift */; };
-		A4944BCB219AE47D00F078C8 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BCA219AE47D00F078C8 /* UserDefaultsHelper.swift */; };
+		A4944BCB219AE47D00F078C8 /* PreferenceHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BCA219AE47D00F078C8 /* PreferenceHelperProtocol.swift */; };
 		A4944BCD219AEB4200F078C8 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BCC219AEB4200F078C8 /* KeychainManager.swift */; };
 		A4944BD8219C5D2400F078C8 /* Card+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BD7219C5D2400F078C8 /* Card+CoreDataProperties.swift */; };
 		A4944BDA219C5D3200F078C8 /* Card+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4944BD9219C5D3200F078C8 /* Card+CoreDataClass.swift */; };
@@ -88,6 +87,11 @@
 		A4D78A0921C135B9007205D2 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D789F021C135B9007205D2 /* TextField.swift */; };
 		A4D78A0A21C135B9007205D2 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D789F121C135B9007205D2 /* Button.swift */; };
 		A4DC8F8121BE5B4C00B1DDF2 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DC8F8021BE5B4C00B1DDF2 /* BaseViewModel.swift */; };
+		A4E8A81221C38A5C00C506BB /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E8A81121C38A5C00C506BB /* Api.swift */; };
+		A4E8A81421C38B8F00C506BB /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E8A81321C38B8F00C506BB /* Database.swift */; };
+		A4E8A81621C38E0700C506BB /* Preference.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E8A81521C38E0700C506BB /* Preference.swift */; };
+		A4E8A81821C38F6E00C506BB /* KeychainHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E8A81721C38F6E00C506BB /* KeychainHelperProtocol.swift */; };
+		A4E8A81A21C38FBA00C506BB /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E8A81921C38FBA00C506BB /* Keychain.swift */; };
 		A4EC4BF921AED79B00574FF3 /* SelectLanguageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC4BF821AED79B00574FF3 /* SelectLanguageVC.swift */; };
 		A4FFDB3F21C22D3E00DF2870 /* UIViewController+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFDB3E21C22D3E00DF2870 /* UIViewController+Swizzling.swift */; };
 		A4FFDB4121C23CE300DF2870 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFDB4021C23CE300DF2870 /* BaseViewController.swift */; };
@@ -118,7 +122,6 @@
 		A4079CD9219306E800A7178C /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		A4079CDB219306FB00A7178C /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		A4079CE021930F3C00A7178C /* DataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepository.swift; sourceTree = "<group>"; };
-		A4079CE221930F5100A7178C /* DataRepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRepositoryProtocol.swift; sourceTree = "<group>"; };
 		A4079CE421930F6500A7178C /* APIHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIHelperProtocol.swift; sourceTree = "<group>"; };
 		A4079CE621930F8600A7178C /* DBHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBHelperProtocol.swift; sourceTree = "<group>"; };
 		A4079CE82193119300A7178C /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
@@ -141,7 +144,7 @@
 		A48B4083219559550089008C /* ReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		A48B4084219559550089008C /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A48B4087219561DF0089008C /* UIViewController+StoryBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+StoryBoard.swift"; sourceTree = "<group>"; };
-		A4944BCA219AE47D00F078C8 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		A4944BCA219AE47D00F078C8 /* PreferenceHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceHelperProtocol.swift; sourceTree = "<group>"; };
 		A4944BCC219AEB4200F078C8 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		A4944BD7219C5D2400F078C8 /* Card+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A4944BD9219C5D3200F078C8 /* Card+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Card+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -192,6 +195,11 @@
 		A4D789F021C135B9007205D2 /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		A4D789F121C135B9007205D2 /* Button.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		A4DC8F8021BE5B4C00B1DDF2 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		A4E8A81121C38A5C00C506BB /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		A4E8A81321C38B8F00C506BB /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		A4E8A81521C38E0700C506BB /* Preference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preference.swift; sourceTree = "<group>"; };
+		A4E8A81721C38F6E00C506BB /* KeychainHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelperProtocol.swift; sourceTree = "<group>"; };
+		A4E8A81921C38FBA00C506BB /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		A4EC4BF821AED79B00574FF3 /* SelectLanguageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLanguageVC.swift; sourceTree = "<group>"; };
 		A4FFDB3E21C22D3E00DF2870 /* UIViewController+Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Swizzling.swift"; sourceTree = "<group>"; };
 		A4FFDB4021C23CE300DF2870 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -335,6 +343,7 @@
 		A4079CDD2193083000A7178C /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				A4E8A81021C3883900C506BB /* Implementation */,
 				A4079CDE2193083A00A7178C /* Protocols */,
 				A4079CE021930F3C00A7178C /* DataRepository.swift */,
 				A4079CE82193119300A7178C /* BaseTargetType.swift */,
@@ -346,10 +355,10 @@
 		A4079CDE2193083A00A7178C /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				A4079CE221930F5100A7178C /* DataRepositoryProtocol.swift */,
 				A4079CE421930F6500A7178C /* APIHelperProtocol.swift */,
 				A4079CE621930F8600A7178C /* DBHelperProtocol.swift */,
-				A4944BCA219AE47D00F078C8 /* UserDefaultsHelper.swift */,
+				A4944BCA219AE47D00F078C8 /* PreferenceHelperProtocol.swift */,
+				A4E8A81721C38F6E00C506BB /* KeychainHelperProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -646,6 +655,17 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		A4E8A81021C3883900C506BB /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				A4E8A81121C38A5C00C506BB /* Api.swift */,
+				A4E8A81321C38B8F00C506BB /* Database.swift */,
+				A4E8A81521C38E0700C506BB /* Preference.swift */,
+				A4E8A81921C38FBA00C506BB /* Keychain.swift */,
+			);
+			path = Implementation;
+			sourceTree = "<group>";
+		};
 		A4FFDB3D21C22D2A00DF2870 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -808,7 +828,6 @@
 				A48B4088219561DF0089008C /* UIViewController+StoryBoard.swift in Sources */,
 				A48B4070219558100089008C /* UIView+Localization.swift in Sources */,
 				A4DC8F8121BE5B4C00B1DDF2 /* BaseViewModel.swift in Sources */,
-				A4079CE321930F5100A7178C /* DataRepositoryProtocol.swift in Sources */,
 				A4D78A0621C135B9007205D2 /* Label.swift in Sources */,
 				A4079CE721930F8600A7178C /* DBHelperProtocol.swift in Sources */,
 				A4B5716621A2A73C00348A0A /* CardCollectionViewCell.swift in Sources */,
@@ -817,9 +836,11 @@
 				A4D78A0421C135B9007205D2 /* PickerViewViewController.swift in Sources */,
 				A40A2FBF219AA6BA00307984 /* CoreDataManager.swift in Sources */,
 				A40A2FBB2199943400307984 /* AccountViewModel.swift in Sources */,
+				A4E8A81421C38B8F00C506BB /* Database.swift in Sources */,
 				A47F7EE62195AFAD001FD889 /* LoginViewModel.swift in Sources */,
 				A4079CDC219306FB00A7178C /* Configs.swift in Sources */,
 				A4B5716F21A2DEF000348A0A /* UIView+Drawing.swift in Sources */,
+				A4E8A81821C38F6E00C506BB /* KeychainHelperProtocol.swift in Sources */,
 				A4D789F821C135B9007205D2 /* String+Extensions.swift in Sources */,
 				A40A2FB921997B7D00307984 /* AccountVC.swift in Sources */,
 				A4D78A0521C135B9007205D2 /* DatePickerViewController.swift in Sources */,
@@ -827,6 +848,7 @@
 				A4D789FE21C135B9007205D2 /* Optional+Extensions.swift in Sources */,
 				A4FFDB4121C23CE300DF2870 /* BaseViewController.swift in Sources */,
 				A4944BEA219D415D00F078C8 /* CardsVC.swift in Sources */,
+				A4E8A81221C38A5C00C506BB /* Api.swift in Sources */,
 				A4079CD8219306C100A7178C /* SplashViewModel.swift in Sources */,
 				A4079CDA219306E800A7178C /* SplashVC.swift in Sources */,
 				A4D789F921C135B9007205D2 /* UITextView+Extensions.swift in Sources */,
@@ -842,7 +864,8 @@
 				A4D789FB21C135B9007205D2 /* UIImage+Extensions.swift in Sources */,
 				A4D789FD21C135B9007205D2 /* UIAlertController+Extensions.swift in Sources */,
 				A4D78A0321C135B9007205D2 /* TextViewController.swift in Sources */,
-				A4944BCB219AE47D00F078C8 /* UserDefaultsHelper.swift in Sources */,
+				A4944BCB219AE47D00F078C8 /* PreferenceHelperProtocol.swift in Sources */,
+				A4E8A81621C38E0700C506BB /* Preference.swift in Sources */,
 				A4D78A0221C135B9007205D2 /* AttributedTextBlock.swift in Sources */,
 				A4D789F221C135B9007205D2 /* Array+Extensions.swift in Sources */,
 				A4D78A0121C135B9007205D2 /* UITextField+Extensions.swift in Sources */,
@@ -860,6 +883,7 @@
 				A4B5716121A29F9300348A0A /* CardView.swift in Sources */,
 				A4D789FA21C135B9007205D2 /* UIColor+Extensions.swift in Sources */,
 				A4944BCD219AEB4200F078C8 /* KeychainManager.swift in Sources */,
+				A4E8A81A21C38FBA00C506BB /* Keychain.swift in Sources */,
 				A48B4081219559180089008C /* Optional+Unwraping.swift in Sources */,
 				A48B4085219559550089008C /* ReachabilityService.swift in Sources */,
 				A4B5717221A2EBD200348A0A /* BiometricUtils.swift in Sources */,

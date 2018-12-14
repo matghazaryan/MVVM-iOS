@@ -36,7 +36,7 @@ class AccountVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let url = DataRepository.getInstance().prefGetAvatarURL() else {
+        guard let url = DataRepository.preference().getAvatarURL() else {
             userImage.image = #imageLiteral(resourceName: "avatar")
             return
         }

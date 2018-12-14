@@ -19,8 +19,7 @@ class CardsViewModel: BaseViewModel {
     }
     
     func getCards() {
-        DataRepository.getInstance()
-            .apiGetCards().subscribe(onNext: {
+        DataRepository.api().getCards().subscribe(onNext: {
                 self.model.accept($0)
             }, onDisposed: {
                 print("\(self) disposed")

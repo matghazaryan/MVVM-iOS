@@ -104,7 +104,7 @@ extension BaseTargetType: TargetType {
         params["applicationId"] = BaseTargetType.getUDID()
         params["applicationVersion"] = BaseTargetType.getApplicationVersionNumber()
         params["deviceScale"] = BaseTargetType.getDeviceScale()
-        params["jwt"] = DataRepository.getInstance().prefGetToken()
+        params["jwt"] = DataRepository.preference().getToken()
         switch self {
         case .login(let email, let password):
             params["email"] = email

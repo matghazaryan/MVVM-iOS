@@ -31,7 +31,7 @@ class SettingViewModel: BaseViewModel {
                     return Observable.just(false)
                 }
                 print("file upload...")
-                return DataRepository.getInstance().apiUploadImage(data)
+                return DataRepository.api().uploadImage(data)
                 .map({ response -> Bool in
                     return response.completed
                 })

@@ -12,178 +12,26 @@ import RxCocoa
 import Moya
 import CoreData
 
-enum UserDefaultsKeys: String {
-    case token
-    case rememberMe
-    case configs
-    case avatar
-}
-
 enum KeychainKeys: String {
     case email
     case password
 }
 
-class DataRepository: DataRepositoryProtocol {
+class DataRepository {
     
-    var apiProvider: MoyaProvider<BaseTargetType> = MoyaProvider()
-    private static var sInstance = DataRepository()
-    private var userDefaults = UserDefaults(suiteName: "am.mvvm-ios.example.user.defaults")!
-    
-    static func getInstance() -> DataRepository {
-        return sInstance
+    static func api() -> Api {
+        return Api.getInstance()
     }
     
-    // MARK: - APIHelperProtocol
-    
-    func apiGetConfigs() -> Observable<Configs?> {
-        return apiProvider.rx
-            .request(.configs)
-            .subscribeOn(CurrentThreadScheduler.instance)
-            .observeOn(MainScheduler.asyncInstance)
-            .do(onSuccess: {[weak self] response in
-                self?.prefSaveConfigJson(response.data)
-                }, onError: {
-                    print($0.localizedDescription)
-            })
-            .asDriver(onErrorRecover: {[weak self] error -> SharedSequence<DriverSharingStrategy, Response> in
-                guard let data = self?.prefGetConfigJson() else {
-                        return SharedSequence.just(Response.init(statusCode: 200, data: Data()))
-                    }
-                return SharedSequence.just(Response.init(statusCode: 200, data: data))
-            })
-            .map({response -> Configs? in
-                return try? JSONDecoder().decode(Configs.self, from: response.data, nestedKeys: "data")
-            })
-            .asObservable()
+    static func preference() -> Preference {
+        return Preference.getInstance()
     }
     
-    func apiLogin(email: String, password: String) -> Observable<User?> {
-        return apiProvider.rx
-            .request(.login(email: email, password: password))
-            .subscribeOn(CurrentThreadScheduler.instance)
-            .observeOn(MainScheduler.asyncInstance)
-            .map({[weak self] response -> User? in
-                let user = try JSONDecoder().decode(User?.self, from: response.data, nestedKeys: "data")
-                self?.prefUpdateToken(user?.token)
-                return user
-            })
-            .asObservable()
+    static func database() -> Database {
+        return Database.getInstance()
     }
     
-    func apiLogOut() -> Observable<Void> {
-        return apiProvider.rx
-            .request(.logout)
-            .observeOn(MainScheduler.asyncInstance)
-            .map({ response -> Void in
-                print(response)
-                return
-            })
-            .asObservable()
-    }
-    
-    func apiGetTransactions(page: Int) -> Observable<TransactionData> {
-        return apiProvider.rx
-            .request(BaseTargetType.transactions(page: page))
-            .observeOn(MainScheduler.asyncInstance)
-            .map({ response -> TransactionData in
-                let transactions = try JSONDecoder().decode(TransactionData.self, from: response.data, nestedKeys: "data")
-                return transactions
-            })
-            .asObservable()
-    }
-    
-    func apiGetCards() -> Observable<[Card]> {
-        return apiProvider.rx
-            .request(.cards)
-            .observeOn(MainScheduler.asyncInstance)
-            .map([Card].self, atKeyPath: "data.cards_list", using: JSONDecoder(), failsOnEmptyData: false)
-            .do(onSuccess: { _ in
-                CoreDataManager.sInstance.saveContext()
-            })
-            .asObservable()
-    }
-    
-    func apiUploadImage(_ data: Data) -> Observable<ProgressResponse> {
-        return apiProvider.rx
-            .requestWithProgress(.uploadImage(data))
-            .observeOn(MainScheduler.asyncInstance)
-//            .do(onNext: { response in
-//                if response.completed {
-//                    print(response.response)
-//                } else {
-//                    print("progress = \(response.progress)")
-//                }
-//            }, onError: {
-//                print("errror \($0)")
-//            })
-//            .asObservable()
-    }
-    
-    // MARK: - DBHelperProtocol
-    
-    func dbGetConfigsFromCache() -> Observable<Configs?> {
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Configs")
-//        fetchRequest.entity = NSEntityDescription.entity(forEntityName: "Configs", in: )
-        return Observable.just(nil)
-    }
-    
-    func dbGetCardsFromCache() -> Observable<[Card]> {
-        guard let cards = try? CoreDataManager.fetchAllObjectsForType(Card.self) else {
-            return Observable.just([])
-        }
-        return Observable.just(cards)
-    }
-    
-    // MARK: - UserDefaultsHelper
-    
-    func prefGetToken() -> String? {
-        return userDefaults.string(forKey: UserDefaultsKeys.token.rawValue)
-    }
-    
-    func prefUpdateToken(_ token: String?) {
-        userDefaults.setValue(token, forKey: UserDefaultsKeys.token.rawValue)
-    }
-    
-    func prefSetRememberMe(_ value: Bool) {
-        userDefaults.set(value, forKey: UserDefaultsKeys.rememberMe.rawValue)
-    }
-    
-    func prefGetRememberMe() -> Bool {
-        return userDefaults.bool(forKey: UserDefaultsKeys.rememberMe.rawValue)
-    }
-    
-    func prefSaveConfigJson(_ json: Data?) {
-        userDefaults.set(json, forKey: UserDefaultsKeys.configs.rawValue)
-    }
-    
-    func prefGetConfigJson() -> Data? {
-        return userDefaults.data(forKey: UserDefaultsKeys.configs.rawValue)
-    }
-    
-    func prefSetAvatarURL(_ url: URL?) {
-        userDefaults.set(url, forKey: UserDefaultsKeys.avatar.rawValue)
-    }
-    
-    func prefGetAvatarURL() -> URL? {
-        return userDefaults.url(forKey: UserDefaultsKeys.avatar.rawValue)
-    }
-    
-    // MARK: - KeychainManager
-    
-    func saveEmail(_ email: String) {
-        let _ = KeychainManager.KMSaveOrUpdate(value: email, forKey: KeychainKeys.email.rawValue)
-    }
-    
-    func getEmail() -> String? {
-        return KeychainManager.KMGetValue(forKey: KeychainKeys.email.rawValue)
-    }
-    
-    func savePassword(_ password: String) {
-        let _ = KeychainManager.KMSaveOrUpdate(value: password, forKey: KeychainKeys.password.rawValue)
-    }
-    
-    func getPassword() -> String? {
-        return KeychainManager.KMGetValue(forKey: KeychainKeys.password.rawValue)
+    static func keychain() -> Keychain {
+        return Keychain.getInstance()
     }
 }

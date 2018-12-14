@@ -35,7 +35,7 @@ class SettingsVC: UITableViewController, BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let url = DataRepository.getInstance().prefGetAvatarURL() else {
+        guard let url = DataRepository.preference().getAvatarURL() else {
             avatar.image = #imageLiteral(resourceName: "avatar")
             return
         }
@@ -87,7 +87,7 @@ class SettingsVC: UITableViewController, BaseViewController {
                 guard let data = data else {
                     return Observable.just(false)
                 }
-                return DataRepository.getInstance().apiUploadImage(data)
+                return DataRepository.api().uploadImage(data)
                     .map({ response -> Bool in
                         return response.completed
                     })
@@ -122,7 +122,7 @@ extension SettingsVC: UIImagePickerControllerDelegate & UINavigationControllerDe
         let imageData = (info[.originalImage] as? UIImage)?.pngData()
         viewModel.setImageData(imageData)
         let url = info[.referenceURL] as? URL
-        DataRepository.getInstance().prefSetAvatarURL(url)
+        DataRepository.preference().setAvatarURL(url)
         imagePicker.dismiss(animated: true, completion: nil)
     }
 }

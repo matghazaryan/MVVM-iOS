@@ -25,7 +25,7 @@ class SplashViewModel: BaseViewModel {
     }
     
     func getConfigs() {
-        DataRepository.getInstance().apiGetConfigs().take(1)
+        DataRepository.api().getConfigs().take(1)
             .subscribe(onNext: {
                 self.configs.accept($0)
                 self.toNextVC()
@@ -39,7 +39,7 @@ class SplashViewModel: BaseViewModel {
     }
     
     func toNextVC() {
-        if DataRepository.getInstance().prefGetRememberMe() && BiometricUtils.biometricType() != .none {
+        if DataRepository.preference().getRememberMe() && BiometricUtils.biometricType() != .none {
             self.doAction(Action.showBiometric, param: Optional<User>(nilLiteral: ()))
         } else {
             self.doAction(Action.openLoginVC, param: Optional<User>(nilLiteral: ()))
@@ -47,13 +47,13 @@ class SplashViewModel: BaseViewModel {
     }
     
     func login() {
-        guard let email = DataRepository.getInstance().getEmail(),
-            let password = DataRepository.getInstance().getPassword() else {
+        guard let email = DataRepository.keychain().getEmail(),
+            let password = DataRepository.keychain().getPassword() else {
                 self.doAction(Action.openErrorDialog, param: Optional<Error>(nilLiteral: ()))
                 return
         }
         
-        DataRepository.getInstance().apiLogin(email: email, password: password)
+        DataRepository.api().login(email: email, password: password)
             .subscribe(onNext: {
                 self.doAction(Action.openAccount, param: $0)
             }, onError: {
