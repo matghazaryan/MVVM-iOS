@@ -45,7 +45,7 @@ extension BaseTargetType: TargetType {
             case 3:
                 return "5bec17b0330000c825fbc220"
             case 4:
-                return "5bec18173300006125fbc221"
+                return "5c14e990340000be1fb8e97a"
             case 5:
                 return "5bec1850330000ee28fbc222"
             case 6:

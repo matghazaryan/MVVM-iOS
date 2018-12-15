@@ -64,5 +64,10 @@ class TransactionsVC: UITableViewController, BaseViewController {
             }
             }
             .disposed(by: disposeBag)
+        
+        viewModel.error.subscribe(onNext: { error in
+            UIAlertController.showError(error)
+        })
+        .disposed(by: disposeBag)
     }
 }
