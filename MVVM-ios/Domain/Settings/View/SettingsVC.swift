@@ -35,22 +35,24 @@ class SettingsVC: UITableViewController, BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        guard let url = DataRepository.preference().getAvatarURL() else {
-            avatar.image = #imageLiteral(resourceName: "avatar")
-            return
-        }
-        let asset = PHAsset.fetchAssets(withALAssetURLs: [url], options: nil)
-        guard let result = asset.firstObject else {
-            avatar.image = #imageLiteral(resourceName: "avatar")
-            return
-        }
-        let imageManager = PHImageManager.default()
-        imageManager.requestImageData(for: result, options: nil) { data, string, orientation, dict in
-            guard let data = data else {
+        if !viewModel.enableSaveButton.value {
+            guard let url = DataRepository.preference().getAvatarURL() else {
+                avatar.image = #imageLiteral(resourceName: "avatar")
                 return
             }
-            let image = UIImage(data: data)
-            self.avatar.image = image
+            let asset = PHAsset.fetchAssets(withALAssetURLs: [url], options: nil)
+            guard let result = asset.firstObject else {
+                avatar.image = #imageLiteral(resourceName: "avatar")
+                return
+            }
+            let imageManager = PHImageManager.default()
+            imageManager.requestImageData(for: result, options: nil) { data, string, orientation, dict in
+                guard let data = data else {
+                    return
+                }
+                let image = UIImage(data: data)
+                self.avatar.image = image
+            }
         }
     }
     
@@ -67,6 +69,10 @@ class SettingsVC: UITableViewController, BaseViewController {
         }).disposed(by: disposeBag)
         
         viewModel.bindToUpload(self.navigationItem.rightBarButtonItem!.rx.tap)
+        
+        viewModel.enableSaveButton
+            .bind(to: self.navigationItem.rightBarButtonItem!.rx.isEnabled)
+            .disposed(by: disposeBag)
         
         viewModel.successUpload.subscribe(onNext: {
             if $0 {

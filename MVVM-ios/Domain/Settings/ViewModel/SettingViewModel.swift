@@ -13,15 +13,18 @@ import RxCocoa
 class SettingViewModel: BaseViewModel {
     var imageData: BehaviorRelay<Data?>
     var successUpload: Observable<Bool>
+    var enableSaveButton: BehaviorRelay<Bool>
     var imagePath: URL?
     
     override init() {
         imageData = BehaviorRelay(value: nil)
         successUpload = Observable<Bool>.just(false)
+        enableSaveButton = BehaviorRelay(value: false)
     }
     
     func setImageData(_ data: Data?) {
         imageData.accept(data)
+        enableSaveButton.accept(true)
     }
     
     func bindToUpload(_ tap: ControlEvent<Void>) {
