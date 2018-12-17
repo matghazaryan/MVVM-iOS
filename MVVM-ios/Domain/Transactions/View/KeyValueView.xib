@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="GPt-iF-I0x" customClass="KeyValueView" customModule="MVVM_ios" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="TSt-wk-DkC">
+                    <rect key="frame" x="10" y="0.0" width="355" height="84"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vLA-vT-3wE">
+                            <rect key="frame" x="0.0" y="32" width="172.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNK-fL-YIg">
+                            <rect key="frame" x="182.5" y="32" width="172.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="TSt-wk-DkC" firstAttribute="leading" secondItem="a1x-z3-9Qg" secondAttribute="leading" constant="10" id="4ZR-gI-pE3"/>
+                <constraint firstAttribute="bottom" secondItem="TSt-wk-DkC" secondAttribute="bottom" id="Eal-Ti-oxm"/>
+                <constraint firstItem="TSt-wk-DkC" firstAttribute="top" secondItem="GPt-iF-I0x" secondAttribute="top" id="bHV-GR-ONV"/>
+                <constraint firstItem="a1x-z3-9Qg" firstAttribute="trailing" secondItem="TSt-wk-DkC" secondAttribute="trailing" constant="10" id="ngJ-Q4-BUc"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="a1x-z3-9Qg"/>
+            <connections>
+                <outlet property="keyLabel" destination="vLA-vT-3wE" id="9S9-sN-1RF"/>
+                <outlet property="valueLabel" destination="pNK-fL-YIg" id="Tzb-ra-CsZ"/>
+            </connections>
+            <point key="canvasLocation" x="167.19999999999999" y="32.383808095952027"/>
+        </view>
+    </objects>
+</document>

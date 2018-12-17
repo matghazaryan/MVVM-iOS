@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18B75" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Card" representedClassName="Card" syncable="YES">
+        <attribute name="balanceLabel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cardColor1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cardColor2" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cardNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cardType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="embossingName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expDateMonth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expDateYear" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isBlocked" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isDefault" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Card" positionX="-63" positionY="-18" width="128" height="210"/>
+    </elements>
+</model>
