@@ -10,22 +10,22 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class SplashVC: UIViewController, BaseViewController {
-    
-    let disposeBag = DisposeBag()
-    var viewModel: SplashViewModel = SplashViewModel()
+class SplashVC: UIViewController {
+    override var viewmodelClass: AnyClass {
+        return SplashViewModel.self
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        viewModel.getConfigs()
+        getViewModel(as: SplashViewModel.self).getConfigs()
     }
     
     internal override func bindViews() {
         (viewModel.getAction(Action.doLogin) as Observable<User>)
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: {[weak self] _ in
-                self?.viewModel.login()
+                self?.getViewModel(as: SplashViewModel.self).login()
             })
             .disposed(by: disposeBag)
         
@@ -50,7 +50,7 @@ class SplashVC: UIViewController, BaseViewController {
             })
             .disposed(by: disposeBag)
         
-        viewModel.error.subscribe(onNext: { error in
+        getViewModel(as: SplashViewModel.self).error.subscribe(onNext: { error in
             UIAlertController.showError(error)
         })
         .disposed(by: disposeBag)
@@ -59,7 +59,8 @@ class SplashVC: UIViewController, BaseViewController {
     private func openAccount(user: User) {
         openLogin()
         let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
-        let viewModel = AccountViewModel(user: user)
+        let viewModel = AccountViewModel()
+        viewModel.setUser(user)
         nextVC.viewModel = viewModel
         UIApplication.shared.keyWindow?.rootViewController?.present(UINavigationController(rootViewController: nextVC), animated: true)
     }
@@ -72,7 +73,7 @@ class SplashVC: UIViewController, BaseViewController {
     private func showBiometric() {
         BiometricUtils.authUser(localizedReason: "For Login") { success, error in
             if success {
-                self.viewModel.login()
+                self.getViewModel(as: SplashViewModel.self).login()
             } else {
                 self.openLogin()
             }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 private let swizzling: (UIViewController.Type) -> () = { viewController in
     let oldSelector = #selector(viewController.viewDidLoad)
@@ -18,8 +19,39 @@ private let swizzling: (UIViewController.Type) -> () = { viewController in
     method_exchangeImplementations(old, new)
 }
 
-@objc
 extension UIViewController {
+    private struct AssociatedObjectKeys {
+        static var viewModel = 0
+        static var disposeBag = 1
+    }
+    
+    @objc var viewmodelClass: AnyClass {
+        return BaseViewModel.self
+    }
+    
+    internal var viewModel: BaseViewModel {
+        set {
+            let vm = viewmodelClass.init()
+            objc_setAssociatedObject(self, &AssociatedObjectKeys.viewModel, vm, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            objc_getAssociatedObject(self, &AssociatedObjectKeys.viewModel)
+        }
+    }
+    
+    var disposeBag: DisposeBag {
+        set {
+            objc_setAssociatedObject(self, &AssociatedObjectKeys.disposeBag, DisposeBag(), objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            objc_getAssociatedObject(self, &AssociatedObjectKeys.disposeBag)
+        }
+    }
+    
+    @objc var updateViewOnLanguageChange: Bool {
+        return false
+    }
+    
     open class func initializeing() {
         // make sure this isn't a subclass
         guard self === UIViewController.self else { return }
@@ -40,8 +72,38 @@ extension UIViewController {
                      name: languageChangeNotification, object: nil)
     }
     
-    func bindViews() { }
-    func onLanguageChange(_ note: Notification) {
+    @objc func bindViews() { }
+    @objc func onLanguageChange(_ note: Notification) {
         // any additioal steps every time when language changes
+        if updateViewOnLanguageChange {
+            self.view = nil
+            let _ = self.view
+            self.viewWillAppear(true)
+        }
+    }
+    
+    private func baseBinding() {
+        (viewModel.getAction(Action.openErrorDialog) as Observable<Error>)
+            .subscribe(onNext: {
+                UIAlertController.showError($0)
+            })
+            .disposed(by: disposeBag)
+        (viewModel.getAction(Action.showNoInternet) as Observable<String>)
+            .subscribe(onNext: {
+                UIAlertController.showWith(message: $0)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func getViewModel<T>(as clazz: T.Type) -> T {
+        if viewModel is T {
+            return viewModel as! T
+        } else {
+            fatalError()
+        }
+    }
+    
+    func setNavigationTitle(_ navigationTitle: String?) {
+        navigationItem.title = navigationTitle
     }
 }

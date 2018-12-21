@@ -47,6 +47,10 @@ class BaseViewModel {
         }
     }
     
+    required init() {
+        
+    }
+    
     private func isOptional<T>(_ type: T) -> Bool {
         let typeName = String(describing: type)
         return typeName.hasPrefix("Optional") || typeName.hasPrefix("nil")

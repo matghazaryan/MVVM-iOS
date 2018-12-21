@@ -31,7 +31,7 @@ class LoginViewModel: BaseViewModel {
         }
     }
     
-    override init() {
+    required init() {
         login = Observable.just("")
         validFields = Observable.just(false)
         password = Observable.just("")

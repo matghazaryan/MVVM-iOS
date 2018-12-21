@@ -14,7 +14,7 @@ class CardsViewModel: BaseViewModel {
     private(set) var model: BehaviorRelay<[Card]>
     private var disposeBag = DisposeBag()
     
-    override init() {
+    required init() {
         model = BehaviorRelay(value: [])
     }
     

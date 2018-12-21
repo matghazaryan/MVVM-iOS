@@ -16,7 +16,7 @@ class SettingViewModel: BaseViewModel {
     var enableSaveButton: BehaviorRelay<Bool>
     var imagePath: URL?
     
-    override init() {
+    required init() {
         imageData = BehaviorRelay(value: nil)
         successUpload = Observable<Bool>.just(false)
         enableSaveButton = BehaviorRelay(value: false)

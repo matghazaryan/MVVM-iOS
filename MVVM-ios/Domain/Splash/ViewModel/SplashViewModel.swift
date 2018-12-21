@@ -17,7 +17,7 @@ class SplashViewModel: BaseViewModel {
     private(set) var error: PublishRelay<Error?>
     private(set) var disposeBag: DisposeBag
     
-    override init() {
+    required init() {
         disposeBag = DisposeBag()
         configs = BehaviorRelay(value: nil)
         user = PublishRelay()
