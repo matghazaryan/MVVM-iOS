@@ -24,14 +24,6 @@ class AccountVC: UIViewController {
     @IBOutlet private weak var userImage: UIImageView!
     @IBOutlet private weak var logOutButton: UIButton!
     
-    override var viewmodelClass: AnyClass {
-        return AccountViewModel?.self
-    }
-    
-    override var updateViewOnLanguageChange: Bool {
-        return true
-    }
-    
     override func viewDidLoad() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
         navigationItem.title = "Account".localized
@@ -69,33 +61,26 @@ class AccountVC: UIViewController {
             self?.tableView.deselectRow(at: indexPath, animated: true)
             }
             .disposed(by: disposeBag)
-        getViewModel(as: AccountViewModel?.self)?.cellTitles
+        getViewModel(as: AccountViewModel.self).cellTitles
             .bind(to: tableView.rx.items(cellIdentifier: UITableViewCell.reuseIdentifier, cellType: UITableViewCell.self)) { index, model, cell in
                 cell.accessoryType = .disclosureIndicator
                 cell.textLabel?.text = model
             }
             .disposed(by: disposeBag)
-        getViewModel(as: AccountViewModel?.self)?.email
+        getViewModel(as: AccountViewModel.self).email
             .bind(to: nameLabel.rx.text)
             .disposed(by: disposeBag)
-        getViewModel(as: AccountViewModel?.self)?.logOut(on: logOutButton.rx.tap).subscribe().disposed(by: disposeBag)
-        if let logOutObservable: Observable<Void?> = getViewModel(as: AccountViewModel?.self)?.getAction(Action.openLoginVC) {
-            logOutObservable.subscribe({[weak self] _ in
+        getViewModel(as: AccountViewModel.self).logOut(on: logOutButton.rx.tap).subscribe().disposed(by: disposeBag)
+        (getViewModel(as: AccountViewModel.self).getAction(Action.openLoginVC) as Observable<Void?>)
+            .subscribe({[weak self] _ in
                 self?.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
-        }
-        if let errorObservable: Observable<Error> = getViewModel(as: AccountViewModel?.self)?.getAction(Action.openErrorDialog) {
-            errorObservable.subscribe(onNext: { error in
-                UIAlertController.showError(error)
-            })
-            .disposed(by: disposeBag)
-        }
     }
     
     override func onLanguageChange(_ note: Notification) {
         super.onLanguageChange(note)
-        getViewModel(as: AccountViewModel?.self)?.onLanguageChange()
+        getViewModel(as: AccountViewModel.self).onLanguageChange()
     }
     
     private func viewControllerForIndex(_ index: Int) -> UIViewController {
@@ -115,3 +100,4 @@ class AccountVC: UIViewController {
     }
     
 }
+

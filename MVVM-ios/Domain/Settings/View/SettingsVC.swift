@@ -13,10 +13,6 @@ import RxCocoa
 
 class SettingsVC: UITableViewController {
     
-    override var viewmodelClass: AnyClass {
-        return SettingViewModel.self
-    }
-    
     @IBOutlet private weak var avatar: UIImageView!
     
     lazy var imagePicker: UIImagePickerController =  {
@@ -25,10 +21,6 @@ class SettingsVC: UITableViewController {
         picker.delegate = self
         return picker
     }()
-    
-    override var updateViewOnLanguageChange: Bool {
-        return true
-    }
     
     override func viewDidLoad() {
         setupNavigation()
@@ -94,7 +86,7 @@ class SettingsVC: UITableViewController {
             .bind(to: avatar.rx.image)
             .disposed(by: disposeBag)
         
-        (viewModel.getAction(Action.openErrorDialog) as Observable<Error>)
+        (getViewModel(as: SettingViewModel.self).getAction(Action.openErrorDialog) as Observable<Error>)
             .subscribe(onNext: { error in
                 UIAlertController.showError(error)
             })

@@ -24,8 +24,10 @@ class TransactionViewModel: BaseViewModel {
     func fetchNext() {
         if hasNextPage && !isLoading {
             isLoading = true
+            showLoading.accept(currentPage == 1)
             DataRepository.api().getTransactions(page: currentPage)
                 .subscribe(onNext: {[weak self] in
+                    self?.showLoading.accept(false)
                     self?.hasNextPage = $0.hasNextPage
                     if $0.hasNextPage {
                         self?.currentPage += 1
@@ -33,6 +35,7 @@ class TransactionViewModel: BaseViewModel {
                     self?.isLoading = false
                     self?.model.accept((self?.model.value).valueOr([TransactionGroup]()) + $0.transactions)
                     }, onError: {[weak self] in
+                        self?.showLoading.accept(false)
                         self?.doAction(Action.openErrorDialog, param: $0)
                     }, onDisposed: {
                         print("Disposed call on \(TransactionViewModel.self)")

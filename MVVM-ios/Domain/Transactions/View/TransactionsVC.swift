@@ -13,8 +13,8 @@ import RxOptional
 import RxDataSources
 
 class TransactionsVC: UITableViewController {
-    override var viewmodelClass: AnyClass {
-        return TransactionViewModel.self
+    override var updateViewOnLanguageChange: Bool {
+        return false
     }
     
     override func viewDidLoad() {

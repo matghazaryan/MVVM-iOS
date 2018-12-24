@@ -12,6 +12,7 @@ target 'MVVM-ios' do
     pod 'RxOptional'
     pod 'RxDataSources', '~> 3.0'
 
+    pod 'NVActivityIndicatorView'
   # Pods for MVVM-ios
 
 end

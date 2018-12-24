@@ -17,13 +17,6 @@ class LoginVC: UIViewController {
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var checkBox: CheckBox!
-    override var viewmodelClass: AnyClass {
-        return LoginViewModel.self
-    }
-    
-    override var updateViewOnLanguageChange: Bool {
-        return true
-    }
     
     override func viewDidLoad() {
         loginTextField.keyboardType = .emailAddress
@@ -44,7 +37,7 @@ class LoginVC: UIViewController {
                 let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
                 let viewModel = AccountViewModel()
                 viewModel.setUser(user)
-                nextVC.viewModel = viewModel
+                nextVC.setViewModel(viewModel)
                 UIApplication.shared.keyWindow?.rootViewController?
                     .present(UINavigationController(rootViewController: nextVC),
                              animated: false,

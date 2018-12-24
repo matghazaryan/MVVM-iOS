@@ -9,6 +9,22 @@
 import UIKit
 
 class SelectLanguageVC: UITableViewController {
+    
+    override var updateViewOnLanguageChange: Bool {
+        return false
+    }
+    
+    override init(style: UITableView.Style) {
+        super.init(style: style)
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

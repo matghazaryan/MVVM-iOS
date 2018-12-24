@@ -61,10 +61,12 @@ class LoginViewModel: BaseViewModel {
         model = tap.asObservable()
             .withLatestFrom(user)
             .flatMap {login, password -> Observable<User?> in
+                self.showLoading.accept(true)
                 return DataRepository.api().login(email: login, password: password)
             }
-            .retry()
+            .throttle(5.0, latest: true, scheduler: ConcurrentMainScheduler.instance)
             .do(onNext: {
+                self.showLoading.accept(false)
                 if $0 != nil { // user get successfully
                     if self.isChecked.value == true {
                         DataRepository.preference().setRememberMe(true)

@@ -13,8 +13,9 @@ import RxDataSources
 
 class CardsVC: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
-    override var viewmodelClass: AnyClass {
-        return CardsViewModel.self
+    
+    override var updateViewOnLanguageChange: Bool {
+        return false
     }
     
     override func viewDidLoad() {
@@ -42,7 +43,7 @@ class CardsVC: UIViewController {
         //change delegate to ourself for manage size of cell
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
         
-        (viewModel.getAction(Action.onCardTap) as Observable<String>)
+        (getViewModel(as: CardsViewModel.self).getAction(Action.onCardTap) as Observable<String>)
             .subscribe(onNext: {
                 UIAlertController.showAsToastWith(message: $0)
             })

@@ -14,14 +14,16 @@ class SplashViewModel: BaseViewModel {
     
     private(set) var configs: BehaviorRelay<Configs?>
     private(set) var user: PublishRelay<User?>
-    private(set) var error: PublishRelay<Error?>
     private(set) var disposeBag: DisposeBag
     
     required init() {
         disposeBag = DisposeBag()
         configs = BehaviorRelay(value: nil)
         user = PublishRelay()
-        error = PublishRelay()
+    }
+    
+    override func retry() {
+        getConfigs()
     }
     
     func getConfigs() {
@@ -30,7 +32,6 @@ class SplashViewModel: BaseViewModel {
                 self.configs.accept($0)
                 self.toNextVC()
             }, onError: {
-                self.error.accept($0)
                 self.doAction(Action.openErrorDialog, param: $0)
             }, onDisposed: {
                 print("\(self) disposed")
@@ -52,12 +53,10 @@ class SplashViewModel: BaseViewModel {
                 self.doAction(Action.openErrorDialog, param: Optional<Error>(nilLiteral: ()))
                 return
         }
-        
         DataRepository.api().login(email: email, password: password)
             .subscribe(onNext: {
                 self.doAction(Action.openAccount, param: $0)
             }, onError: {
-                self.error.accept($0)
                 self.doAction(Action.openErrorDialog, param: $0)
             })
             .disposed(by: disposeBag)
