@@ -23,7 +23,12 @@ enum Action: Hashable {
 
 class BaseViewModel {
     private var observablesDict = [Action: Any]()
+    private var reachibility = Reachability()
+    /// indicate that viewModel is loading data and need to show loading view
+    var showLoading: BehaviorRelay = BehaviorRelay(value: false)
     
+    /// Get action and subscribe in viewController
+    /// - Parameter action: action to get observable
     public func getAction<T>(_ action: Action) -> Observable<T> {
         guard let data = observablesDict[action] else {
             let observable = PublishRelay<T>()
@@ -33,6 +38,9 @@ class BaseViewModel {
         return (data as! PublishRelay<T>).asObservable()
     }
     
+    /// say viewController to do some action
+    /// - Parameter action: action whish must emited
+    /// - Parameter param: param which passed to observable
     public func doAction<T>(_ action: Action, param: T?) {
         guard let data =  observablesDict[action] else {
             let observable = PublishRelay<T?>()
@@ -44,6 +52,26 @@ class BaseViewModel {
             (data as! PublishRelay<T>).accept(param)
         } else {
             (data as! PublishRelay<T?>).accept(param)
+        }
+    }
+    
+    /// General error handling
+    /// - Parameter error: error for handling
+    func handleError(_ error: Error) {
+        
+    }
+    
+    /// override and write retry logic here
+    func retry() {
+        
+    }
+    
+    required init() {
+        reachibility?.whenUnreachable = {[weak self] _ in
+            self?.doAction(.showNoInternet, param: Optional<Void>(nilLiteral: ()))
+        }
+        reachibility?.whenReachable = {[weak self] _ in
+            self?.retry()
         }
     }
     

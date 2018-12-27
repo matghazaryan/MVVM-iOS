@@ -74,7 +74,7 @@ class CoreDataManager {
     }
     
     class func clearDataBase<T: NSManagedObject>(_ entity: T.Type) -> Bool {
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: entity.fetchRequest())
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: NSFetchRequest(entityName: NSStringFromClass(entity)))
         deleteRequest.resultType = .resultTypeStatusOnly
         guard let result = try? CoreDataManager.sInstance.viewContext.execute(deleteRequest) as? NSBatchDeleteResult else {
             return false

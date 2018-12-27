@@ -14,16 +14,18 @@ class CardsViewModel: BaseViewModel {
     private(set) var model: BehaviorRelay<[Card]>
     private var disposeBag = DisposeBag()
     
-    override init() {
+    required init() {
         model = BehaviorRelay(value: [])
     }
     
     func getCards() {
+        showLoading.accept(true)
         DataRepository.api().getCards().subscribe(onNext: {
-                self.model.accept($0)
-            }, onDisposed: {
-                print("\(self) disposed")
-            })
+            self.showLoading.accept(false)
+            self.model.accept($0)
+        }, onDisposed: {
+            print("\(self) disposed")
+        })
             .disposed(by: disposeBag)
     }
     

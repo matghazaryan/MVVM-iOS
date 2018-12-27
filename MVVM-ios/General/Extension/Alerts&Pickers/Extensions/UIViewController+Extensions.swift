@@ -7,4 +7,11 @@ extension UIViewController {
         return alert
     }
  */
+    
+    func addChildViewController(_ child: UIViewController, to view: UIView) {
+        child.view.frame = view.bounds
+        addChild(child)
+        view.addSubview(child.view)
+        child.didMove(toParent: self)
+    }
 }

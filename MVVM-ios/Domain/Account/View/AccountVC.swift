@@ -19,9 +19,6 @@ class AccountVC: UIViewController {
         case transactions = 1
         case settings = 2
     }
-    
-    private var disposeBag = DisposeBag()
-    var viewModel: AccountViewModel?
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var userImage: UIImageView!
@@ -64,35 +61,26 @@ class AccountVC: UIViewController {
             self?.tableView.deselectRow(at: indexPath, animated: true)
             }
             .disposed(by: disposeBag)
-        viewModel?.cellTitles
+        getViewModel(as: AccountViewModel.self).cellTitles
             .bind(to: tableView.rx.items(cellIdentifier: UITableViewCell.reuseIdentifier, cellType: UITableViewCell.self)) { index, model, cell in
                 cell.accessoryType = .disclosureIndicator
                 cell.textLabel?.text = model
             }
             .disposed(by: disposeBag)
-        viewModel?.email
+        getViewModel(as: AccountViewModel.self).email
             .bind(to: nameLabel.rx.text)
             .disposed(by: disposeBag)
-        viewModel?.logOut(on: logOutButton.rx.tap).subscribe().disposed(by: disposeBag)
-        if let logOutObservable: Observable<Void?> = viewModel?.getAction(Action.openLoginVC) {
-            logOutObservable.subscribe({[weak self] _ in
+        getViewModel(as: AccountViewModel.self).logOut(on: logOutButton.rx.tap).subscribe().disposed(by: disposeBag)
+        (getViewModel(as: AccountViewModel.self).getAction(Action.openLoginVC) as Observable<Void?>)
+            .subscribe({[weak self] _ in
                 self?.dismiss(animated: true)
             })
             .disposed(by: disposeBag)
-        }
-        if let errorObservable: Observable<Error> = viewModel?.getAction(Action.openErrorDialog) {
-            errorObservable.subscribe(onNext: { error in
-                UIAlertController.showError(error)
-            })
-            .disposed(by: disposeBag)
-        }
     }
     
     override func onLanguageChange(_ note: Notification) {
-        viewModel?.onLanguageChange()
-        self.view = nil
-        let _ = self.view
-        self.viewWillAppear(true)
+        super.onLanguageChange(note)
+        getViewModel(as: AccountViewModel.self).onLanguageChange()
     }
     
     private func viewControllerForIndex(_ index: Int) -> UIViewController {
@@ -112,3 +100,4 @@ class AccountVC: UIViewController {
     }
     
 }
+

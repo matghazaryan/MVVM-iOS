@@ -16,10 +16,13 @@ class AccountViewModel: BaseViewModel {
     var email: BehaviorRelay<String?>
     let cellTitles = BehaviorRelay<[String]>(value: [])
     
-    init(user: User) {
-        email = BehaviorRelay(value: user.email)
+    required init() {
+        email = BehaviorRelay(value: nil)
         cellTitles.accept(["Cards".localized, "Transactions".localized, "Settings".localized])
-
+    }
+    
+    func setUser(_ user: User) {
+        email.accept(user.email)
     }
     
     func logOut(on tap: ControlEvent<Void>) -> Observable<()> {

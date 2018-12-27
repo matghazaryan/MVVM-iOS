@@ -27,6 +27,7 @@
 		A40A2FBD2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FBC2199AFE100307984 /* TableViewCell+ReuseIdentifier.swift */; };
 		A40A2FBF219AA6BA00307984 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FBE219AA6B900307984 /* CoreDataManager.swift */; };
 		A40A2FC3219AB28F00307984 /* String+NS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A40A2FC2219AB28F00307984 /* String+NS.swift */; };
+		A42C877E21D0F030006D5F2F /* BaseLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42C877D21D0F030006D5F2F /* BaseLoadingVC.swift */; };
 		A46AA75D21AFD7870057D294 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A46AA75C21AFD7870057D294 /* Main.storyboard */; };
 		A47F7EE62195AFAD001FD889 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47F7EE52195AFAD001FD889 /* LoginViewModel.swift */; };
 		A47F7EE82195CB6D001FD889 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47F7EE72195CB6D001FD889 /* User.swift */; };
@@ -94,7 +95,6 @@
 		A4E8A81A21C38FBA00C506BB /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E8A81921C38FBA00C506BB /* Keychain.swift */; };
 		A4EC4BF921AED79B00574FF3 /* SelectLanguageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EC4BF821AED79B00574FF3 /* SelectLanguageVC.swift */; };
 		A4FFDB3F21C22D3E00DF2870 /* UIViewController+Swizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFDB3E21C22D3E00DF2870 /* UIViewController+Swizzling.swift */; };
-		A4FFDB4121C23CE300DF2870 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4FFDB4021C23CE300DF2870 /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -134,6 +134,7 @@
 		A40A2FBE219AA6B900307984 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		A40A2FC2219AB28F00307984 /* String+NS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+NS.swift"; sourceTree = "<group>"; };
 		A41D921521AD09A1005EB972 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A42C877D21D0F030006D5F2F /* BaseLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseLoadingVC.swift; sourceTree = "<group>"; };
 		A46AA75C21AFD7870057D294 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A47F7EE52195AFAD001FD889 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		A47F7EE72195CB6D001FD889 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -202,7 +203,6 @@
 		A4E8A81921C38FBA00C506BB /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		A4EC4BF821AED79B00574FF3 /* SelectLanguageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLanguageVC.swift; sourceTree = "<group>"; };
 		A4FFDB3E21C22D3E00DF2870 /* UIViewController+Swizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Swizzling.swift"; sourceTree = "<group>"; };
-		A4FFDB4021C23CE300DF2870 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		AAF51DB13A53C6CD1976688A /* Pods-MVVM-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVM-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVM-ios/Pods-MVVM-ios.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -670,7 +670,7 @@
 			isa = PBXGroup;
 			children = (
 				A4FFDB3E21C22D3E00DF2870 /* UIViewController+Swizzling.swift */,
-				A4FFDB4021C23CE300DF2870 /* BaseViewController.swift */,
+				A42C877D21D0F030006D5F2F /* BaseLoadingVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -778,6 +778,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
@@ -789,6 +790,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
@@ -846,7 +848,6 @@
 				A4D78A0521C135B9007205D2 /* DatePickerViewController.swift in Sources */,
 				A4944BDC219C5D4100F078C8 /* Transaction.swift in Sources */,
 				A4D789FE21C135B9007205D2 /* Optional+Extensions.swift in Sources */,
-				A4FFDB4121C23CE300DF2870 /* BaseViewController.swift in Sources */,
 				A4944BEA219D415D00F078C8 /* CardsVC.swift in Sources */,
 				A4E8A81221C38A5C00C506BB /* Api.swift in Sources */,
 				A4079CD8219306C100A7178C /* SplashViewModel.swift in Sources */,
@@ -889,6 +890,7 @@
 				A4B5717221A2EBD200348A0A /* BiometricUtils.swift in Sources */,
 				A40A2FC3219AB28F00307984 /* String+NS.swift in Sources */,
 				A4ADF625219D43FE00ABB7A5 /* KeyValueView.swift in Sources */,
+				A42C877E21D0F030006D5F2F /* BaseLoadingVC.swift in Sources */,
 				A48B4072219558530089008C /* JSONDecoder+MultipleLevels.swift in Sources */,
 				91BC34FE2192C2D900CDD785 /* AppDelegate.swift in Sources */,
 				A4079CEB2193136F00A7178C /* String+Encoding.swift in Sources */,

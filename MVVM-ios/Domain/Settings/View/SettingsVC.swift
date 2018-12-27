@@ -11,11 +11,7 @@ import Photos
 import RxSwift
 import RxCocoa
 
-class SettingsVC: UITableViewController, BaseViewController {
-    
-    var viewModel: SettingViewModel = SettingViewModel()
-    
-    var disposeBag: DisposeBag = DisposeBag()
+class SettingsVC: UITableViewController {
     
     @IBOutlet private weak var avatar: UIImageView!
     
@@ -35,7 +31,7 @@ class SettingsVC: UITableViewController, BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if !viewModel.enableSaveButton.value {
+        if !getViewModel(as: SettingViewModel.self).enableSaveButton.value {
             guard let url = DataRepository.preference().getAvatarURL() else {
                 avatar.image = #imageLiteral(resourceName: "avatar")
                 return
@@ -68,19 +64,19 @@ class SettingsVC: UITableViewController, BaseViewController {
             self?.present(weakSelf.imagePicker, animated: true, completion: nil)
         }).disposed(by: disposeBag)
         
-        viewModel.bindToUpload(self.navigationItem.rightBarButtonItem!.rx.tap)
+        getViewModel(as: SettingViewModel.self).bindToUpload(self.navigationItem.rightBarButtonItem!.rx.tap)
         
-        viewModel.enableSaveButton
+        getViewModel(as: SettingViewModel.self).enableSaveButton
             .bind(to: self.navigationItem.rightBarButtonItem!.rx.isEnabled)
             .disposed(by: disposeBag)
         
-        viewModel.successUpload.subscribe(onNext: {
+        getViewModel(as: SettingViewModel.self).successUpload.subscribe(onNext: {
             if $0 {
                 self.navigationController?.popViewController(animated: true)
             }
         })
             .disposed(by: disposeBag)
-        viewModel.imageData.map({ unwrapedData -> UIImage? in
+        getViewModel(as: SettingViewModel.self).imageData.map({ unwrapedData -> UIImage? in
             guard let data = unwrapedData,
                 let image = UIImage(data: data) else {
                     return #imageLiteral(resourceName: "avatar")
@@ -90,16 +86,11 @@ class SettingsVC: UITableViewController, BaseViewController {
             .bind(to: avatar.rx.image)
             .disposed(by: disposeBag)
         
-        (viewModel.getAction(Action.openErrorDialog) as Observable<Error>)
+        (getViewModel(as: SettingViewModel.self).getAction(Action.openErrorDialog) as Observable<Error>)
             .subscribe(onNext: { error in
                 UIAlertController.showError(error)
             })
             .disposed(by: disposeBag)
-    }
-    
-    override func onLanguageChange(_ node: Notification) {
-        self.view = nil
-        self.viewWillAppear(true)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -111,8 +102,8 @@ class SettingsVC: UITableViewController, BaseViewController {
 extension SettingsVC: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let imageData = (info[.originalImage] as? UIImage)?.pngData()
-        viewModel.setImageData(imageData)
-        viewModel.imagePath = info[.referenceURL] as? URL
+        getViewModel(as: SettingViewModel.self).setImageData(imageData)
+        getViewModel(as: SettingViewModel.self).imagePath = info[.referenceURL] as? URL
         imagePicker.dismiss(animated: true, completion: nil)
     }
 }

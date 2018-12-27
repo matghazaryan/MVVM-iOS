@@ -12,20 +12,17 @@ import RxCocoa
 import RxOptional
 import RxDataSources
 
-class TransactionsVC: UITableViewController, BaseViewController {
-    var viewModel: TransactionViewModel = TransactionViewModel()
+class TransactionsVC: UITableViewController {
+    override var updateViewOnLanguageChange: Bool {
+        return false
+    }
     
-    var disposeBag = DisposeBag()
-    
-    
-    
-
     override func viewDidLoad() {
         tableView.register(TransactionCell.nib, forCellReuseIdentifier: TransactionCell.reuseIdentifier)
         tableView.dataSource = nil
         tableView.delegate = nil
         super.viewDidLoad()
-        viewModel.fetchNext()
+        getViewModel(as: TransactionViewModel.self).fetchNext()
     }
     
     internal override func bindViews() {
@@ -44,7 +41,7 @@ class TransactionsVC: UITableViewController, BaseViewController {
         })
         
         
-        viewModel.model
+        getViewModel(as: TransactionViewModel.self).model
             .filterNil()
             .map({ transaction -> [TransactionSectionModel] in
                 let x = transaction.map({
@@ -60,14 +57,9 @@ class TransactionsVC: UITableViewController, BaseViewController {
                     return
             }
             if indexPath == IndexPath(row: row - 1, section: section - 1) {
-                self?.viewModel.fetchNext()
+                self?.getViewModel(as: TransactionViewModel.self).fetchNext()
             }
             }
             .disposed(by: disposeBag)
-        
-        viewModel.error.subscribe(onNext: { error in
-            UIAlertController.showError(error)
-        })
-        .disposed(by: disposeBag)
     }
 }

@@ -11,30 +11,31 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-class CardsVC: UIViewController, BaseViewController {
-
-    internal var viewModel = CardsViewModel()
-    internal let disposeBag = DisposeBag()
+class CardsVC: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
+    
+    override var updateViewOnLanguageChange: Bool {
+        return false
+    }
     
     override func viewDidLoad() {
         collectionView.register(CardCollectionViewCell.nib, forCellWithReuseIdentifier: CardCollectionViewCell.reuseIdentifier)
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        viewModel.getCards()
+        getViewModel(as: CardsViewModel.self).getCards()
     }
     
     internal override func bindViews() {
         
-        viewModel.model
+        getViewModel(as: CardsViewModel.self).model
             .bind(to: collectionView.rx.items(cellIdentifier: CardCollectionViewCell.reuseIdentifier, cellType: CardCollectionViewCell.self)) { indexPath, model, cell in
                 cell.model = model
             }
             .disposed(by: disposeBag)
         collectionView.rx.modelSelected(Card.self)
             .subscribe(onNext: {[weak self] card in
-                self?.viewModel.cardSelected(card)
+                self?.getViewModel(as: CardsViewModel.self).cardSelected(card)
             }, onError: { error in
                 UIAlertController.showError(error)
             })
@@ -42,7 +43,7 @@ class CardsVC: UIViewController, BaseViewController {
         //change delegate to ourself for manage size of cell
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
         
-        (viewModel.getAction(Action.onCardTap) as Observable<String>)
+        (getViewModel(as: CardsViewModel.self).getAction(Action.onCardTap) as Observable<String>)
             .subscribe(onNext: {
                 UIAlertController.showAsToastWith(message: $0)
             })

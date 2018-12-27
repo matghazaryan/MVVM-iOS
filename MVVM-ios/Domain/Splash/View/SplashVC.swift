@@ -10,58 +10,51 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class SplashVC: UIViewController, BaseViewController {
-    
-    let disposeBag = DisposeBag()
-    var viewModel: SplashViewModel = SplashViewModel()
-    
+class SplashVC: UIViewController {    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        viewModel.getConfigs()
+        getViewModel(as: SplashViewModel.self).getConfigs()
     }
     
     internal override func bindViews() {
-        (viewModel.getAction(Action.doLogin) as Observable<User>)
+        (getViewModel(as: SplashViewModel.self).getAction(Action.doLogin) as Observable<User>)
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: {[weak self] _ in
-                self?.viewModel.login()
+                self?.getViewModel(as: SplashViewModel.self).login()
             })
             .disposed(by: disposeBag)
         
-        (viewModel.getAction(Action.openAccount) as Observable<User>)
+        (getViewModel(as: SplashViewModel.self).getAction(Action.openAccount) as Observable<User>)
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: {[weak self] user in
                 self?.openAccount(user: user)
             })
             .disposed(by: disposeBag)
         
-        (viewModel.getAction(Action.openLoginVC) as Observable<User?>)
+        (getViewModel(as: SplashViewModel.self).getAction(Action.openLoginVC) as Observable<User?>)
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: {[weak self] _ in
                 self?.openLogin()
             })
             .disposed(by: disposeBag)
         
-        (viewModel.getAction(Action.showBiometric) as Observable<User?>)
+        (getViewModel(as: SplashViewModel.self).getAction(Action.showBiometric) as Observable<User?>)
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: {[weak self] _ in
                 self?.showBiometric()
             })
             .disposed(by: disposeBag)
-        
-        viewModel.error.subscribe(onNext: { error in
-            UIAlertController.showError(error)
-        })
-        .disposed(by: disposeBag)
     }
     
     private func openAccount(user: User) {
         openLogin()
         let nextVC: AccountVC = UIViewController.instantiateViewControllerForStoryBoardId("Main")
-        let viewModel = AccountViewModel(user: user)
-        nextVC.viewModel = viewModel
+        let viewModel = AccountViewModel()
+        viewModel.setUser(user)
+        nextVC.setViewModel(viewModel)
         UIApplication.shared.keyWindow?.rootViewController?.present(UINavigationController(rootViewController: nextVC), animated: true)
+
     }
     
     private func openLogin() {
@@ -72,7 +65,7 @@ class SplashVC: UIViewController, BaseViewController {
     private func showBiometric() {
         BiometricUtils.authUser(localizedReason: "For Login") { success, error in
             if success {
-                self.viewModel.login()
+                self.getViewModel(as: SplashViewModel.self).login()
             } else {
                 self.openLogin()
             }
