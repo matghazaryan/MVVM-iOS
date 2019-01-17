@@ -17,3 +17,5 @@
 "Application_Language" = "Application Language";
 "Save" = "Save";
 "Account" = "Account";
+"error_message" = "Error occures";
+"error_no_internet" = "No internet connection";

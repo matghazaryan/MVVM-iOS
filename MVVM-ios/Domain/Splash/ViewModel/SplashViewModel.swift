@@ -32,7 +32,7 @@ class SplashViewModel: BaseViewModel {
                 self.configs.accept($0)
                 self.toNextVC()
             }, onError: {
-                self.doAction(Action.openErrorDialog, param: $0)
+                self.doAction(BaseAction.openErrorDialog, param: $0)
             }, onDisposed: {
                 print("\(self) disposed")
             })
@@ -50,14 +50,14 @@ class SplashViewModel: BaseViewModel {
     func login() {
         guard let email = DataRepository.keychain().getEmail(),
             let password = DataRepository.keychain().getPassword() else {
-                self.doAction(Action.openErrorDialog, param: Optional<Error>(nilLiteral: ()))
+                self.doAction(BaseAction.openErrorDialog, param: Optional<Error>(nilLiteral: ()))
                 return
         }
         DataRepository.api().login(email: email, password: password)
             .subscribe(onNext: {
                 self.doAction(Action.openAccount, param: $0)
             }, onError: {
-                self.doAction(Action.openErrorDialog, param: $0)
+                self.doAction(BaseAction.openErrorDialog, param: $0)
             })
             .disposed(by: disposeBag)
     }

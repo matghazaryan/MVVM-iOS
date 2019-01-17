@@ -39,7 +39,7 @@ class SettingViewModel: BaseViewModel {
                     .do(onNext: {[weak self] _ in
                         DataRepository.preference().setAvatarURL(self?.imagePath)
                         }, onError: {[weak self] error in
-                            self?.doAction(Action.openErrorDialog, param: error)
+                            self?.doAction(BaseAction.openErrorDialog, param: error)
                     })
                     .skipWhile({ response -> Bool in
                         response.progress != 1.0

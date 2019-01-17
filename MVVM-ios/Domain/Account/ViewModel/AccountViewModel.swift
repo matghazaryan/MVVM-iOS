@@ -38,7 +38,7 @@ class AccountViewModel: BaseViewModel {
                     print("database was not cleared")
                 }
                 }, onError: {[weak self] error in
-                    self?.doAction(Action.openErrorDialog, param: error)
+                    self?.doAction(BaseAction.openErrorDialog, param: error)
             })
     }
     

@@ -86,7 +86,7 @@ class SettingsVC: UITableViewController {
             .bind(to: avatar.rx.image)
             .disposed(by: disposeBag)
         
-        (getViewModel(as: SettingViewModel.self).getAction(Action.openErrorDialog) as Observable<Error>)
+        (getViewModel(as: SettingViewModel.self).getAction(BaseAction.openErrorDialog) as Observable<Error>)
             .subscribe(onNext: { error in
                 UIAlertController.showError(error)
             })

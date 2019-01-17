@@ -87,12 +87,13 @@ extension UIViewController {
     }
     
     private func baseBinding() {
-        (getViewModel(as: BaseViewModel.self).getAction(Action.openErrorDialog) as Observable<Error>)
-            .subscribe(onNext: {
-                UIAlertController.showError($0)
+        (getViewModel(as: BaseViewModel.self).getAction(BaseAction.openErrorDialog) as Observable<Error>)
+            .subscribe(onNext: { [weak self] in
+                guard let weakSelf = self else { return }
+                weakSelf.showError($0)
             })
             .disposed(by: disposeBag)
-        (getViewModel(as: BaseViewModel.self).getAction(Action.showNoInternet) as Observable<String>)
+        (getViewModel(as: BaseViewModel.self).getAction(BaseAction.showNoInternet) as Observable<String>)
             .subscribe(onNext: {
                 UIAlertController.showWith(message: $0)
             })
@@ -119,6 +120,14 @@ extension UIViewController {
                 }
             })
         .disposed(by: disposeBag)
+    }
+    
+    /** error handling mehtod
+     - Parameter error: error to be handled
+     - Note: override in any viewController, to do error handling manualy, by default show dialog with error message
+     */
+    func showError(_ error: Error) {
+        UIAlertController.showError(error)
     }
     
     

@@ -13,23 +13,21 @@ import RxCocoa
 enum Action: Hashable {
     case openAccount
     case showBiometric
-    case openErrorDialog
     case openLoginVC
     case doLogin
     case ON_NEW_IMAGE_PATH
-    case showNoInternet
     case onCardTap
 }
 
 class BaseViewModel {
-    private var observablesDict = [Action: Any]()
+    private var observablesDict = [AnyHashable: Any]()
     private var reachibility = Reachability()
     /// indicate that viewModel is loading data and need to show loading view
     var showLoading: BehaviorRelay = BehaviorRelay(value: false)
     
     /// Get action and subscribe in viewController
     /// - Parameter action: action to get observable
-    public func getAction<T>(_ action: Action) -> Observable<T> {
+    public func getAction<T>(_ action: AnyHashable) -> Observable<T> {
         guard let data = observablesDict[action] else {
             let observable = PublishRelay<T>()
             observablesDict[action] = observable
@@ -41,7 +39,7 @@ class BaseViewModel {
     /// say viewController to do some action
     /// - Parameter action: action whish must emited
     /// - Parameter param: param which passed to observable
-    public func doAction<T>(_ action: Action, param: T?) {
+    public func doAction<T>(_ action: AnyHashable, param: T?) {
         guard let data =  observablesDict[action] else {
             let observable = PublishRelay<T?>()
             observablesDict[action] = observable
@@ -68,7 +66,7 @@ class BaseViewModel {
     
     required init() {
         reachibility?.whenUnreachable = {[weak self] _ in
-            self?.doAction(.showNoInternet, param: Optional<Void>(nilLiteral: ()))
+            self?.doAction(BaseAction.showNoInternet, param: Optional<Void>(nilLiteral: ()))
         }
         reachibility?.whenReachable = {[weak self] _ in
             self?.retry()

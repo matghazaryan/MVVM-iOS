@@ -36,7 +36,7 @@ class TransactionViewModel: BaseViewModel {
                     self?.model.accept((self?.model.value).valueOr([TransactionGroup]()) + $0.transactions)
                     }, onError: {[weak self] in
                         self?.showLoading.accept(false)
-                        self?.doAction(Action.openErrorDialog, param: $0)
+                        self?.doAction(BaseAction.openErrorDialog, param: $0)
                     }, onDisposed: {
                         print("Disposed call on \(TransactionViewModel.self)")
                         print("page = \(self.currentPage)")

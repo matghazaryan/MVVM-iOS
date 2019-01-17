@@ -10,7 +10,11 @@ import UIKit
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, BaseAppDelegate {
+    var congifs: BaseApplicationConfigs {
+        return ApplicationConfigs.getInstance()
+    }
+    
 
     var window: UIWindow?
 
