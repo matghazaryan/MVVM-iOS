@@ -10,6 +10,10 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+enum SendCode: Hashable {
+    case CardToAccount
+}
+
 class SharedViewModel<T>: BaseSharedViewModel {
     typealias SharedData = T
     
@@ -43,8 +47,8 @@ class SharedViewModel<T>: BaseSharedViewModel {
         sendBaseSharedDataFor(sendCode: sendCode, data: data);
     }
     
-    func getSharedDataFor(sendCode: AnyHashable, listener: SharedDataListener) {
-        getBaseSharedDataFor(sendCode: sendCode).bind {[weak self] data in
+    func getSharedDataFor(sendCode: AnyHashable, listener: SharedDataListener) -> Disposable {
+        return getBaseSharedDataFor(sendCode: sendCode).bind {[weak self] data in
             guard let weakSelf = self else { return }
             
             let sharedData = weakSelf.bagOfSentSharedDataSparseArray[sendCode]
@@ -57,8 +61,8 @@ class SharedViewModel<T>: BaseSharedViewModel {
         }
     }
     
-    func getSharedDataAlwaysFor(sendCode: AnyHashable, listener: SharedDataListener) {
-        getBaseSharedDataFor(sendCode: sendCode).bind {[weak self] data in
+    func getSharedDataAlwaysFor(sendCode: AnyHashable, listener: SharedDataListener) -> Disposable {
+        return getBaseSharedDataFor(sendCode: sendCode).bind {[weak self] data in
             guard let weakSelf = self else { return }
             weakSelf.bagOfSentSharedDataSparseArray[sendCode] = data
             listener?(data)

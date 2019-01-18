@@ -27,6 +27,10 @@ class AccountVC: UIViewController {
     override func viewDidLoad() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
         navigationItem.title = "Account".localized
+        getSharedDataFor(sendCode: SendCode.CardToAccount) { cardCode in
+            guard let cardCode = cardCode as? String else { return }
+            print("myLog" + cardCode)
+        }.disposed(by: disposeBag)
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }

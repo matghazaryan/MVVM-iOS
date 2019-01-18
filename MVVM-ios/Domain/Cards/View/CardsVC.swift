@@ -45,6 +45,7 @@ class CardsVC: UIViewController {
         
         (getViewModel(as: CardsViewModel.self).getAction(Action.onCardTap) as Observable<String>)
             .subscribe(onNext: {
+                self.sendSharedDataWith(sendCode: SendCode.CardToAccount, data: $0)
                 UIAlertController.showAsToastWith(message: $0)
             })
         .disposed(by: disposeBag)

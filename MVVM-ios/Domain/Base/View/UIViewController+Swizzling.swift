@@ -10,9 +10,7 @@ import UIKit
 import RxSwift
 import NVActivityIndicatorView
 
-private let swizzling: (UIViewController.Type) -> () = { viewController in
-    let oldSelector = #selector(viewController.viewDidLoad)
-    let newSelector = #selector(viewController.proj_viewDidLoad)
+private let swizzling: (UIViewController.Type, Selector, Selector) -> () = { viewController, oldSelector, newSelector in
     
     guard let old = class_getInstanceMethod(viewController, oldSelector),
         let new = class_getInstanceMethod(viewController, newSelector) else { return }
@@ -24,6 +22,7 @@ extension UIViewController {
     private struct AssociatedObjectKeys {
         static var viewModel = 0
         static var disposeBag = 1
+        static var state = 2
     }
     
     /// disposeBag for use in binding .dispose(by: disposeBag)
@@ -37,6 +36,8 @@ extension UIViewController {
             return disposeBag
         }
     }
+    
+    static var sharedViewModel = SharedViewModel<Any>()
     
     /** override var and return false in all custom viewControllers which you want to not update view
         after language chang
@@ -54,7 +55,9 @@ extension UIViewController {
     open class func initializeing() {
         // make sure this isn't a subclass
         guard self === UIViewController.self else { return }
-        swizzling(self)
+        swizzling(self, #selector(self.viewDidLoad), #selector(self.proj_viewDidLoad))
+        swizzling(self, #selector(self.viewWillAppear(_:)), #selector(self.proj_viewWillAppear(_:)))
+        swizzling(self, #selector(self.viewWillDisappear(_:)), #selector(self.proj_viewWillDisappear(_:)))
     }
     
     // MARK: - Method Swizzling
@@ -63,6 +66,7 @@ extension UIViewController {
         
         let viewControllerName = NSStringFromClass(type(of: self))
         print("ViewDidLoad called on \(viewControllerName)")
+        self.state = .viewLoaded
         #warning("init viewModel, do other staff relative to binding before call super.viewDidLoad()")
         bindViews()
         baseBinding()
@@ -71,6 +75,17 @@ extension UIViewController {
                      selector: #selector(onLanguageChange(_:)),
                      name: languageChangeNotification, object: nil)
     }
+    
+    @objc func proj_viewWillAppear(_ animated: Bool) {
+        self.proj_viewWillAppear(animated)
+        self.state = .viewAppeared
+    }
+    
+    @objc func proj_viewWillDisappear(_ animated: Bool) {
+        self.proj_viewWillDisappear(animated)
+        self.state = .viewDisapeared
+    }
+    
     
     /// override to do view bindings
     @objc func bindViews() { }
@@ -162,6 +177,43 @@ extension UIViewController {
     /// - Parameter title: the title of navigation item
     func setNavigationTitle(_ navigationTitle: String?) {
         navigationItem.title = navigationTitle
+    }
+    
+    func sendSharedDataWith(sendCode: AnyHashable, data: Any?) {
+        UIViewController.sharedViewModel.sendSharedDataWith(sendCode: sendCode, data: data)
+    }
+    
+    func getSharedDataFor(sendCode: AnyHashable, listener: Optional<((Any?) -> Void)>) -> Disposable {
+        return UIViewController.sharedViewModel.getSharedDataFor(sendCode: sendCode, listener: listener)
+    }
+    
+    func getSharedDataAlwaysFor(sendCode: AnyHashable, listener: Optional<((Any?) -> Void)>) -> Disposable {
+        return UIViewController.sharedViewModel.getSharedDataAlwaysFor(sendCode: sendCode, listener: listener)
+    }
+    
+    
+    /// UIVIewController Lyfecycle States
+    public enum State {
+        case initialized
+        case viewLoaded
+        case viewAppeared
+        case viewDisapeared
+        case destroyed
+    }
+    
+    /// current state of self
+    var state: State {
+        get {
+            guard let state =  objc_getAssociatedObject(self, &AssociatedObjectKeys.disposeBag) as? State else {
+                let st = State.initialized
+                objc_setAssociatedObject(self, &AssociatedObjectKeys.disposeBag, st, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                return st
+            }
+            return state
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedObjectKeys.state, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
     }
 }
 
