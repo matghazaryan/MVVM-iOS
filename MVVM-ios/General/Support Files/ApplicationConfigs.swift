@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ApplicationConfigs: BaseApplicationConfigs {
+class ApplicationConfigs: PBaseApplicationConfigs {
     var errorMessage: String? {
         return "error_message".localized
     }

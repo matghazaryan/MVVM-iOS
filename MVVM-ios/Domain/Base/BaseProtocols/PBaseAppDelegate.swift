@@ -1,5 +1,5 @@
 //
-//  BaseAppDelegate.swift
+//  PBaseAppDelegate.swift
 //  MVVM-ios
 //
 //  Created by Hovhannes Stepanyan on 1/17/19.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol BaseAppDelegate: UIApplicationDelegate {
-    var congifs: BaseApplicationConfigs { get }
+protocol PBaseAppDelegate: UIApplicationDelegate {
+    var congifs: PBaseApplicationConfigs { get }
 }

@@ -10,8 +10,8 @@ import UIKit
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, BaseAppDelegate {
-    var congifs: BaseApplicationConfigs {
+class AppDelegate: UIResponder, PBaseAppDelegate {
+    var congifs: PBaseApplicationConfigs {
         return ApplicationConfigs.getInstance()
     }
     

@@ -10,19 +10,15 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-enum SendCode: Hashable {
-    case CardToAccount
-}
-
-class SharedViewModel<T>: BaseSharedViewModel {
+class BaseSharedViewModel<T>: PBaseSharedViewModel {
     typealias SharedData = T
     
-    private var sharedDataSparseArray = [AnyHashable: PublishRelay<T?>]()
+    private var sharedDataSparseArray = [AnyHashable: BehaviorRelay<T?>]()
     private var bagOfSentSharedDataSparseArray = [AnyHashable: T?]()
     
-    private func getBaseSharedDataFor(sendCode: AnyHashable) -> PublishRelay<T?> {
+    private func getBaseSharedDataFor(sendCode: AnyHashable) -> BehaviorRelay<T?> {
         guard let data = sharedDataSparseArray[sendCode] else {
-            let item = PublishRelay<T?>()
+            let item = BehaviorRelay<T?>(value: nil)
             sharedDataSparseArray[sendCode] = item
             return item
         }
@@ -32,7 +28,7 @@ class SharedViewModel<T>: BaseSharedViewModel {
     private func sendBaseSharedDataFor(sendCode: AnyHashable, data: T?) {
         var mutableLiveData = sharedDataSparseArray[sendCode]
         if mutableLiveData == nil {
-            sharedDataSparseArray[sendCode] = PublishRelay<T?>()
+            sharedDataSparseArray[sendCode] = BehaviorRelay<T?>(value: nil)
         }
         
         mutableLiveData = sharedDataSparseArray[sendCode]

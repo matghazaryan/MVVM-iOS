@@ -1,5 +1,5 @@
 //
-//  BaseSharedViewModel.swift
+//  PBaseSharedViewModel.swift
 //  MVVM-ios
 //
 //  Created by Hovhannes Stepanyan on 1/17/19.
@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-protocol BaseSharedViewModel {
+protocol PBaseSharedViewModel {
     associatedtype SharedData
     typealias SharedDataListener = Optional<((SharedData?) -> Void)>
     

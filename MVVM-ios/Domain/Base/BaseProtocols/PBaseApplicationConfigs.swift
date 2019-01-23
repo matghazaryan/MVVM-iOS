@@ -1,5 +1,5 @@
 //
-//  BaseApplicationConfigs.swift
+//  PBaseApplicationConfigs.swift
 //  MVVM-ios
 //
 //  Created by Hovhannes Stepanyan on 1/17/19.
@@ -13,7 +13,7 @@ enum BaseAction: Hashable {
     case showNoInternet
 }
 
-protocol BaseApplicationConfigs {
+protocol PBaseApplicationConfigs {
     /**
      * General error message , which show when can not find another error message for current error case , then show general message
      */

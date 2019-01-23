@@ -27,16 +27,17 @@ class AccountVC: UIViewController {
     override func viewDidLoad() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseIdentifier)
         navigationItem.title = "Account".localized
-        getSharedDataFor(sendCode: SendCode.CardToAccount) { cardCode in
-            guard let cardCode = cardCode as? String else { return }
-            print("myLog" + cardCode)
-        }.disposed(by: disposeBag)
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        getSharedDataOnActiveFor(sendCode: SendCode.CardToAccount, class: String.self) { cardCode in
+            guard let cardCode = cardCode else { return }
+            print("myLog" + cardCode)
+        }
         guard let url = DataRepository.preference().getAvatarURL() else {
             userImage.image = #imageLiteral(resourceName: "avatar")
             return
