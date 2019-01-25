@@ -31,7 +31,7 @@ extension BaseTargetType: TargetType {
     var path: String {
         switch self {
         case .configs:
-            return "5bebd4123300006000fbc05c"
+            return "configs"
         case .login(_, _):
             return "5bebd5603300005900fbc067"
         case .logout:
@@ -84,7 +84,11 @@ extension BaseTargetType: TargetType {
     var sampleData: Data {
         switch self {
         case .configs:
-            return "".utf8Encoded
+            guard let path = Bundle.main.path(forResource: "Configs", ofType: "json"),
+                let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
+                return "error".utf8Encoded
+            }
+            return data
         case .login(_, _):
             return "login".utf8Encoded
         case .logout:

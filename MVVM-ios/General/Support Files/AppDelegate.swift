@@ -22,6 +22,10 @@ class AppDelegate: UIResponder, PBaseAppDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UIViewController.initializeing()
+        if TestHelper.isTesting() {
+            print("teting")
+            return false
+        }
         return true
     }
 
