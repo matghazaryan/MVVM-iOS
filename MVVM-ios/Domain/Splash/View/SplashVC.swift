@@ -18,12 +18,6 @@ class SplashVC: UIViewController {
     }
     
     internal override func bindViews() {
-        (getViewModel(as: SplashViewModel.self).getAction(Action.doLogin) as Observable<User>)
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: {[weak self] _ in
-                self?.getViewModel(as: SplashViewModel.self).login()
-            })
-            .disposed(by: disposeBag)
         
         (getViewModel(as: SplashViewModel.self).getAction(Action.openAccount) as Observable<User>)
             .observeOn(MainScheduler.asyncInstance)

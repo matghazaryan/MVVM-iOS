@@ -9,5 +9,5 @@
 import UIKit
 
 protocol PBaseAppDelegate: UIApplicationDelegate {
-    var congifs: PBaseApplicationConfigs { get }
+    var configs: PBaseApplicationConfigs { get }
 }

@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  MVVM-ios
+
+  Created by Hovhannes Stepanyan on 11/26/18.
+  Copyright © 2018 Matevos Ghazaryan. All rights reserved.
+*/
+
+"Cards" = "Քարտեր";
+"Transactions" = "Փոխանցումներ";
+"Settings" = "Կարգավորումներ";
+"Login" = "Լոգին";
+"Password" = "Գաղտնաբառ";
+"Remember me" = "Հիշել";
+"Login_button" = "Մուտք";
+"Log Out" = "Ելք";
+"Application_Language" = "Ծրագրի լեզուն";
+"Save" = "Պահպանել";
+"Account" = "Հաշիվ";
+"error_message" = "Տեղի է ունեցել սխալ";
+"error_no_internet" = "Կապի խնդիր";

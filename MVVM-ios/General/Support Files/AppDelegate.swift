@@ -11,7 +11,7 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, PBaseAppDelegate {
-    var congifs: PBaseApplicationConfigs {
+    var configs: PBaseApplicationConfigs {
         return ApplicationConfigs.getInstance()
     }
     

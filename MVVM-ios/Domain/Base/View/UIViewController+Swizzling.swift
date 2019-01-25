@@ -38,7 +38,7 @@ extension UIViewController {
         }
     }
     
-    var disposeBagForSharedData: DisposeBag? {
+    var disposeBagForSharedData: DisposeBag {
         get {
             guard let disposeBag =  objc_getAssociatedObject(self, &AssociatedObjectKeys.disposeBagForSharedData) as? DisposeBag else {
                 let db = DisposeBag()
@@ -99,7 +99,7 @@ extension UIViewController {
     @objc func proj_viewWillDisappear(_ animated: Bool) {
         self.proj_viewWillDisappear(animated)
         self.state = .viewDisapeared
-        self.disposeBagForSharedData = nil
+        self.disposeBagForSharedData.disposeAll()
     }
     
     
@@ -213,7 +213,7 @@ extension UIViewController {
         }.disposed(by: disposeBag)
     }
     
-/** get data for sendcode immidiatly after viewWillAppear, call in viewWillAppear
+/** get data for sendcode immidiatly every time, after viewWillAppear, call in viewWillAppear
 - Parameter sendCode: SendCode for identificate data
 - Parameter class: class for cast sended data
 - Parameter listener: optional block to handle data
@@ -221,7 +221,7 @@ extension UIViewController {
     func getSharedDataAlwaysFor<T>(sendCode: AnyHashable, class: T.Type, listener: Optional<((T?) -> Void)>) {
         UIViewController.sharedViewModel.getSharedDataAlwaysFor(sendCode: sendCode) { data in
             listener?(data as? T)
-            }.disposed(by: disposeBagForSharedData!)
+            }.disposed(by: disposeBagForSharedData)
     }
     
 /** get data for sendcode immidiatly after viewWillAppear, call in viewWillAppear
@@ -232,7 +232,7 @@ extension UIViewController {
     func getSharedDataOnActiveFor<T>(sendCode: AnyHashable, class: T.Type, listener: Optional<((T?) -> Void)>) {
         UIViewController.sharedViewModel.getSharedDataFor(sendCode: sendCode) { data in
             listener?(data as? T)
-            }.disposed(by: disposeBagForSharedData!)
+            }.disposed(by: disposeBagForSharedData)
     }
     
     

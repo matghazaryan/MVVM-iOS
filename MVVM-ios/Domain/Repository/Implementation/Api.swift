@@ -13,7 +13,7 @@ import Moya
 
 class Api: APIHelperProtocol {
     private static var sInstance = Api()
-    internal var apiProvider: MoyaProvider<BaseTargetType> = MoyaProvider()
+    public var apiProvider: MoyaProvider<BaseTargetType> = MoyaProvider()
     
     static func getInstance() -> Api {
         return sInstance

@@ -14,8 +14,6 @@ enum Action: Hashable {
     case openAccount
     case showBiometric
     case openLoginVC
-    case doLogin
-    case ON_NEW_IMAGE_PATH
     case onCardTap
 }
 
